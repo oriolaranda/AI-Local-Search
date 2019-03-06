@@ -1,0 +1,2 @@
+# IA
+Intel·ligència artifical
