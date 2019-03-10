@@ -12,7 +12,7 @@ public class Map {
     private Integer m = 50;
     private Integer seed = 2;
     private ArrayList<Pair> estatConductors = new ArrayList<>(n);
-    private ArrayList<Boolean> estaRecollit = new ArrayList<>(n);
+    private ArrayList<Boolean> estaRecullit = new ArrayList<>(n);
     private ArrayList<Boolean> isConductor = new ArrayList<>(n);
     private Usuarios nouUsuaris = new Usuarios(n,m, seed);
 
@@ -28,23 +28,25 @@ public class Map {
             isConductor.set(i,nouUsuaris.get(i).isConductor());
     }
 
-    private void initializeEstaRecollit(){
-        for (int i=0; i<n; ++i) estaRecollit.set(i,Boolean.FALSE);
+    private boolean isCarFull(int c){
+        return false;
     }
 
     /** Public methods **/
 
 
-
-
     /** Operator Swap Order of p and q in the same car **/
-    public void swapOrder(int p, int q){
+    public boolean swapOrder(int c){
 
+        if (isCarFull(c)) {
+
+        }
+        return false;
     }
 
     /** Operator Swap Car between p and q **/
-    public void swapCar(int p, int q) {
-
+    public boolean swapCar(int p, int q) {
+        return false;
     }
 
     /** Operator Add Person p in car c **/
