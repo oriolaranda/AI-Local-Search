@@ -7,25 +7,24 @@ import aima.util.Pair;
 
 public class Map {
     /** Private atributes of the class **/
-    private ArrayList<Pair> estatConductors = new ArrayList<>();
-    private ArrayList<Boolean> estaRecullit = new ArrayList<>();
-    private Usuarios nouUsuaris = new Usuarios(100,50, 2);
+
+    private Integer n = 100;
+    private Integer m = 50;
+    private Integer seed = 2;
+    private ArrayList<Pair> estatConductors = new ArrayList<>(n);
+    private ArrayList<Boolean> estaRecullit = new ArrayList<>(n);
+    private Usuarios nouUsuaris = new Usuarios(n,m, seed);
 
     /** Constructor **/
     public Map(){
-        ompleEstatConductors ();
+        fillDrivers ();
     }
 
 
     /** Private methods **/
-    private void ompleEstatConductors() {
-        int n = nouUsuaris.size();
-        estaRecullit = new ArrayList<> (n);
+    private void fillDrivers() {
         for (int i=0; i < n; ++i)
-        {
             estaRecullit.set(i,nouUsuaris.get(i).isConductor());
-        }
-
     }
 
 
@@ -55,7 +54,7 @@ public class Map {
 
     }
 
-    /** Useless function **/
+
     public boolean isGoal(){
         return true;
     }
