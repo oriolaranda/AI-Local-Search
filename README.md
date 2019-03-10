@@ -26,3 +26,7 @@ ArrayList<pair<dist,arrayList<pair<>>> > conductors
 CONSULTA:
     getKm(int index);
     getOrder(); //return arrayList
+
+donada una array list de distancies i conductors calculi la distancia total
+
+arraylist de pair < pair<distancia, numero de passetgers actuals>, arraylist > >
