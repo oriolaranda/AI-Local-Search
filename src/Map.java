@@ -207,6 +207,8 @@ public class Map {
             Pair aux = (Pair)estatConductors.get(c).getFirst();
             Integer id = (Integer)aux.getSecond();
             Pair def = new Pair(new Pair(km, id),i);
+            estatConductors.set(c, def);
+
 
 
         }
@@ -246,8 +248,7 @@ public class Map {
                 a.add(i);
                 int km = calculatedistance(a);
                 int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
-                Pair p = new Pair(km,id);
-                estatConductors.set(id,new Pair(p,a));
+                estatConductors.set(id,new Pair(new Pair(km,id),a));
             }
             ++j;
         }
