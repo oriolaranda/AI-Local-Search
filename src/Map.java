@@ -8,7 +8,6 @@ import aima.util.Pair;
 public class Map {
     /** Private atributes of the class **/
 
-    /** CONSTRUCTOR **/
     private Integer n = 100;
     private Integer m = 50;
     private Integer seed = 2;
@@ -29,7 +28,7 @@ public class Map {
             isConductor.set(i,nouUsuaris.get(i).isConductor());
     }
 
-    private boolean isCarEmpty(int c){
+    private boolean isCarFull(int c){
         return false;
     }
 
@@ -37,8 +36,11 @@ public class Map {
 
 
     /** Operator Swap Order of p and q in the same car **/
-    public boolean swapOrder(int p, int q){
+    public boolean swapOrder(int c){
 
+        if (isCarFull(c)) {
+
+        }
         return false;
     }
 
