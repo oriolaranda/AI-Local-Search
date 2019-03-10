@@ -55,11 +55,11 @@ public class Map {
 
 
     private boolean isCarFull(int c){
-        return numberPassengers(c) == 2;
+        return false;
     }
 
     private boolean isCarEmpty(int c){
-        return numberPassengers(c) == 0;
+        return false;
     }
 
     /** Public methods **/
