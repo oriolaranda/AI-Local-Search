@@ -7,22 +7,24 @@ import aima.util.Pair;
 
 public class Map {
     /** Private atributes of the class **/
-
-    private Integer n = 100;
-    private Integer m = 50;
-    private Integer seed = 2;
+    private int n = 100;
+    private int m = 50;
+    private int seed = 2;
 
     // ArrayList<Pair(Integer, ArrayList<Integer>)
-    private ArrayList<Pair> estatConductors = new ArrayList<>(m);
-    private ArrayList<Boolean> estaRecullit = new ArrayList<>(n);
-    private ArrayList<Boolean> isConductor = new ArrayList<>(n);
+    private ArrayList<Pair> estatConductors = new ArrayList<>();
+    private ArrayList<Boolean> estaRecullit = new ArrayList<>();
+    private ArrayList<Boolean> isConductor = new ArrayList<>();
     private Usuarios nouUsuaris = new Usuarios(n,m, seed);
 
     /** Constructor **/
 
     public Map(){
+        System.out.println("b");
         fillDrivers ();
+        System.out.println("c");
         inicializeEstatConductors();
+        System.out.println("d");
         initializeEstaRecollit();
     }
 
@@ -30,12 +32,14 @@ public class Map {
     /** Private methods **/
     private void fillDrivers() {
         for (int i=0; i < n; ++i)
-            isConductor.set(i,nouUsuaris.get(i).isConductor());
+            this.isConductor.add(nouUsuaris.get(i).isConductor());
+        System.out.println(this.isConductor.size());
     }
 
 
     private void initializeEstaRecollit() {
-        for (int i = 0; i < n; ++i) estaRecullit.set(i, Boolean.FALSE);
+        for (int i = 0; i < n; ++i)
+            estaRecullit.add(Boolean.FALSE);
     }
 
 
@@ -115,9 +119,9 @@ public class Map {
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
 
-        if (!isCarFull(c)){
-            estatConductors.get(c).getSecond().add(p);
-        }
+       // if (!isCarFull(c)){
+        //    estatConductors.get(c).getSecond().add(p);
+       // }
 
     }
 
