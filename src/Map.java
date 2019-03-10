@@ -14,15 +14,18 @@ public class Map {
     /** Constructor **/
     public Map(){
         ompleEstatConductors ();
-        ompleEsta
     }
 
 
     /** Private methods **/
-    private ompleEstatConductors() {
+    private void ompleEstatConductors() {
         int n = nouUsuaris.size();
-        estaRecullit = new ArrayList<boolean> (n);
-        for (int i=0; i < n)
+        estaRecullit = new ArrayList<> (n);
+        for (int i=0; i < n; ++i)
+        {
+            estaRecullit.set(i,nouUsuaris.get(i).isConductor());
+        }
+
     }
 
 
