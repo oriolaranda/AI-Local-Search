@@ -12,7 +12,6 @@ public class Map {
     private int m = 50;
     private int seed = 2;
 
-
     // ArrayList<Pair(Integer, ArrayList<Integer>)
     private ArrayList<Pair> estatConductors = new ArrayList<>();
     private ArrayList<Boolean> estaRecullit = new ArrayList<>();
@@ -90,6 +89,9 @@ public class Map {
         return (int)a.getSecond();
     }
 
+
+
+
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
@@ -158,13 +160,16 @@ public class Map {
 
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
-    public void swapOrder(int c){
-
-        if (numberPassengers(c) > 1) {
-            int p1 = getPassangers(c).get(0);
-            int p2 = getPassangers(c).get(1);
-            getPassangers(c).set(0,p2);
-            getPassangers(c).set(1,p1);
+    public void swapOrder(int p1, int p2, int c){
+        int q1 = getPassangers(c).indexOf(p1);
+        int q2 = getPassangers(c).indexOf(p2);
+        if(q1 >= 0 || q2 >= 0) {
+            getPassangers(c).set(q1,p2);
+            getPassangers(c).set(q2,p1);
+            q1 = getPassangers(c).indexOf(p1);
+            q2 = getPassangers(c).indexOf(p2);
+            getPassangers(c).set(q1,p2);
+            getPassangers(c).set(q2,p1);
         }
     }
 
