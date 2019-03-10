@@ -43,10 +43,14 @@ public class Map {
 
     private void inicializeEstatConductors() {
         for (int i=0; i < n; ++i) {
-            Pair a = new Pair(0,0); //Pair of the distance and the number of passanger currently in the car
-            ArrayList<Pair> b = new ArrayList<>();  //order of the people that the car has brought
-            Pair c = new Pair(a, b);
-            estatConductors.add(c);
+            if (isConductor.get(i)) //if it enters, then we have a new driver
+            {
+                Pair a = new Pair(0,i); //Pair of the distance and then the index of the driver
+                ArrayList<Pair> b = new ArrayList<>();  //order of the people that the car has brought
+                Pair c = new Pair(a, b);
+                estatConductors.add(c);
+            }
+
         }
     }
 
@@ -60,6 +64,7 @@ public class Map {
     }
 
     /** Public methods **/
+
 
     /** Getters of the functions **/
     public boolean estaRecullit(int indexPassanger)
@@ -75,15 +80,20 @@ public class Map {
 
     public int getDistance(int indexDriver)
     {
-        return (Integer)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+        return (int)a.getFirst();
+    }
 
+    public int getIndexDriver(int index)
+    {
+        Pair a = (Pair)estatConductors.get(index).getFirst(); //pair con la distancia i el numero de personas
+        return (int)a.getSecond();
     }
 
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
-
 
 
     /** Print the information **/
@@ -100,11 +110,12 @@ public class Map {
     }
 
 
-
     /**Function to find distance from a given passanger assignation **/
-    public int calculateDistance(int indexPerson, ArrayList<Integer> passangers)
+    public int calculateDistance(int j, ArrayList<Integer> passangers)
     {
+        int indexPerson = getIndexDriver(j);
         ArrayList<Boolean> recullits = new ArrayList<>(n);
+
         for (int i=0; i < n; ++i)
             recullits.add(false);
 
@@ -140,9 +151,6 @@ public class Map {
 
         return distance;
     }
-
-
-
 
 
 
