@@ -8,20 +8,24 @@ import aima.util.Pair;
 
 public class Map {
     /** Private atributes of the class **/
-    private int n = 100;
-    private int m = 50;
-    private int seed = 2;
+    private int n;
+    private int m;
+    private int seed;
 
-
-    // ArrayList<Pair(Integer, ArrayList<Integer>)
+    // ArrayList<Pair(Pair(Integer,Integer), ArrayList<Integer>)
     private ArrayList<Pair> estatConductors = new ArrayList<>();
     private ArrayList<Boolean> estaRecullit = new ArrayList<>();
     private ArrayList<Boolean> isConductor = new ArrayList<>();
-    private Usuarios nouUsuaris = new Usuarios(n,m, seed);
+    private Usuarios nouUsuaris;
 
     /** Constructor **/
 
-    public Map(){
+    public Map(int n, int m, int seed){
+        this.n = n;
+        this.m = m;
+        this.seed = seed;
+        nouUsuaris = new Usuarios(n,m,seed);
+
         fillDrivers ();
         inicializeEstatConductors();
         initializeEstaRecollit();
@@ -43,23 +47,28 @@ public class Map {
 
     private void inicializeEstatConductors() {
         for (int i=0; i < n; ++i) {
-            Pair a = new Pair(0,0); //Pair of the distance and the number of passanger currently in the car
-            ArrayList<Pair> b = new ArrayList<>();  //order of the people that the car has brought
-            Pair c = new Pair(a, b);
-            estatConductors.add(c);
+            if (isConductor.get(i)) //if it enters, then we have a new driver
+            {
+                Pair a = new Pair(0,i); //Pair of the distance and then the index of the driver
+                ArrayList<Pair> b = new ArrayList<>();  //order of the people that the car has brought
+                Pair c = new Pair(a, b);
+                estatConductors.add(c);
+            }
+
         }
     }
 
 
     private boolean isCarFull(int c){
-        return numberPassengers(c) == 2;
+        return false;
     }
 
     private boolean isCarEmpty(int c){
-        return numberPassengers(c) == 0;
+        return false;
     }
 
     /** Public methods **/
+
 
     /** Getters of the functions **/
     public boolean estaRecullit(int indexPassanger)
@@ -75,15 +84,24 @@ public class Map {
 
     public int getDistance(int indexDriver)
     {
-        return (Integer)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
-
+        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+        return (int)a.getFirst();
     }
+
+
+    public int getIndexDriver(int index)
+    {
+        Pair a = (Pair)estatConductors.get(index).getFirst(); //pair con la distancia i el numero de personas
+        return (int)a.getSecond();
+    }
+
+
+
 
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
-
 
 
     /** Print the information **/
@@ -100,11 +118,12 @@ public class Map {
     }
 
 
-
     /**Function to find distance from a given passanger assignation **/
-    public int calculateDistance(int indexPerson, ArrayList<Integer> passangers)
+    public int calculateDistance(int j, ArrayList<Integer> passangers)
     {
+        int indexPerson = getIndexDriver(j);
         ArrayList<Boolean> recullits = new ArrayList<>(n);
+
         for (int i=0; i < n; ++i)
             recullits.add(false);
 
@@ -143,20 +162,21 @@ public class Map {
 
 
 
-
-
-
     /**Operators **/
 
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
-    public void swapOrder(int c){
+    public void swapOrder(int p1, int p2, int c){
 
-        if (numberPassengers(c) > 1) {
-            int p1 = getPassangers(c).get(0);
-            int p2 = getPassangers(c).get(1);
-            getPassangers(c).set(0,p2);
-            getPassangers(c).set(1,p1);
+        int q1 = getPassangers(c).indexOf(p1);
+        int q2 = getPassangers(c).indexOf(p2);
+        if(q1 >= 0 || q2 >= 0) {
+            getPassangers(c).set(q1,p2);
+            getPassangers(c).set(q2,p1);
+            q1 = getPassangers(c).indexOf(p1);
+            q2 = getPassangers(c).indexOf(p2);
+            getPassangers(c).set(q1,p2);
+            getPassangers(c).set(q2,p1);
         }
     }
 
@@ -165,12 +185,14 @@ public class Map {
 
         int q1 = getPassangers(c1).indexOf(p1); //position of p1 in c1
         int q2 = getPassangers(c2).indexOf(p2); //position of p2 in c2
-        getPassangers(c1).set(q1,p2);
-        getPassangers(c2).set(q2,p1);
-        q1 = getPassangers(c1).indexOf(p1);
-        q2 = getPassangers(c2).indexOf(p2);
-        getPassangers(c1).set(q1,p2);
-        getPassangers(c2).set(q2,p1);
+        if(q1 >= 0 || q2 >= 0) {
+            getPassangers(c1).set(q1, p2);
+            getPassangers(c2).set(q2, p1);
+            q1 = getPassangers(c1).indexOf(p1);
+            q2 = getPassangers(c2).indexOf(p2);
+            getPassangers(c1).set(q1, p2);
+            getPassangers(c2).set(q2, p1);
+        }
     }
 
     /** Operator Add Person p in car c **/
