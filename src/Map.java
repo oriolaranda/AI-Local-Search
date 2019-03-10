@@ -1,21 +1,21 @@
 package src;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 import IA.Comparticion.*;
 import aima.util.Pair;
 
 public class Map {
     /** Private atributes of the class **/
-
-    private Integer n = 100;
-    private Integer m = 50;
-    private Integer seed = 2;
+    private int n = 100;
+    private int m = 50;
+    private int seed = 2;
 
     // ArrayList<Pair(Integer, ArrayList<Integer>)
-    private ArrayList<Pair> estatConductors = new ArrayList<>(m);
-    private ArrayList<Boolean> estaRecullit = new ArrayList<>(n);
-    private ArrayList<Boolean> isConductor = new ArrayList<>(n);
+    private ArrayList<Pair> estatConductors = new ArrayList<>();
+    private ArrayList<Boolean> estaRecullit = new ArrayList<>();
+    private ArrayList<Boolean> isConductor = new ArrayList<>();
     private Usuarios nouUsuaris = new Usuarios(n,m, seed);
 
     /** Constructor **/
@@ -23,16 +23,20 @@ public class Map {
     public Map(){
         fillDrivers ();
         inicializeEstatConductors();
+        initializeEstaRecollit();
     }
 
 
     /** Private methods **/
     private void fillDrivers() {
         for (int i=0; i < n; ++i)
-            isConductor.set(i,nouUsuaris.get(i).isConductor());
+            this.isConductor.add(nouUsuaris.get(i).isConductor());
     }
+
+
     private void initializeEstaRecollit() {
-        for (int i = 0; i < n; ++i) estaRecullit.set(i, Boolean.FALSE);
+        for (int i = 0; i < n; ++i)
+            estaRecullit.add(Boolean.FALSE);
     }
 
 
@@ -41,7 +45,7 @@ public class Map {
             Pair a = new Pair(0,0); //Pair of the distance and the number of passanger currently in the car
             ArrayList<Pair> b = new ArrayList<>();  //order of the people that the car has brought
             Pair c = new Pair(a, b);
-            estatConductors.set(i,c);
+            estatConductors.add(c);
         }
     }
 
@@ -55,30 +59,26 @@ public class Map {
     }
 
     /** Public methods **/
-    public boolean estaRecullit(int index)
+
+    /** Getters of the functions **/
+    public boolean estaRecullit(int indexPassanger)
     {
-        return estaRecullit.get(index);
+        return estaRecullit.get(indexPassanger);
     }
 
-    public boolean isConductor(int index)
+    public boolean isConductor(int indexPerson)
     {
-        return isConductor.get(index);
+        return isConductor.get(indexPerson);
     }
 
 
     public int getDistance(int indexDriver)
     {
-        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+        return (Integer)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
 
-        return (int)a.getFirst();
     }
 
-    public int numberPassengers (int indexDriver)
-    {
-        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
 
-        return (int)a.getSecond();
-    }
 
 
     public ArrayList<Integer> getPassangers (int indexDriver)
@@ -87,6 +87,68 @@ public class Map {
     }
 
 
+
+    /** Print the information **/
+    public void printRecullits()
+    {
+        for(int i=0; i < n;++i)
+            System.out.println(estaRecullit.get(i));
+    }
+
+    public void printIsConductor()
+    {
+        for(int i=0; i < n;++i)
+            System.out.println(isConductor.get(i));
+    }
+
+
+
+    /**Function to find distance from a given passanger assignation **/
+    public int calculateDistance(int indexPerson, ArrayList<Integer> passangers)
+    {
+        ArrayList<Boolean> recullits = new ArrayList<>(n);
+        for (int i=0; i < n; ++i)
+            recullits.add(false);
+
+        Usuario u = nouUsuaris.get(indexPerson);
+        int current_x = u.getCoordOrigenX();
+        int current_y = u.getCoordOrigenY();
+
+        int distance = 0;
+        for (int i=0; i < passangers.size();++i)
+        {
+            int indexPassanger = passangers.get(i);
+            Usuario passanger = nouUsuaris.get(indexPassanger);
+
+            int goTo_x;
+            int goTo_y;
+            if (!recullits.get(indexPassanger)) //if it enters, means we have to go to the origin coordinates
+            {
+                recullits.set(indexPassanger, true);  //we negate so if not picked-up yet, it is n
+                goTo_x = passanger.getCoordOrigenX();
+                goTo_y = passanger.getCoordOrigenY();
+            }
+            else {
+                goTo_x = passanger.getCoordDestinoX();
+                goTo_y = passanger.getCoordDestinoY();
+            }
+
+            distance += Math.abs(current_x-goTo_x)+ Math.abs(current_y-goTo_y);
+            current_x = goTo_x;
+            current_y = goTo_y;
+        }
+
+        distance += Math.abs(current_x-u.getCoordDestinoX())+ Math.abs(current_y-u.getCoordDestinoY());
+
+        return distance;
+    }
+
+
+
+
+
+
+    /**Operators **/
 
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
@@ -118,10 +180,15 @@ public class Map {
 
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
-
-        if (){
-
+        if (!isCarFull(c)){
+            Object o = estatConductors.get(c).getSecond();
+            ArrayList<Integer> i = (ArrayList<Integer>) o;
+            i.add(p);
+            i.add(p);
+            Pair m = new Pair(estatConductors.get(c).getFirst(),i);
+            estatConductors.set(c,m);
         }
+
 
     }
 
