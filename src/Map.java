@@ -40,6 +40,9 @@ public class Map {
         }
     }
 
+    private boolean isCarFull(int c){
+        return false;
+    }
 
     /** Public methods **/
     public boolean estaRecullit(int index)
@@ -68,13 +71,17 @@ public class Map {
 
 
     /** Operator Swap Order of p and q in the same car **/
-    public void swapOrder(int p, int q){
+    public boolean swapOrder(int c){
 
+        if (isCarFull(c)) {
+
+        }
+        return false;
     }
 
     /** Operator Swap Car between p and q **/
-    public void swapCar(int p, int q) {
-
+    public boolean swapCar(int p, int q) {
+        return false;
     }
 
     /** Operator Add Person p in car c **/
