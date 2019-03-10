@@ -182,10 +182,9 @@ public class Map {
             i.add(p);
             int km = calculatedistance(i);
 
-            Pair aux = (Pair)estatConductors.get(c).getFirst(); //agafem el pair de km id
-            Integer id = (Integer)aux.getSecond(); //agafem el segon objecte que sera el id
-            Pair def = new Pair(new Pair(km, id),i); //creem un pair amb el pair anterior i el array amb els passatgers afegits
-            estatConductors.set(c, def);
+            Pair aux = (Pair)estatConductors.get(c).getFirst();
+            Integer id = (Integer)aux.getSecond();
+            Pair def = new Pair(new Pair(km, id),i);
 
 
         }
@@ -203,9 +202,9 @@ public class Map {
         }
 
         int km = calculatedistance(i);
-        Pair aux = (Pair)estatConductors.get(c).getFirst(); //agafem el pair de km id
-        Integer id = (Integer)aux.getSecond(); //agafem el segon objecte que sera el id
-        Pair def = new Pair(new Pair(km, id),i); //creem un pair amb el pair anterior i el array amb els passatgers afegits
+        Pair aux = (Pair)estatConductors.get(c).getFirst();
+        Integer id = (Integer)aux.getSecond();
+        Pair def = new Pair(new Pair(km, id),i);
         estatConductors.set(c, def);
     }
 
@@ -221,11 +220,12 @@ public class Map {
 
             if (j == estatConductors.size()) j = 0;
             if(!isConductor.get(i)){ /** si la persona i es un passetger **/
-                Object o = estatConductors.get(j);
-                ArrayList<Integer> a = (ArrayList<Integer>)o;
+                ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
                 a.add(i);
-                Pair pa = new Pair (aux,a);
-                estatConductors.set(j,pa);
+                int km = calculatedistance(a);
+                int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
+                Pair p = new Pair(km,id);
+                estatConductors.set(id,new Pair(p,a));
             }
             ++j;
         }
