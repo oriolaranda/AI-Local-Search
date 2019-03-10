@@ -64,9 +64,18 @@ public class Map {
     }
 
 
-    public int getKilometers(int indexDriver)
+    public int getDistance(int indexDriver)
     {
-        return (int) estatConductors.get(indexDriver).getFirst();
+        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+
+        return (int)a.getFirst();
+    }
+
+    public int numberPassengers (int indexDriver)
+    {
+        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+
+        return (int)a.getSecond();
     }
 
 
@@ -74,7 +83,6 @@ public class Map {
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
-
 
 
 
