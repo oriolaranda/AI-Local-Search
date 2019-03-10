@@ -23,7 +23,6 @@ public class Map {
     public Map(){
         fillDrivers ();
         inicializeEstatConductors();
-        initializeEstaRecollit();
     }
 
 
@@ -32,8 +31,6 @@ public class Map {
         for (int i=0; i < n; ++i)
             isConductor.set(i,nouUsuaris.get(i).isConductor());
     }
-
-
     private void initializeEstaRecollit() {
         for (int i = 0; i < n; ++i) estaRecullit.set(i, Boolean.FALSE);
     }
@@ -71,9 +68,18 @@ public class Map {
 
     public int getDistance(int indexDriver)
     {
-        return (Integer)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
 
+        return (int)a.getFirst();
     }
+
+    public int numberPassengers (int indexDriver)
+    {
+        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+
+        return (int)a.getSecond();
+    }
+
 
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
@@ -82,33 +88,18 @@ public class Map {
 
 
 
-    /** Funcion per imprimir per pantall **/
-    public void printRecullits()
-    {
-        for(int i=0; i < n;++i)
-            System.out.println(estaRecullit.get(i));
-    }
-
-    public void printIsConductor()
-    {
-        for(int i=0; i < n;++i)
-            System.out.println(isConductor.get(i));
-    }
-
-
-
-
-
-
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
-    public void swapOrder(int c){
-
-        if (numberPassengers(c) > 1) {
-            int p1 = getPassangers(c).get(0);
-            int p2 = getPassangers(c).get(1);
-            getPassangers(c).set(0,p2);
-            getPassangers(c).set(1,p1);
+    public void swapOrder(int p1, int p2, int c){
+        int q1 = getPassangers(c).indexOf(p1);
+        int q2 = getPassangers(c).indexOf(p2);
+        if(q1 >= 0 || q2 >= 0) {
+            getPassangers(c).set(q1,p2);
+            getPassangers(c).set(q2,p1);
+            q1 = getPassangers(c).indexOf(p1);
+            q2 = getPassangers(c).indexOf(p2);
+            getPassangers(c).set(q1,p2);
+            getPassangers(c).set(q2,p1);
         }
     }
 
@@ -128,14 +119,9 @@ public class Map {
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
 
-        if (!isCarFull(c)){
-            Object o = estatConductors.get(c).getSecond();
-            ArrayList<Integer> i = (ArrayList<Integer>) o;
-            i.add(c);
-            Pair p = new Pair(estatConductors.get(c).getFirst(),i);
-            estatConductors.set(c,p);
-        }
+        if (){
 
+        }
 
     }
 
