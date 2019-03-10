@@ -13,6 +13,7 @@ public class Map {
     private Integer seed = 2;
     private ArrayList<Pair> estatConductors = new ArrayList<>(n);
     private ArrayList<Boolean> estaRecullit = new ArrayList<>(n);
+    private ArrayList<Boolean> isConductor = new ArrayList<>(n);
     private Usuarios nouUsuaris = new Usuarios(n,m, seed);
 
     /** Constructor **/
@@ -24,7 +25,7 @@ public class Map {
     /** Private methods **/
     private void fillDrivers() {
         for (int i=0; i < n; ++i)
-            estaRecullit.set(i,nouUsuaris.get(i).isConductor());
+            isConductor.set(i,nouUsuaris.get(i).isConductor());
     }
 
 
