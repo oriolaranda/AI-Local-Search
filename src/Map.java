@@ -180,8 +180,14 @@ public class Map {
             ArrayList<Integer> i = (ArrayList<Integer>) o;
             i.add(p);
             i.add(p);
-            Pair m = new Pair(estatConductors.get(c).getFirst(),i);
-            estatConductors.set(c,m);
+            int km = calculatedistance(i);
+
+            Pair aux = (Pair)estatConductors.get(c).getFirst(); //agafem el pair de km id
+            Integer id = (Integer)aux.getSecond(); //agafem el segon objecte que sera el id
+            Pair def = new Pair(new Pair(km, id),i); //creem un pair amb el pair anterior i el array amb els passatgers afegits
+            estatConductors.set(c, def);
+
+
         }
 
 
@@ -197,8 +203,10 @@ public class Map {
         }
 
         int km = calculatedistance(i);
-        Pair pa = new Pair(km,i);
-        estatConductors.set(c,pa);
+        Pair aux = (Pair)estatConductors.get(c).getFirst(); //agafem el pair de km id
+        Integer id = (Integer)aux.getSecond(); //agafem el segon objecte que sera el id
+        Pair def = new Pair(new Pair(km, id),i); //creem un pair amb el pair anterior i el array amb els passatgers afegits
+        estatConductors.set(c, def);
     }
 
 
@@ -216,7 +224,7 @@ public class Map {
                 Object o = estatConductors.get(j);
                 ArrayList<Integer> a = (ArrayList<Integer>)o;
                 a.add(i);
-                Pair pa = new Pair (calculatedistance(a),a);
+                Pair pa = new Pair (aux,a);
                 estatConductors.set(j,pa);
             }
             ++j;
