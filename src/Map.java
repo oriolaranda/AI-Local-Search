@@ -104,8 +104,9 @@ public class Map {
     public void addPerson(int p, int c){
 
         if (!isCarFull(c)){
-            estatConductors.get(c).getSecond().add(p);
+            ArrayList<int> a = estatConductors.get(c).getSecond();
         }
+
 
     }
 
