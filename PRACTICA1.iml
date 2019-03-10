@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="AIMA" level="project" />
+    <orderEntry type="library" name="Comparticion" level="project" />
   </component>
 </module>
