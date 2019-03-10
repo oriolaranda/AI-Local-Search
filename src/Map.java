@@ -15,7 +15,7 @@ public class Map {
 
     /** PRIVATE METHODS **/
     private boolean isCarEmpty(int c){
-
+        return false;
     }
 
 
@@ -28,8 +28,8 @@ public class Map {
     }
 
     /** Operator Swap Car between p and q **/
-    public void swapCar(int p, int q) {
-
+    public boolean swapCar(int p, int q) {
+        return false;
     }
 
     /** Operator Add Person p in car c **/
