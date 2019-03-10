@@ -8,15 +8,23 @@ public class Map {
     private ArrayList<Pair> estatConductors = new ArrayList<>();
     private ArrayList<Boolean> estaRecollit = new ArrayList<>();
 
+    /** CONSTRUCTOR **/
     public Map(){
         //inicialitzem els usuaris
     }
 
+    /** PRIVATE METHODS **/
+    private boolean isCarEmpty(int c){
 
+    }
+
+
+    /** PUBLIC METHODS **/
 
     /** Operator Swap Order of p and q in the same car **/
-    public void swapOrder(int p, int q){
+    public boolean swapOrder(int p, int q){
 
+        return false;
     }
 
     /** Operator Swap Car between p and q **/
