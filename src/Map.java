@@ -12,4 +12,7 @@ public class Map {
         //inicialitzem els usuaris
     }
 
+    public boolean isGoal(){
+        return true;
+    }
 }
