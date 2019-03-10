@@ -34,7 +34,7 @@ public class Map {
 
     }
 
-
+    /** Useless function **/
     public boolean isGoal(){
         return true;
     }
