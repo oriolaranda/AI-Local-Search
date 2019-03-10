@@ -23,6 +23,7 @@ public class Map {
     public Map(){
         fillDrivers ();
         inicializeEstatConductors();
+        initializeEstaRecollit();
     }
 
 
@@ -31,6 +32,8 @@ public class Map {
         for (int i=0; i < n; ++i)
             isConductor.set(i,nouUsuaris.get(i).isConductor());
     }
+
+
     private void initializeEstaRecollit() {
         for (int i = 0; i < n; ++i) estaRecullit.set(i, Boolean.FALSE);
     }
@@ -68,23 +71,32 @@ public class Map {
 
     public int getDistance(int indexDriver)
     {
-        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
+        return (Integer)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
 
-        return (int)a.getFirst();
     }
-
-    public int numberPassengers (int indexDriver)
-    {
-        Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
-
-        return (int)a.getSecond();
-    }
-
 
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
+
+
+
+    /** Funcion per imprimir per pantall **/
+    public void printRecullits()
+    {
+        for(int i=0; i < n;++i)
+            System.out.println(estaRecullit.get(i));
+    }
+
+    public void printIsConductor()
+    {
+        for(int i=0; i < n;++i)
+            System.out.println(isConductor.get(i));
+    }
+
+
+
 
 
 
@@ -116,9 +128,14 @@ public class Map {
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
 
-        if (){
-
+        if (!isCarFull(c)){
+            Object o = estatConductors.get(c).getSecond();
+            ArrayList<Integer> i = (ArrayList<Integer>) o;
+            i.add(c);
+            Pair p = new Pair(estatConductors.get(c).getFirst(),i);
+            estatConductors.set(c,p);
         }
+
 
     }
 
