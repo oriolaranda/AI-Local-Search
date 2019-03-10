@@ -189,11 +189,37 @@ public class Map {
 
     /** Operator Remove Person p of car c **/
     public void rmPerson(int p, int c) {
+        Object o = estatConductors.get(c).getSecond();
+        ArrayList<Integer> i = (ArrayList<Integer>) o;
 
+        for (int j=0; j<i.size();++j){
+            if(i.get(j) == p) i.remove(j);
+        }
+
+        int km = calculatedistance(i);
+        Pair pa = new Pair(km,i);
+        estatConductors.set(c,pa);
     }
 
 
     public boolean isGoal(){
         return true;
+    }
+
+    void assignaciobasica(){
+
+        int j = 0;
+        for(int i=0; i<n; ++i){ /** recorrem les N persones **/
+
+            if (j == estatConductors.size()) j = 0;
+            if(!isConductor.get(i)){ /** si la persona i es un passetger **/
+                Object o = estatConductors.get(j);
+                ArrayList<Integer> a = (ArrayList<Integer>)o;
+                a.add(i);
+                Pair pa = new Pair (calculatedistance(a),a);
+                estatConductors.set(j,pa);
+            }
+            ++j;
+        }
     }
 }
