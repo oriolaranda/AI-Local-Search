@@ -22,7 +22,7 @@ CONSULTA:
     estaRecullit(int indexPersona);
 
 
-ArrayList<pair<dist,arrayList<pair<>>> > conductors
+ArrayList<pair<dist,arrayList<> > conductors
 CONSULTA:
     getKm(int index);
     getOrder(); //return arrayList
