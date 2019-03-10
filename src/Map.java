@@ -41,8 +41,9 @@ public class Map {
 
     private void inicializeEstatConductors() {
         for (int i=0; i < n; ++i) {
+            Pair a = new Pair(0,0); //Pair of the distance and the number of passanger currently in the car
             ArrayList<Pair> b = new ArrayList<>();  //order of the people that the car has brought
-            Pair c = new Pair(0, b);
+            Pair c = new Pair(a, b);
             estatConductors.set(i,c);
         }
     }
@@ -114,9 +115,9 @@ public class Map {
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
 
-        //if (){
-
-       // }
+        if (!isCarFull(c)){
+            estatConductors.get(c).getSecond().add(p);
+        }
 
     }
 
