@@ -20,7 +20,6 @@ public class Map {
     /** Constructor **/
 
     public Map(){
-        System.out.println("b");
         fillDrivers ();
         System.out.println("c");
         inicializeEstatConductors();
@@ -119,9 +118,14 @@ public class Map {
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
 
-       // if (!isCarFull(c)){
-        //    estatConductors.get(c).getSecond().add(p);
-       // }
+        if (!isCarFull(c)){
+            Object o = estatConductors.get(c).getSecond();
+            ArrayList<Integer> i = (ArrayList<Integer>) o;
+            i.add(c);
+            Pair p = new Pair(estatConductors.get(c).getFirst(),i);
+            estatConductors.set(c,p);
+        }
+
 
     }
 
