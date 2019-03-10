@@ -172,12 +172,14 @@ public class Map {
 
         int q1 = getPassangers(c1).indexOf(p1); //position of p1 in c1
         int q2 = getPassangers(c2).indexOf(p2); //position of p2 in c2
-        getPassangers(c1).set(q1,p2);
-        getPassangers(c2).set(q2,p1);
-        q1 = getPassangers(c1).indexOf(p1);
-        q2 = getPassangers(c2).indexOf(p2);
-        getPassangers(c1).set(q1,p2);
-        getPassangers(c2).set(q2,p1);
+        if(q1 >= 0 || q2 >= 0) {
+            getPassangers(c1).set(q1, p2);
+            getPassangers(c2).set(q2, p1);
+            q1 = getPassangers(c1).indexOf(p1);
+            q2 = getPassangers(c2).indexOf(p2);
+            getPassangers(c1).set(q1, p2);
+            getPassangers(c2).set(q2, p1);
+        }
     }
 
     /** Operator Add Person p in car c **/
