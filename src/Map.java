@@ -103,6 +103,14 @@ public class Map {
     /** Operator Swap Car between p1 and p2 **/
     public void swapCar(int p1, int p2, int c1, int c2) {
 
+        int q1 = getPassangers(c1).indexOf(p1); //position of p1 in c1
+        int q2 = getPassangers(c2).indexOf(p2); //position of p2 in c2
+        getPassangers(c1).set(q1,p2);
+        getPassangers(c2).set(q2,p1);
+        q1 = getPassangers(c1).indexOf(p1);
+        q2 = getPassangers(c2).indexOf(p2);
+        getPassangers(c1).set(q1,p2);
+        getPassangers(c2).set(q2,p1);
     }
 
     /** Operator Add Person p in car c **/
