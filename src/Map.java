@@ -11,7 +11,9 @@ public class Map {
     private Integer n = 100;
     private Integer m = 50;
     private Integer seed = 2;
-    private ArrayList<Pair> estatConductors = new ArrayList<>(n);
+
+    // ArrayList<Pair(Integer, ArrayList<Integer>)
+    private ArrayList<Pair> estatConductors = new ArrayList<>(m);
     private ArrayList<Boolean> estaRecullit = new ArrayList<>(n);
     private ArrayList<Boolean> isConductor = new ArrayList<>(n);
     private Usuarios nouUsuaris = new Usuarios(n,m, seed);
@@ -19,6 +21,7 @@ public class Map {
     /** Constructor **/
     public Map(){
         fillDrivers ();
+        inicializeEstatConductors();
     }
 
 
@@ -31,11 +34,43 @@ public class Map {
         for (int i = 0; i < n; ++i) estaRecullit.set(i, Boolean.FALSE);
     }
 
+
+    private void inicializeEstatConductors() {
+        for (int i=0; i < n; ++i) {
+            ArrayList<Integer> a = new ArrayList<>();
+            Pair c = new Pair(0, a);
+            estatConductors.set(i,c);
+        }
+    }
+
     private boolean isCarFull(int c){
         return false;
     }
 
     /** Public methods **/
+    public boolean estaRecullit(int index)
+    {
+        return estaRecullit.get(index);
+    }
+
+    public boolean isConductor(int index)
+    {
+        return isConductor.get(index);
+    }
+
+
+    public int getKilometers(int indexDriver)
+    {
+        return (int) estatConductors.get(indexDriver).getFirst();
+    }
+
+
+    public ArrayList getPassangers (int indexDriver)
+    {
+        return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
+    }
+
+
 
 
     /** Operator Swap Order of p and q in the same car **/
