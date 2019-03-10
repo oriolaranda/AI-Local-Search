@@ -19,6 +19,7 @@ public class Map {
     private Usuarios nouUsuaris = new Usuarios(n,m, seed);
 
     /** Constructor **/
+
     public Map(){
         fillDrivers ();
         inicializeEstatConductors();
@@ -34,15 +35,19 @@ public class Map {
 
     private void inicializeEstatConductors() {
         for (int i=0; i < n; ++i) {
-            ArrayList<Integer> a = new ArrayList<>();
-            Pair c = new Pair(0, a);
+            Pair a = new Pair(0,0); //Pair of the distance and the number of passanger currently in the car
+            ArrayList<Pair> b = new ArrayList<>();  //order of the people that the car has brought
+            Pair c = new Pair(a, b);
             estatConductors.set(i,c);
         }
     }
 
+
     private boolean isCarFull(int c){
         return false;
     }
+
+
 
     /** Public methods **/
     public boolean estaRecullit(int index)
@@ -62,7 +67,7 @@ public class Map {
     }
 
 
-    public ArrayList getPassangers (int indexDriver)
+    public ArrayList<Integer> getPassangers (int indexDriver)
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
