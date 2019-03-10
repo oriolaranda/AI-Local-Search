@@ -27,6 +27,9 @@ public class Map {
         for (int i=0; i < n; ++i)
             isConductor.set(i,nouUsuaris.get(i).isConductor());
     }
+    private void initializeEstaRecollit() {
+        for (int i = 0; i < n; ++i) estaRecullit.set(i, Boolean.FALSE);
+    }
 
     private boolean isCarFull(int c){
         return false;
