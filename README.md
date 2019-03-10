@@ -13,3 +13,7 @@ Operador
  - intercambiar persones entre el mateix cotxe -> buscar algun ordre vàlid més eficient per millorar la distància
  - afegir persona
  - deixar persona
+
+Estructures de Dades
+ - Vector n booleans de persones recollides
+ - Vector de conductors amb pair<posicio del conductor al vector, km recorreguts>
