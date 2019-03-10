@@ -2,6 +2,8 @@
   <library name="AIMA">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../AIMA/AIMA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/AIMA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Comparticion.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
