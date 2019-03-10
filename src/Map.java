@@ -116,7 +116,11 @@ public class Map {
     public void addPerson(int p, int c){
 
         if (!isCarFull(c)){
-            ArrayList<int> a = estatConductors.get(c).getSecond();
+            Object o = estatConductors.get(c).getSecond();
+            ArrayList<Integer> i = (ArrayList<Integer>) o;
+            i.add(c);
+            Pair p = new Pair(estatConductors.get(c).getFirst(),i);
+            estatConductors.set(c,p);
         }
 
 
