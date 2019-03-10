@@ -1,0 +1,12 @@
+
+Classes: Upper CamelCase
+    Ex: Grup.java, PlaEstudis.java
+
+Mètodes: lower CamelCase
+    Ex: llegir(); getNom();
+
+Variables: lower CamelCase
+    Ex: int valor; String myName;
+
+Constants: MAYUS (guió baix)
+    Ex: final static int MAX = 10; MAX_LENGTH = 10;
