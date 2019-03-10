@@ -8,19 +8,24 @@ import aima.util.Pair;
 
 public class Map {
     /** Private atributes of the class **/
-    private int n = 100;
-    private int m = 50;
-    private int seed = 2;
+    private int n;
+    private int m;
+    private int seed;
 
-    // ArrayList<Pair(Integer, ArrayList<Integer>)
+    // ArrayList<Pair(Pair(Integer,Integer), ArrayList<Integer>)
     private ArrayList<Pair> estatConductors = new ArrayList<>();
     private ArrayList<Boolean> estaRecullit = new ArrayList<>();
     private ArrayList<Boolean> isConductor = new ArrayList<>();
-    private Usuarios nouUsuaris = new Usuarios(n,m, seed);
+    private Usuarios nouUsuaris;
 
     /** Constructor **/
 
-    public Map(){
+    public Map(int n, int m, int seed){
+        this.n = n;
+        this.m = m;
+        this.seed = seed;
+        nouUsuaris = new Usuarios(n,m,seed);
+
         fillDrivers ();
         inicializeEstatConductors();
         initializeEstaRecollit();
@@ -82,6 +87,7 @@ public class Map {
         Pair a = (Pair)estatConductors.get(indexDriver).getFirst(); //pair con la distancia i el numero de personas
         return (int)a.getFirst();
     }
+
 
     public int getIndexDriver(int index)
     {
