@@ -8,5 +8,6 @@
     <content url="jar://$MODULE_DIR$/../dist/AIMA.jar!/" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="AIMA" level="project" />
   </component>
 </module>
