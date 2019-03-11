@@ -41,7 +41,7 @@ public class Map {
 
     private void initializeEstaRecollit() {
         for (int i = 0; i < n; ++i)
-            estaRecullit.add(Boolean.FALSE);
+            estaRecullit.add(false);
     }
 
 
@@ -182,7 +182,6 @@ public class Map {
 
     /** Operator Swap Car between p1 and p2 **/
     public void swapCar(int p1, int p2, int c1, int c2) {
-
         int q1 = getPassangers(c1).indexOf(p1); //position of p1 in c1
         int q2 = getPassangers(c2).indexOf(p2); //position of p2 in c2
         if(q1 >= 0 || q2 >= 0) {
