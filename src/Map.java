@@ -3,6 +3,7 @@ package src;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.Random;
 
 import IA.Comparticion.*;
 import aima.util.Pair;
@@ -29,17 +30,6 @@ public class Map {
         fillDrivers ();
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioBasica();
-
-        //PROVES
-        System.out.println("Anem a fer un remove de una persona");
-        rmPerson(140,0);
-        System.out.println("Ara anem a afegir una persona a un altre");
-        addPerson(140,0);
-        System.out.println("Ara anem a fer un canvi de cotxe");
-        swapCar(140,150,0,1);
-        System.out.println("Tornem a fer el canvi de cotxe");
-        swapCar(150,140,0,1);
     }
 
 
@@ -119,11 +109,21 @@ public class Map {
     }
 
 
+    /** Setters **/
+    private void setDistance(int indexDriver, int newDistance)
+    {
+        ArrayList<Integer> a = (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
+        int id = (Integer)((Pair) estatConductors.get(indexDriver).getFirst()).getSecond();
+        estatConductors.set(indexDriver,new Pair(new Pair(newDistance,id),a));
+    }
+
+
+
     /**Function to find distance from a given passanger assignation **/
     /** The calculus will be made in hundred meters units, so there is a maximum of 300 per passenger **/
-    public int calculateDistance(int j, ArrayList<Integer> passangers)
+    public int calculateDistance(int indexCar, ArrayList<Integer> passangers)
     {
-        int indexPerson = getIndexDriver(j);
+        int indexPerson = getIndexDriver(indexCar);
         ArrayList<Boolean> recullits = new ArrayList<>(n);
 
         for (int i=0; i < n; ++i)
@@ -210,8 +210,6 @@ public class Map {
             Pair def = new Pair(new Pair(km, id),i);
             estatConductors.set(c, def);
         }
-
-
     }
 
     /** Operator Remove Person p of car c **/
@@ -237,7 +235,9 @@ public class Map {
 
 
 
-    /** FUNCIONS PER OBTENIR UN ESCENARI INICIAL **/
+    /** FUNCTIONS TO OBTAIN AN INITIAL SOLUTION **/
+
+    /** This first function assigns n/m persons per driver **/
     public void assignacioBasica(){
         int j = 0;  //index of the estatConductors vector. It indicates what car we are going to locate the people to.
 
@@ -250,13 +250,42 @@ public class Map {
                 ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
                 a.add(i);   //one for the pick-up
                 a.add(i);   //one for the arrival
+                //substituir aixo per setDistance???
                 int km = calculateDistance(j,a);
                 int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
                 estatConductors.set(j,new Pair(new Pair(km,id),a));
+
+                setDistance(j, km);
                 ++j;
             }
         }
     }
+
+
+    /** This second function assigns the passangers to every driver in a random order **/
+
+    public void assignacioRandom() {
+        Random r  = new Random();
+
+        for(int i=0; i<n; ++i){ /** recorrem les N persones **/
+            if(!isConductor.get(i)){ /** si la persona i es un passetger **/
+                estaRecullit.set(i,true);
+                int j = r.nextInt(m);   //we generate a random index of a driver
+
+                ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
+                a.add(i);   //one for the pick-up
+                a.add(i);   //one for the arrival
+                int km = calculateDistance(j,a);
+                int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
+                estatConductors.set(j,new Pair(new Pair(km,id),a));
+            }
+        }
+    }
+
+
+
+
+
 
 
 
