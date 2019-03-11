@@ -1,5 +1,6 @@
 package src;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.Math;
 
@@ -15,8 +16,8 @@ public class Map {
     // ArrayList<Pair(Pair(Integer,Integer), ArrayList<Integer>)
     private ArrayList<Pair> estatConductors = new ArrayList<>();
     private ArrayList<Boolean> estaRecullit = new ArrayList<>();
-    private ArrayList<Boolean> isConductor = new ArrayList<>();
-    private Usuarios nouUsuaris;
+    private ArrayList<Boolean> isConductor = new ArrayList<>(); //This must be global
+    private Usuarios nouUsuaris;    //this must be global
 
     /** Constructor **/
 
@@ -29,6 +30,7 @@ public class Map {
         fillDrivers ();
         inicializeEstatConductors();
         initializeEstaRecollit();
+        assignaciobasica();
     }
 
 
@@ -40,8 +42,7 @@ public class Map {
 
 
     private void initializeEstaRecollit() {
-        for (int i = 0; i < n; ++i)
-            estaRecullit.add(false);
+        estaRecullit.addAll(isConductor);   //we inicialize all the drivers to true since they have already been picked-up
     }
 
 
@@ -197,19 +198,15 @@ public class Map {
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
         if (!isCarFull(c)){
-            Object o = estatConductors.get(c).getSecond();
-            ArrayList<Integer> i = (ArrayList<Integer>) o;
+            ArrayList<Integer> i = (ArrayList<Integer>) estatConductors.get(c).getSecond();
             i.add(p);
             i.add(p);
-            int km = calculatedistance(i);
+            int km = calculateDistance(c,i);
 
             Pair aux = (Pair)estatConductors.get(c).getFirst();
             Integer id = (Integer)aux.getSecond();
             Pair def = new Pair(new Pair(km, id),i);
             estatConductors.set(c, def);
-
-
-
         }
 
 
@@ -217,14 +214,13 @@ public class Map {
 
     /** Operator Remove Person p of car c **/
     public void rmPerson(int p, int c) {
-        Object o = estatConductors.get(c).getSecond();
-        ArrayList<Integer> i = (ArrayList<Integer>) o;
+        ArrayList<Integer> i = (ArrayList<Integer>) estatConductors.get(c).getSecond();
 
         for (int j=0; j<i.size();++j){
             if(i.get(j) == p) i.remove(j);
         }
 
-        int km = calculatedistance(i);
+        int km = calculateDistance(c,i);
         Pair aux = (Pair)estatConductors.get(c).getFirst();
         Integer id = (Integer)aux.getSecond();
         Pair def = new Pair(new Pair(km, id),i);
@@ -236,18 +232,20 @@ public class Map {
         return true;
     }
 
-    void assignaciobasica(){
 
-        int j = 0;
+    public void assignaciobasica(){
+        int j = 0;  //index of the estatConductors vector. It indicates what car we are going to locate the people to.
+
         for(int i=0; i<n; ++i){ /** recorrem les N persones **/
-
             if (j == estatConductors.size()) j = 0;
+
             if(!isConductor.get(i)){ /** si la persona i es un passetger **/
                 ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
-                a.add(i);
-                int km = calculatedistance(a);
+                a.add(i);   //one for the pick-up
+                a.add(i);   //one for the arrival
+                int km = calculateDistance(j,a);
                 int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
-                estatConductors.set(id,new Pair(new Pair(km,id),a));
+                estatConductors.set(j,new Pair(new Pair(km,id),a));
             }
             ++j;
         }
