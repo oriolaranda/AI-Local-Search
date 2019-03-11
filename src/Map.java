@@ -30,6 +30,17 @@ public class Map {
         fillDrivers ();
         inicializeEstatConductors();
         initializeEstaRecollit();
+        assignacioBasica();
+
+        //PROVES
+        System.out.println("Anem a fer un remove de una persona");
+        rmPerson(140,0);
+        System.out.println("Ara anem a afegir una persona a un altre");
+        addPerson(140,0);
+        System.out.println("Ara anem a fer un canvi de cotxe");
+        swapCar(140,141,0,1);
+        System.out.println("Tornem a fer el canvi de cotxe");
+        swapCar(141,140,0,1);
     }
 
 
@@ -181,9 +192,11 @@ public class Map {
             getPassangers(c).set(q1,p2);
             getPassangers(c).set(q2,p1);
         }
+        int newDist = calculateDistance(c,getPassangers(c));
+        setDistance(c,newDist);
     }
 
-    /** Operator Swap Car between p1 and p2 **/
+    /** Operator Swap Car between p1 in c1 and p2 in c2 **/
     public void swapCar(int p1, int p2, int c1, int c2) {
         int q1 = getPassangers(c1).indexOf(p1); //position of p1 in c1
         int q2 = getPassangers(c2).indexOf(p2); //position of p2 in c2
@@ -195,6 +208,10 @@ public class Map {
             getPassangers(c1).set(q1, p2);
             getPassangers(c2).set(q2, p1);
         }
+        int newDist1 = calculateDistance(c1,getPassangers(c1));
+        int newDist2 = calculateDistance(c2,getPassangers(c2));
+        setDistance(c1,newDist1);
+        setDistance(c2,newDist2);
     }
 
     /** Operator Add Person p in car c **/
@@ -210,6 +227,8 @@ public class Map {
             Pair def = new Pair(new Pair(km, id),i);
             estatConductors.set(c, def);
         }
+
+
     }
 
     /** Operator Remove Person p of car c **/
@@ -254,8 +273,6 @@ public class Map {
                 int km = calculateDistance(j,a);
                 int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
                 estatConductors.set(j,new Pair(new Pair(km,id),a));
-
-                setDistance(j, km);
                 ++j;
             }
         }
