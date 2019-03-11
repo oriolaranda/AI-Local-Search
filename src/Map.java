@@ -29,10 +29,17 @@ public class Map {
         fillDrivers ();
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignaciobasica();
+        assignacioBasica();
+
+        //PROVES
         System.out.println("Anem a fer un remove de una persona");
         rmPerson(140,0);
-
+        System.out.println("Ara anem a afegir una persona a un altre");
+        addPerson(140,0);
+        System.out.println("Ara anem a fer un canvi de cotxe");
+        swapCar(140,150,0,1);
+        System.out.println("Tornem a fer el canvi de cotxe");
+        swapCar(150,140,0,1);
     }
 
 
@@ -211,7 +218,7 @@ public class Map {
     public void rmPerson(int p, int c) {
         ArrayList<Integer> i = (ArrayList<Integer>) estatConductors.get(c).getSecond();
 
-        for (int j=0; j<i.size();++j){
+        for (int j=i.size()-1; j>=0;--j){
             if(i.get(j) == p) i.remove(j);
         }
 
@@ -230,7 +237,8 @@ public class Map {
 
 
 
-    public void assignaciobasica(){
+    /** FUNCIONS PER OBTENIR UN ESCENARI INICIAL **/
+    public void assignacioBasica(){
         int j = 0;  //index of the estatConductors vector. It indicates what car we are going to locate the people to.
 
         for(int i=0; i<n; ++i){ /** recorrem les N persones **/
@@ -249,4 +257,7 @@ public class Map {
             }
         }
     }
+
+
+
 }
