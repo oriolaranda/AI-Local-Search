@@ -128,6 +128,14 @@ public class Map {
         estatConductors.set(indexDriver,new Pair(new Pair(newDistance,id),a));
     }
 
+    /** Changes the info of one car **/
+    private void changeInfoCar(int j, int newDistance, ArrayList<Integer> a)
+    {
+        int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
+        estatConductors.set(j,new Pair(new Pair(newDistance,id),a));
+    }
+
+
 
 
     /**Function to find distance from a given passanger assignation **/
@@ -271,8 +279,7 @@ public class Map {
                 a.add(i);   //one for the arrival
                 //substituir aixo per setDistance???
                 int km = calculateDistance(j,a);
-                int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
-                estatConductors.set(j,new Pair(new Pair(km,id),a));
+                changeInfoCar(j, km ,a);
                 ++j;
             }
         }
@@ -293,8 +300,7 @@ public class Map {
                 a.add(i);   //one for the pick-up
                 a.add(i);   //one for the arrival
                 int km = calculateDistance(j,a);
-                int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
-                estatConductors.set(j,new Pair(new Pair(km,id),a));
+                changeInfoCar(j, km,a);
             }
         }
     }
