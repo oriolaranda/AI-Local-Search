@@ -30,3 +30,7 @@ CONSULTA:
 donada una array list de distancies i conductors calculi la distancia total
 
 arraylist de pair < distancia, arraylist>
+
+assignacio de passatgers als conductors
+
+MAP ACTUAL: vector<pair<km,idconductor>,arraylist(passetgers)>.

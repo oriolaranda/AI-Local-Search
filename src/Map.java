@@ -201,8 +201,15 @@ public class Map {
             ArrayList<Integer> i = (ArrayList<Integer>) o;
             i.add(p);
             i.add(p);
-            Pair m = new Pair(estatConductors.get(c).getFirst(),i);
-            estatConductors.set(c,m);
+            int km = calculatedistance(i);
+
+            Pair aux = (Pair)estatConductors.get(c).getFirst();
+            Integer id = (Integer)aux.getSecond();
+            Pair def = new Pair(new Pair(km, id),i);
+            estatConductors.set(c, def);
+
+
+
         }
 
 
@@ -210,11 +217,39 @@ public class Map {
 
     /** Operator Remove Person p of car c **/
     public void rmPerson(int p, int c) {
+        Object o = estatConductors.get(c).getSecond();
+        ArrayList<Integer> i = (ArrayList<Integer>) o;
 
+        for (int j=0; j<i.size();++j){
+            if(i.get(j) == p) i.remove(j);
+        }
+
+        int km = calculatedistance(i);
+        Pair aux = (Pair)estatConductors.get(c).getFirst();
+        Integer id = (Integer)aux.getSecond();
+        Pair def = new Pair(new Pair(km, id),i);
+        estatConductors.set(c, def);
     }
 
 
     public boolean isGoal(){
         return true;
+    }
+
+    void assignaciobasica(){
+
+        int j = 0;
+        for(int i=0; i<n; ++i){ /** recorrem les N persones **/
+
+            if (j == estatConductors.size()) j = 0;
+            if(!isConductor.get(i)){ /** si la persona i es un passetger **/
+                ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
+                a.add(i);
+                int km = calculatedistance(a);
+                int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
+                estatConductors.set(id,new Pair(new Pair(km,id),a));
+            }
+            ++j;
+        }
     }
 }
