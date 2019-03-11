@@ -20,7 +20,6 @@ public class Map {
     private Usuarios nouUsuaris;    //this must be global
 
     /** Constructor **/
-
     public Map(int n, int m, int seed){
         this.n = n;
         this.m = m;
@@ -31,6 +30,9 @@ public class Map {
         inicializeEstatConductors();
         initializeEstaRecollit();
         assignaciobasica();
+        System.out.println("Anem a fer un remove de una persona");
+        rmPerson(140,0);
+
     }
 
 
@@ -68,20 +70,11 @@ public class Map {
         return false;
     }
 
+
     /** Public methods **/
 
 
     /** Getters of the functions **/
-    public boolean estaRecullit(int indexPassanger)
-    {
-        return estaRecullit.get(indexPassanger);
-    }
-
-    public boolean isConductor(int indexPerson)
-    {
-        return isConductor.get(indexPerson);
-    }
-
 
     public int getDistance(int indexDriver)
     {
@@ -120,6 +113,7 @@ public class Map {
 
 
     /**Function to find distance from a given passanger assignation **/
+    /** The calculus will be made in hundred meters units, so there is a maximum of 300 per passenger **/
     public int calculateDistance(int j, ArrayList<Integer> passangers)
     {
         int indexPerson = getIndexDriver(j);
@@ -131,6 +125,7 @@ public class Map {
         Usuario u = nouUsuaris.get(indexPerson);
         int current_x = u.getCoordOrigenX();
         int current_y = u.getCoordOrigenY();
+
 
         int distance = 0;
         for (int i=0; i < passangers.size();++i)
@@ -220,6 +215,7 @@ public class Map {
             if(i.get(j) == p) i.remove(j);
         }
 
+        estaRecullit.set(p,false);
         int km = calculateDistance(c,i);
         Pair aux = (Pair)estatConductors.get(c).getFirst();
         Integer id = (Integer)aux.getSecond();
@@ -233,6 +229,7 @@ public class Map {
     }
 
 
+
     public void assignaciobasica(){
         int j = 0;  //index of the estatConductors vector. It indicates what car we are going to locate the people to.
 
@@ -240,14 +237,16 @@ public class Map {
             if (j == estatConductors.size()) j = 0;
 
             if(!isConductor.get(i)){ /** si la persona i es un passetger **/
+                estaRecullit.set(i,true);
+
                 ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
                 a.add(i);   //one for the pick-up
                 a.add(i);   //one for the arrival
                 int km = calculateDistance(j,a);
                 int id = (Integer)((Pair) estatConductors.get(j).getFirst()).getSecond();
                 estatConductors.set(j,new Pair(new Pair(km,id),a));
+                ++j;
             }
-            ++j;
         }
     }
 }
