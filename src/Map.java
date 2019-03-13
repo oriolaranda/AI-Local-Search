@@ -29,7 +29,6 @@ public class Map {
         inicializeEstatConductors();
         initializeEstaRecollit();
         assignacioBasica();
-
     }
 
 
@@ -90,6 +89,7 @@ public class Map {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
 
+
     public ArrayList<Boolean> getEstaRecullit() {
         return estaRecullit;
     }
@@ -117,6 +117,7 @@ public class Map {
         estatConductors.set(indexDriver,new Pair(new Pair(newDistance,id),a));
     }
 
+
     /** Changes the info of one car **/
     private void changeInfoCar(int j, int newDistance, ArrayList<Integer> a)
     {
@@ -124,6 +125,10 @@ public class Map {
         estatConductors.set(j,new Pair(new Pair(newDistance,id),a));
     }
 
+    public void setEstaRecullit(int person, boolean result)
+    {
+        estaRecullit.set(person,result);
+    }
 
 
 
