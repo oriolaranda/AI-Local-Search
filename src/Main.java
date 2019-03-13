@@ -1,12 +1,41 @@
 package src;
 
+import IA.Comparticion.Usuarios;
 import src.*;
 
 import java.util.ArrayList;
 
 public class Main {
 
+    public static ArrayList<Boolean> isConductor = new ArrayList<>(); //This must be global
+    public static Usuarios nouUsuaris;    //this must be global
+    public static int n = 200;
+    public static int m = 50;
+    public static int seed = 2;
+
+
     public static void main(String[] args) {
-        Map a = new Map(200,50,2);
+        nouUsuaris = new Usuarios(n, m, seed);
+        fillDrivers();
+
+        Map a = new Map();
+        System.out.println("Anem a fer un remove de una persona");
+        a.rmPerson(140, 0);
+        System.out.println("Ara anem a afegir una persona a un altre");
+        a.addPerson(140, 0);
+        System.out.println("Ara anem a fer un canvi de cotxe");
+        a.swapCar(140, 141, 0, 1);
+        System.out.println("Tornem a fer el canvi de cotxe");
+        a.swapCar(141, 140, 0, 1);
     }
+
+
+    /**
+     * Private methods
+     **/
+    private static void fillDrivers() {
+        for (int i = 0; i < n; ++i)
+            isConductor.add(nouUsuaris.get(i).isConductor());
+    }
+
 }

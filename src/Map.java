@@ -5,50 +5,35 @@ import java.util.ArrayList;
 import java.lang.Math;
 import java.util.Random;
 
+
 import IA.Comparticion.*;
 import aima.util.Pair;
+import src.Main;
+
+import static src.Main.n;
+import static src.Main.m;
+import static src.Main.nouUsuaris;
+import static src.Main.isConductor;
+
 
 public class Map {
     /** Private atributes of the class **/
-    private int n;
-    private int m;
-    private int seed;
 
     // ArrayList<Pair(Pair(Integer,Integer), ArrayList<Integer>)
     private ArrayList<Pair> estatConductors = new ArrayList<>();
     private ArrayList<Boolean> estaRecullit = new ArrayList<>();
-    private ArrayList<Boolean> isConductor = new ArrayList<>(); //This must be global
-    private Usuarios nouUsuaris;    //this must be global
+
 
     /** Constructor **/
-    public Map(int n, int m, int seed){
-        this.n = n;
-        this.m = m;
-        this.seed = seed;
-        nouUsuaris = new Usuarios(n,m,seed);
-
-        fillDrivers ();
+    public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
         assignacioBasica();
 
-        //PROVES
-        System.out.println("Anem a fer un remove de una persona");
-        rmPerson(140,0);
-        System.out.println("Ara anem a afegir una persona a un altre");
-        addPerson(140,0);
-        System.out.println("Ara anem a fer un canvi de cotxe");
-        swapCar(140,141,0,1);
-        System.out.println("Tornem a fer el canvi de cotxe");
-        swapCar(141,140,0,1);
     }
 
 
-    /** Private methods **/
-    private void fillDrivers() {
-        for (int i=0; i < n; ++i)
-            this.isConductor.add(nouUsuaris.get(i).isConductor());
-    }
+
 
 
     private void initializeEstaRecollit() {
@@ -103,6 +88,10 @@ public class Map {
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
+    }
+
+    public ArrayList<Boolean> getEstaRecullit() {
+        return estaRecullit;
     }
 
 
@@ -224,18 +213,15 @@ public class Map {
 
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
-        if (!isCarFull(c)){
-            ArrayList<Integer> i = (ArrayList<Integer>) estatConductors.get(c).getSecond();
-            i.add(p);
-            i.add(p);
-            int km = calculateDistance(c,i);
+        ArrayList<Integer> i = (ArrayList<Integer>) estatConductors.get(c).getSecond();
+        i.add(p);
+        i.add(p);
+        int km = calculateDistance(c,i);
 
-            Pair aux = (Pair)estatConductors.get(c).getFirst();
-            Integer id = (Integer)aux.getSecond();
-            Pair def = new Pair(new Pair(km, id),i);
-            estatConductors.set(c, def);
-        }
-
+        Pair aux = (Pair)estatConductors.get(c).getFirst();
+        Integer id = (Integer)aux.getSecond();
+        Pair def = new Pair(new Pair(km, id),i);
+        estatConductors.set(c, def);
 
     }
 
@@ -306,7 +292,12 @@ public class Map {
     }
 
 
+    /** This thir function **/
 
+    public void assignacioConductorsSols () {
+        //WE DON'T DO ANYTHING SINCE WE DON'T HAVE TO ASSIGN ANY PASSANGER TO ANY CAR YET
+
+    }
 
 
 
