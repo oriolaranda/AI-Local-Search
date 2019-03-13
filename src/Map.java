@@ -32,10 +32,6 @@ public class Map {
 
     }
 
-
-
-
-
     private void initializeEstaRecollit() {
         estaRecullit.addAll(isConductor);   //we inicialize all the drivers to true since they have already been picked-up
     }
@@ -125,7 +121,17 @@ public class Map {
     }
 
 
+    public boolean swap(int i, int j, int c){
 
+        ArrayList a = (ArrayList)estatConductors.get(c).getSecond();
+        int a1 = (Integer)a.get(i);
+        int b1 = (Integer)a.get(j);
+        a.set(i,a1);
+        a.set(j,b1);
+        Pair p = new Pair(estatConductors.get(c).getFirst(),a);
+        estatConductors.set(c,p);
+
+    }
 
     /**Function to find distance from a given passanger assignation **/
     /** The calculus will be made in hundred meters units, so there is a maximum of 300 per passenger **/

@@ -24,6 +24,8 @@ public class MapSuccesors  implements SuccessorFunction{
 
 
         }
+        //REMOVE PERSON
+
 
 
 
