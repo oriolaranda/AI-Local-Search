@@ -3,6 +3,7 @@ package src;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.Math;
+import java.util.HashSet;
 import java.util.Random;
 
 
@@ -88,6 +89,14 @@ public class Map {
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
+
+
+    //Retruns a set with all the passangers that are taken by a driver
+    public HashSet<Integer> getPassangersNotRepeated (int indexDriver)
+    {
+        return new HashSet<>(getPassangers(indexDriver));
+    }
+
 
 
     public ArrayList<Boolean> getEstaRecullit() {
