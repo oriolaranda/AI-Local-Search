@@ -10,9 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.HashSet;
 
-import static src.Main.isConductor;
-import static src.Main.m;
-import static src.Main.nouUsuaris;
+import static src.Main.*;
 
 public class MapSuccesors  implements SuccessorFunction{
 
@@ -60,6 +58,8 @@ public class MapSuccesors  implements SuccessorFunction{
 
 
         //SWAP CAR
+        boolean hanFetSwap[][] = new boolean[n][n];
+
         for (int i=0; i < m; ++i)
         {
             HashSet<Integer> p1 = uniquePassengers.get(i);
@@ -70,9 +70,16 @@ public class MapSuccesors  implements SuccessorFunction{
                 {
                     for (int l: p2) //person l of the second car
                     {
-                        Map aux = new Map(map);
-                        map.swapCar(k, l, i, j);
-                        retVal.add(aux);
+                        //if the swap of these two people has not yet been done
+                        if (!hanFetSwap[i][j] && !hanFetSwap[i][j])
+                        {
+                            hanFetSwap[i][j] = true;
+                            hanFetSwap[j][j] = true;
+                            Map aux = new Map(map);
+                            map.swapCar(k, l, i, j);
+                            retVal.add(aux);
+                        }
+
                     }
                 }
             }
@@ -82,18 +89,22 @@ public class MapSuccesors  implements SuccessorFunction{
         for (int i=0; i < m; ++i)
         {
             HashSet<Integer> p1 = uniquePassengers.get(i);
-            Iterator it1 = p1.iterator();
-            Iterator it2 = p1.iterator();
+            boolean SwapOrderDone[][] = new boolean[p1.size()][p1.size()]; //to avoid doing unnecessary swaps
 
-                while (it1.hasNext())
+            for (int k : p1)
+            {
+                for (int l:p1)
                 {
-                    while (it2.hasNext())
+                    if (!hanFetSwap[k][l] && !hanFetSwap[l][k])
                     {
-                        Map aux = (Map)map;
-                        map.swapOrder((int)it1.next(), (int)it2.next(), i);
+                        hanFetSwap[k][l] = true;
+                        hanFetSwap[l][k] = true;
+                        Map aux = new Map(map);
+                        map.swapOrder(k, l, i);
                         retVal.add(aux);
                     }
                 }
+
             }
         }
 
