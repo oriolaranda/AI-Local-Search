@@ -19,8 +19,11 @@ public class Main {
         fillDrivers();
 
         Map a = new Map();
-        System.out.println("Anem a fer un remove de una persona");
         a.rmPerson(140, 0);
+
+        Map b = new Map(a);
+        System.out.println("Anem a fer un remove de una persona");
+        //a.rmPerson(140, 0);
         System.out.println("Ara anem a afegir una persona a un altre");
         a.addPerson(140, 0);
         System.out.println("Ara anem a fer un canvi de cotxe");

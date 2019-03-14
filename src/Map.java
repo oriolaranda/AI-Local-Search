@@ -31,7 +31,11 @@ public class Map {
         assignacioBasica();
     }
 
-
+    /** Copy constructor **/
+    public Map(Map map) {
+        this.estatConductors = (ArrayList<Pair>) map.getEstatConductors().clone();
+        this.estaRecullit = (ArrayList<Boolean>) map.getEstaRecullit().clone();
+    }
 
 
 
@@ -94,6 +98,10 @@ public class Map {
         return estaRecullit;
     }
 
+
+    public ArrayList<Pair> getEstatConductors() {
+        return estatConductors;
+    }
 
     /** Print the information **/
     public void printRecullits()
