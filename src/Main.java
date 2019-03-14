@@ -3,7 +3,9 @@ package src;
 import IA.Comparticion.Usuarios;
 import src.*;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -22,6 +24,7 @@ public class Main {
         a.rmPerson(140, 0);
 
         Map b = new Map(a);
+        /*
         System.out.println("Anem a fer un remove de una persona");
         //a.rmPerson(140, 0);
         System.out.println("Ara anem a afegir una persona a un altre");
@@ -30,6 +33,10 @@ public class Main {
         a.swapCar(140, 141, 0, 1);
         System.out.println("Tornem a fer el canvi de cotxe");
         a.swapCar(141, 140, 0, 1);
+        */
+        MapSuccesors c = new MapSuccesors();
+        c.getSuccessors(a);
+        System.out.println("Acabat");
     }
 
 
