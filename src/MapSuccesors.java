@@ -51,7 +51,7 @@ public class MapSuccesors  implements SuccessorFunction{
             while (it.hasNext())
             {
                Map aux = (Map)map;
-               aux.rmPerson(it.next());
+               //aux.rmPerson(it.next());
             }
 
 
