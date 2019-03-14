@@ -50,7 +50,7 @@ public class MapSuccesors  implements SuccessorFunction{
             Iterator it = p.iterator();
             while (it.hasNext())
             {
-               Map aux = (Map)map;
+               Map aux = new Map(map);
                //aux.rmPerson(it.next());
             }
 
