@@ -33,7 +33,7 @@ public class MapSuccesors  implements SuccessorFunction{
             {
                 for(int c=0; c < m; ++c)
                 {
-                    Map aux = (Map)map; //implement the copy
+                    Map aux = new Map(map); // copy of map
                     aux.setEstaRecullit(i,true);
                     map.addPerson(i,c);
                     retVal.add(aux);
