@@ -27,6 +27,7 @@ public class GUIForm extends JFrame
 
     public GUIForm()
     {
+        //Initialize JFrame
         setContentPane(rootPanel);
         setTitle("GUIFORM");
         setSize(700,450);
@@ -36,14 +37,19 @@ public class GUIForm extends JFrame
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+
+        //ButtonGroup radio buttons
         algo1 = new JRadioButton();
         algo2 = new JRadioButton();
         ButtonGroup bg = new ButtonGroup();
         bg.add(algo1);
         bg.add(algo2);
 
-        //mapa = new JPanel();
+        //Button executar
         executar = new JButton();
         executar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        /* Canvas ??*/
+        //mapa = new JPanel();
     }
 }
