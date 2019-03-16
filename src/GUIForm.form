@@ -38,6 +38,11 @@
         </constraints>
         <properties>
           <focusable value="false"/>
+          <model>
+            <item value="EstatSolucio 1"/>
+            <item value="EstatSolucio 2"/>
+            <item value="EstatSolucio 3"/>
+          </model>
         </properties>
       </component>
       <component id="c7b35" class="javax.swing.JComboBox" binding="heuristicsList">
@@ -46,6 +51,10 @@
         </constraints>
         <properties>
           <focusable value="false"/>
+          <model>
+            <item value="Heurístic 1"/>
+            <item value="Heurístic 2"/>
+          </model>
         </properties>
       </component>
       <component id="411dd" class="javax.swing.JLabel" binding="algorismes">
