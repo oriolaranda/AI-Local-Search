@@ -11,7 +11,7 @@ public class Main {
 
     public static ArrayList<Boolean> isConductor = new ArrayList<>(); //This must be global
     public static Usuarios nouUsuaris;    //this must be global
-    public static int n = 200;
+    public static int n = 100;
     public static int m = 50;
     public static int seed = 2;
 
@@ -21,7 +21,7 @@ public class Main {
         fillDrivers();
 
         Map a = new Map();
-        a.rmPerson(140, 0);
+        a.rmPerson(2, 0);
 
         Map b = new Map(a);
         /*
@@ -35,7 +35,7 @@ public class Main {
         a.swapCar(141, 140, 0, 1);
         */
         MapSuccesors c = new MapSuccesors();
-        c.getSuccessors(a);
+        List d = c.getSuccessors(a);
         System.out.println("Acabat");
     }
 

@@ -23,6 +23,7 @@ public class MapSuccesors  implements SuccessorFunction{
         ArrayList retVal= new ArrayList();  //we must add all posibilities from a current state to this list
         Map map = (Map)state;
 
+
         //ADD PERSON
         ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
         for (int i=0; i < estaRecullit.size(); ++i)
@@ -33,7 +34,7 @@ public class MapSuccesors  implements SuccessorFunction{
                 {
                     Map aux = new Map(map); // copy of map
                     aux.setEstaRecullit(i,true);
-                    map.addPerson(i,c);
+                    aux.addPerson(i,c);
                     retVal.add(aux);
                 }
             }
@@ -76,14 +77,15 @@ public class MapSuccesors  implements SuccessorFunction{
                             hanFetSwap[i][j] = true;
                             hanFetSwap[j][j] = true;
                             Map aux = new Map(map);
-                            map.swapCar(k, l, i, j);
+                            aux.swapCar(k, l, i, j);
                             retVal.add(aux);
                         }
-
                     }
                 }
             }
         }
+
+
 
         //FALTARA EL SWAP ORDER
         for (int i=0; i < m; ++i)

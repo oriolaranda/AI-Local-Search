@@ -32,20 +32,37 @@ public class Map {
         assignacioBasica();
     }
 
+
     /** Copy constructor **/
     public Map(Map map) {
-        this.estatConductors = (ArrayList<Pair>) map.getEstatConductors().clone();
-        this.estaRecullit = (ArrayList<Boolean>) map.getEstaRecullit().clone();
+        copyOfEstatConductors((ArrayList<Pair>) map.getEstatConductors());
+        this.estaRecullit = (ArrayList<Boolean>) map.getEstaRecullit().clone(); //aquest clone funciona
+    }
+
+    /** Auxiliar functions **/
+
+    //Function that clones the estatConductors variable
+    private void copyOfEstatConductors (ArrayList<Pair> e)
+    {
+        this.estatConductors = new ArrayList<>();
+        for (int i=0; i < e.size(); ++i)
+        {
+            ArrayList<Integer> a = (ArrayList)e.get(i).getSecond();
+            ArrayList<Integer> b = (ArrayList<Integer>) a.clone();  //clone the passangers array
+            this.estatConductors.add(new Pair(e.get(i).getFirst(),b));
+        }
+
     }
 
 
-
-    private void initializeEstaRecollit() {
+    private void initializeEstaRecollit()
+    {
         estaRecullit.addAll(isConductor);   //we inicialize all the drivers to true since they have already been picked-up
     }
 
 
-    private void inicializeEstatConductors() {
+    private void inicializeEstatConductors()
+    {
         for (int i=0; i < n; ++i) {
             if (isConductor.get(i)) //if it enters, then we have a new driver
             {
@@ -66,6 +83,7 @@ public class Map {
     private boolean isCarEmpty(int c){
         return false;
     }
+
 
 
     /** Public methods **/
