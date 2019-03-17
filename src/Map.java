@@ -221,14 +221,19 @@ public class Map {
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
     public boolean swapOrder(int i, int j, int c){
-        ArrayList a = (ArrayList) estatConductors.get(c).getSecond();   //Obtenim els passatgers de un cotxe
+
+        ArrayList a = (ArrayList)estatConductors.get(c).getSecond();
         int a1 = (Integer)a.get(i);
         int b1 = (Integer)a.get(j);
+        if(a1 == b1) return false;
         a.set(j,a1);
         a.set(i,b1);
-        Pair p = new Pair(estatConductors.get(c).getFirst(),a);
+        int k = calculateDistance(c,a);
+        Pair p1 = new Pair(k,c);
+        Pair p = new Pair(p1,a);
         estatConductors.set(c,p);
         return true;
+
     }
 
 
