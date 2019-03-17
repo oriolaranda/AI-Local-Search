@@ -39,6 +39,8 @@ public class Map {
         this.estaRecullit = (ArrayList<Boolean>) map.getEstaRecullit().clone(); //aquest clone funciona
     }
 
+
+
     /** Auxiliar functions **/
 
     //Function that clones the estatConductors variable
@@ -126,9 +128,11 @@ public class Map {
     }
 
 
+
     public ArrayList<Pair> getEstatConductors() {
         return estatConductors;
     }
+
 
     /** Print the information **/
     public void printRecullits()
@@ -218,7 +222,6 @@ public class Map {
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
     public void swapOrder(int p1, int p2, int c){
-
         int q1 = getPassangers(c).indexOf(p1);
         int q2 = getPassangers(c).indexOf(p2);
         if(q1 >= 0 || q2 >= 0) {
@@ -250,6 +253,7 @@ public class Map {
         setDistance(c1,newDist1);
         setDistance(c2,newDist2);
     }
+
 
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){

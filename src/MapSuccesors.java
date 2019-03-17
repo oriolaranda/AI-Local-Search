@@ -106,7 +106,6 @@ public class MapSuccesors  implements SuccessorFunction{
                         retVal.add(aux);
                     }
                 }
-
             }
         }
 
