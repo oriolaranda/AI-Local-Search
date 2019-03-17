@@ -14,10 +14,6 @@ import static src.Main.*;
 
 public class MapSuccesors  implements SuccessorFunction{
 
-    public MapSuccesors() {
-
-    }
-
     public List getSuccessors(Object state)
     {
         ArrayList retVal= new ArrayList();  //we must add all posibilities from a current state to this list
@@ -30,30 +26,32 @@ public class MapSuccesors  implements SuccessorFunction{
         {
             if (!estaRecullit.get(i) && !isConductor.get(i))
             {
-                for(int c=0; c < m; ++c)
+                for(int c=0; c < map.getEstatConductors().size(); ++c)
                 {
                     Map aux = new Map(map); // copy of map
                     aux.setEstaRecullit(i,true);
                     aux.addPerson(i,c);
-                    retVal.add(aux);
+
+                    retVal.add(new Successor(new String("Afegim una persona al cotxe"+c), aux));
                 }
             }
         }
+
 
 
         ArrayList<HashSet<Integer>> uniquePassengers = passangersFromAllCars(map);
 
 
         //REMOVE PERSON
-        for (int i=0; i < m; ++i)   //we iterate over all the passangers
+        for (int c=0; c < map.getEstatConductors().size(); ++c)   //we iterate over all the drivers
         {
-            HashSet<Integer> p = uniquePassengers.get(i);
+            HashSet<Integer> p = uniquePassengers.get(c);
 
             for (int k : p)
             {
                Map aux = new Map(map);
-               aux.rmPerson(k,i);
-               retVal.add(aux);
+               aux.rmPerson(k,c);
+               retVal.add(new Successor(new String("Borrem una persona del cotxe"+c), aux));
             }
         }
 
@@ -61,10 +59,10 @@ public class MapSuccesors  implements SuccessorFunction{
         //SWAP CAR
         boolean hanFetSwap[][] = new boolean[n][n];
 
-        for (int i=0; i < m; ++i)
+        for (int i=0; i < map.getEstatConductors().size(); ++i)
         {
             HashSet<Integer> p1 = uniquePassengers.get(i);
-            for(int j=i+1; j < m; ++j)
+            for(int j=i+1; j < map.getEstatConductors().size(); ++j)
             {
                 HashSet<Integer> p2 = uniquePassengers.get(j);
                 for (int k : p1)    //person k of the first car
@@ -78,7 +76,7 @@ public class MapSuccesors  implements SuccessorFunction{
                             hanFetSwap[j][j] = true;
                             Map aux = new Map(map);
                             aux.swapCar(k, l, i, j);
-                            retVal.add(aux);
+                            retVal.add(new Successor(new String("Fem swap de les persones "+k+" "+l+" dels cotxes "+i + " i "+j), aux));
                         }
                     }
                 }
@@ -86,39 +84,36 @@ public class MapSuccesors  implements SuccessorFunction{
         }
 
 
-
         //FALTARA EL SWAP ORDER
-        for (int i=0; i < m; ++i)
+        for (int c=0; c < map.getEstatConductors().size(); ++c)
         {
-            HashSet<Integer> p1 = uniquePassengers.get(i);
-            boolean SwapOrderDone[][] = new boolean[p1.size()][p1.size()]; //to avoid doing unnecessary swaps
-
-            for (int k : p1)
+            HashSet<Integer> p1 = uniquePassengers.get(c);
+            for (int j=0; j < p1.size()*2; ++j)
             {
-                for (int l:p1)
+                for (int k=j+1; k < p1.size()*2; ++k)
                 {
-                    if (!hanFetSwap[k][l] && !hanFetSwap[l][k])
+                    Map aux = new Map(map); // copy of map
+                    if (aux.swapOrder(j,k,c))   //we enter only if the operation is not between the same person
                     {
-                        hanFetSwap[k][l] = true;
-                        hanFetSwap[l][k] = true;
-                        Map aux = new Map(map);
-                        map.swapOrder(k, l, i);
-                        retVal.add(aux);
+                        retVal.add(new Successor(new String("Fem swap order del cotxe "+c+ " dels passatgers "+j+" i "+k), aux));
                     }
                 }
             }
         }
-
-
         return retVal;
     }
 
+
+
     private ArrayList<HashSet<Integer>> passangersFromAllCars (Map currentState)
     {
+        Map map = (Map)currentState;
         ArrayList<HashSet<Integer>> a = new ArrayList<>();
-        for (int c=0; c < m; ++c);
-            //a.add(currentState.getPassangersNotRepeated(c));
+        for (int c=0; c < map.getEstatConductors().size(); ++c)
+            a.add(currentState.getPassangersNotRepeated(c));
+
         return a;
     }
+
 
 }
