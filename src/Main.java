@@ -18,7 +18,7 @@ public class Main {
 
     public static ArrayList<Boolean> isConductor = new ArrayList<>(); //This must be global
     public static Usuarios nouUsuaris;    //this must be global
-    public static int n = 100;
+    public static int n = 200;
     public static int m = 50;
     public static int seed = 2;
 
@@ -27,6 +27,7 @@ public class Main {
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
         Map a = new Map();
+        MapHillClimbing1(a);
     }
 
 
@@ -57,11 +58,13 @@ public class Main {
     }
 
     private static void printActions(List actions) {
+        System.out.println(actions.size());
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
             System.out.println(action);
         }
     }
+
 
 
     /**

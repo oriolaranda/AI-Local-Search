@@ -27,9 +27,10 @@ public class Map {
 
     /** Constructor **/
     public Map(){
+        System.out.println("We create a map");
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioRandom();
+        assignacioBasica();
     }
 
 

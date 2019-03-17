@@ -8,7 +8,6 @@ import aima.util.Pair;
 public class Heuristic1 implements HeuristicFunction{
     @Override
     public int getHeuristicValue(Object n) {
-
         Map m = (Map)n;
         ArrayList<Pair> e = m.getEstatConductors();
         int k = 0;
@@ -23,6 +22,7 @@ public class Heuristic1 implements HeuristicFunction{
                 ++norecollits;
 
         k += 1.5*norecollits;
+        System.out.println(k);
         return k;
     }
 }
