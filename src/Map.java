@@ -83,7 +83,8 @@ public class Map {
     }
 
     private boolean isCarEmpty(int c){
-        return false;
+        ArrayList<Integer> a = (ArrayList<Integer>) estatConductors.get(c).getSecond();
+        return a.size()==0;
     }
 
 
@@ -280,6 +281,23 @@ public class Map {
         estatConductors.set(c, def);
     }
 
+
+
+    public boolean removeDriver(int c)
+    {
+        if (isCarEmpty(c))
+        {
+            estaRecullit.set(c, false);
+            estatConductors.remove(c);
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+    /** CHECK IF FINAL STATE **/
 
     public boolean isGoal(){
         return true;
