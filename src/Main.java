@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import aima.util.Pair;
+
 
 
 public class Main {
@@ -29,6 +31,25 @@ public class Main {
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
         Map a = new Map();
+
+        System.out.println("He creat un map");
+        a.assignacioBasica();
+        System.out.println("Abans de fer remove");
+
+        for (int i=0; i<a.getEstatConductors().size();++i) System.out.print((int)((Pair) a.getEstatConductors().get(i).getFirst()).getSecond());
+        ArrayList<Integer> aux = new ArrayList<Integer>();
+        Pair a1 = new Pair(a.getEstatConductors().get(1).getFirst(),aux);
+        a.getEstatConductors().set(0,a1);
+        a.removeDriver(0);
+        System.out.println();
+        for (int i=0; i<a.getEstatConductors().size();++i) System.out.print((int)((Pair) a.getEstatConductors().get(i).getFirst()).getSecond());
+
+        MapSuccesors ms = new MapSuccesors();
+        ms.getSuccessors(a);
+
+
+
+        a.getEstatConductors();
         MapHillClimbing1(a);
     }
 

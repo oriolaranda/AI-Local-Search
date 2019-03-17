@@ -26,7 +26,7 @@ public class MapSuccesors  implements SuccessorFunction{
         {
             if (!estaRecullit.get(i) && !isConductor.get(i))
             {
-                for(int c=0; c < m; ++c)
+                for(int c=0; c < map.getEstatConductors().size(); ++c)
                 {
                     Map aux = new Map(map); // copy of map
                     aux.setEstaRecullit(i,true);
@@ -43,7 +43,7 @@ public class MapSuccesors  implements SuccessorFunction{
 
 
         //REMOVE PERSON
-        for (int c=0; c < m; ++c)   //we iterate over all the drivers
+        for (int c=0; c < map.getEstatConductors().size(); ++c)   //we iterate over all the drivers
         {
             HashSet<Integer> p = uniquePassengers.get(c);
 
@@ -59,10 +59,10 @@ public class MapSuccesors  implements SuccessorFunction{
         //SWAP CAR
         boolean hanFetSwap[][] = new boolean[n][n];
 
-        for (int i=0; i < m; ++i)
+        for (int i=0; i < map.getEstatConductors().size(); ++i)
         {
             HashSet<Integer> p1 = uniquePassengers.get(i);
-            for(int j=i+1; j < m; ++j)
+            for(int j=i+1; j < map.getEstatConductors().size(); ++j)
             {
                 HashSet<Integer> p2 = uniquePassengers.get(j);
                 for (int k : p1)    //person k of the first car
@@ -85,7 +85,7 @@ public class MapSuccesors  implements SuccessorFunction{
 
 
         //FALTARA EL SWAP ORDER
-        for (int c=0; c < m; ++c)
+        for (int c=0; c < map.getEstatConductors().size(); ++c)
         {
             HashSet<Integer> p1 = uniquePassengers.get(c);
             for (int j=0; j < p1.size()*2; ++j)
@@ -107,8 +107,9 @@ public class MapSuccesors  implements SuccessorFunction{
 
     private ArrayList<HashSet<Integer>> passangersFromAllCars (Map currentState)
     {
+        Map map = (Map)currentState;
         ArrayList<HashSet<Integer>> a = new ArrayList<>();
-        for (int c=0; c < m; ++c)
+        for (int c=0; c < map.getEstatConductors().size(); ++c)
             a.add(currentState.getPassangersNotRepeated(c));
 
         return a;
