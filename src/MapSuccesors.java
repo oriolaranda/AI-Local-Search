@@ -86,32 +86,32 @@ public class MapSuccesors  implements SuccessorFunction{
         }
 
 
-
         //FALTARA EL SWAP ORDER
-        for (int i=0; i < m; ++i)
+        for (int c=0; c < m; ++c)
         {
-            HashSet<Integer> p1 = uniquePassengers.get(i);
-            boolean SwapOrderDone[][] = new boolean[p1.size()][p1.size()]; //to avoid doing unnecessary swaps
+            HashSet<Integer> p1 = uniquePassengers.get(c);
+            boolean swapOrderDone[][] = new boolean[p1.size()][p1.size()]; //to avoid doing unnecessary swaps
 
-            for (int k : p1)
+            for (int j=0; j < p1.size(); ++j)
             {
-                for (int l:p1)
+                for (int k=j+1; k < p1.size(); ++k)
                 {
-                    if (!hanFetSwap[k][l] && !hanFetSwap[l][k])
+                    Map aux = new Map(map); // copy of map
+                    if (aux.swapOrder(j,k,c) && !swapOrderDone[j][k])   //we enter only if the operation is not between the same person
                     {
-                        hanFetSwap[k][l] = true;
-                        hanFetSwap[l][k] = true;
-                        Map aux = new Map(map);
-                        map.swapOrder(k, l, i);
+                        swapOrderDone[j][k]= true;
+                        swapOrderDone[k][j] = true;
                         retVal.add(aux);
                     }
+                    retVal.add(aux);
                 }
             }
         }
 
-
         return retVal;
     }
+
+
 
     private ArrayList<HashSet<Integer>> passangersFromAllCars (Map currentState)
     {

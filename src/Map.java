@@ -83,7 +83,8 @@ public class Map {
     }
 
     private boolean isCarEmpty(int c){
-        return false;
+        ArrayList<Integer> a = (ArrayList<Integer>) estatConductors.get(c).getSecond();
+        return a.size()==0;
     }
 
 
@@ -118,6 +119,8 @@ public class Map {
     {
         return new HashSet<>(getPassangers(indexDriver));
     }
+
+
 
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
@@ -233,6 +236,8 @@ public class Map {
 
     }
 
+
+
     /** Operator Swap Car between p1 in c1 and p2 in c2 **/
     public void swapCar(int p1, int p2, int c1, int c2) {
         int q1 = getPassangers(c1).indexOf(p1); //position of p1 in c1
@@ -281,6 +286,23 @@ public class Map {
         estatConductors.set(c, def);
     }
 
+
+
+    public boolean removeDriver(int c)
+    {
+        if (isCarEmpty(c))
+        {
+            estaRecullit.set(c, false);
+            estatConductors.remove(c);
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+    /** CHECK IF FINAL STATE **/
 
     public boolean isGoal(){
         return true;
