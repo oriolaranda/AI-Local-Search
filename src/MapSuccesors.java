@@ -41,6 +41,7 @@ public class MapSuccesors  implements SuccessorFunction{
         }
 
 
+
         ArrayList<HashSet<Integer>> uniquePassengers = passangersFromAllCars(map);
 
 
@@ -90,20 +91,16 @@ public class MapSuccesors  implements SuccessorFunction{
         for (int c=0; c < m; ++c)
         {
             HashSet<Integer> p1 = uniquePassengers.get(c);
-            boolean swapOrderDone[][] = new boolean[p1.size()][p1.size()]; //to avoid doing unnecessary swaps
-
-            for (int j=0; j < p1.size(); ++j)
+            for (int j=0; j < p1.size()*2; ++j)
             {
-                for (int k=j+1; k < p1.size(); ++k)
+                for (int k=j+1; k < p1.size()*2; ++k)
                 {
                     Map aux = new Map(map); // copy of map
-                    if (aux.swapOrder(j,k,c) && !swapOrderDone[j][k])   //we enter only if the operation is not between the same person
+                    System.out.println(j+" "+k);
+                    if (aux.swapOrder(j,k,c))   //we enter only if the operation is not between the same person
                     {
-                        swapOrderDone[j][k]= true;
-                        swapOrderDone[k][j] = true;
                         retVal.add(aux);
                     }
-                    retVal.add(aux);
                 }
             }
         }
