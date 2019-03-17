@@ -3,7 +3,6 @@ package src;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.Math;
-import java.util.HashSet;
 import java.util.Random;
 
 
@@ -30,39 +29,15 @@ public class Map {
         inicializeEstatConductors();
         initializeEstaRecollit();
         assignacioBasica();
-    }
-
-
-    /** Copy constructor **/
-    public Map(Map map) {
-        copyOfEstatConductors((ArrayList<Pair>) map.getEstatConductors());
-        this.estaRecullit = (ArrayList<Boolean>) map.getEstaRecullit().clone(); //aquest clone funciona
-    }
-
-    /** Auxiliar functions **/
-
-    //Function that clones the estatConductors variable
-    private void copyOfEstatConductors (ArrayList<Pair> e)
-    {
-        this.estatConductors = new ArrayList<>();
-        for (int i=0; i < e.size(); ++i)
-        {
-            ArrayList<Integer> a = (ArrayList)e.get(i).getSecond();
-            ArrayList<Integer> b = (ArrayList<Integer>) a.clone();  //clone the passangers array
-            this.estatConductors.add(new Pair(e.get(i).getFirst(),b));
-        }
 
     }
 
-
-    private void initializeEstaRecollit()
-    {
+    private void initializeEstaRecollit() {
         estaRecullit.addAll(isConductor);   //we inicialize all the drivers to true since they have already been picked-up
     }
 
 
-    private void inicializeEstatConductors()
-    {
+    private void inicializeEstatConductors() {
         for (int i=0; i < n; ++i) {
             if (isConductor.get(i)) //if it enters, then we have a new driver
             {
@@ -83,7 +58,6 @@ public class Map {
     private boolean isCarEmpty(int c){
         return false;
     }
-
 
 
     /** Public methods **/
@@ -112,23 +86,10 @@ public class Map {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
 
-
-    //Retruns a set with all the passangers that are taken by a driver
-    public HashSet<Integer> getPassangersNotRepeated (int indexDriver)
-    {
-        return new HashSet<>(getPassangers(indexDriver));
-    }
-
-
-
     public ArrayList<Boolean> getEstaRecullit() {
         return estaRecullit;
     }
 
-
-    public ArrayList<Pair> getEstatConductors() {
-        return estatConductors;
-    }
 
     /** Print the information **/
     public void printRecullits()
@@ -152,7 +113,6 @@ public class Map {
         estatConductors.set(indexDriver,new Pair(new Pair(newDistance,id),a));
     }
 
-
     /** Changes the info of one car **/
     private void changeInfoCar(int j, int newDistance, ArrayList<Integer> a)
     {
@@ -160,12 +120,19 @@ public class Map {
         estatConductors.set(j,new Pair(new Pair(newDistance,id),a));
     }
 
-    public void setEstaRecullit(int person, boolean result)
-    {
-        estaRecullit.set(person,result);
+
+    public boolean swap(int i, int j, int c){
+
+        ArrayList a = (ArrayList)estatConductors.get(c).getSecond();
+        int a1 = (Integer)a.get(i);
+        int b1 = (Integer)a.get(j);
+        a.set(i,a1);
+        a.set(j,b1);
+        Pair p = new Pair(estatConductors.get(c).getFirst(),a);
+        estatConductors.set(c,p);
+        return true;
+
     }
-
-
 
     /**Function to find distance from a given passanger assignation **/
     /** The calculus will be made in hundred meters units, so there is a maximum of 300 per passenger **/
