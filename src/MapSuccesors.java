@@ -19,11 +19,11 @@ public class MapSuccesors  implements SuccessorFunction{
 
         //ADD PERSON
         ArrayList<Boolean> estaRecullit = m.getEstaRecullit();
-        for (int i=0; i < estaRecullit.size(); ++i) {
+        /*for (int i=0; i < estaRecullit.size(); ++i) {
             if (!estaRecullit.get(i) && nouUsuaris.)
 
 
-        }
+        }*/
         //REMOVE PERSON
 
 
