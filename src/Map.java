@@ -222,6 +222,7 @@ public class Map {
         ArrayList a = (ArrayList)estatConductors.get(c).getSecond();
         int a1 = (Integer)a.get(i);
         int b1 = (Integer)a.get(j);
+        if(a1 == b1) return false;
         a.set(j,a1);
         a.set(i,b1);
         int k = calculateDistance(c,a);

@@ -23,7 +23,7 @@ public class Main {
         Map a = new Map();
         a.rmPerson(2, 0);
 
-        //Map b = new Map(a);
+        Map b = new Map(a);
         /*
         System.out.println("Anem a fer un remove de una persona");
         //a.rmPerson(140, 0);
