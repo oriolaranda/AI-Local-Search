@@ -29,7 +29,7 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioBasica();
+        assignacioRandom();
     }
 
 
@@ -78,9 +78,6 @@ public class Map {
     }
 
 
-    private boolean isCarFull(int c){
-        return false;
-    }
 
     private boolean isCarEmpty(int c){
         ArrayList<Integer> a = (ArrayList<Integer>) estatConductors.get(c).getSecond();

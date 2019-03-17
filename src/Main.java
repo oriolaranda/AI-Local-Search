@@ -19,25 +19,11 @@ public class Main {
     public static void main(String[] args) {
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
-
         Map a = new Map();
-        a.rmPerson(2, 0);
-
-        Map b = new Map(a);
-        /*
-        System.out.println("Anem a fer un remove de una persona");
-        //a.rmPerson(140, 0);
-        System.out.println("Ara anem a afegir una persona a un altre");
-        a.addPerson(140, 0);
-        System.out.println("Ara anem a fer un canvi de cotxe");
-        a.swapCar(140, 141, 0, 1);
-        System.out.println("Tornem a fer el canvi de cotxe");
-        a.swapCar(141, 140, 0, 1);
-        */
-        MapSuccesors c = new MapSuccesors();
-        List d = c.getSuccessors(a);
-        System.out.println("Acabat");
     }
+
+
+
 
 
     /**
