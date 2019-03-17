@@ -5,9 +5,11 @@ import aima.search.framework.Problem;
 import aima.search.framework.Search;
 import aima.search.framework.SearchAgent;
 import aima.search.informed.HillClimbingSearch;
+import aima.util.Pair;
 import src.*;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,18 +36,34 @@ public class Main {
     private static void MapHillClimbing1(Map m) {
 
         try {
-            Problem problem =  new Problem(m,new MapSuccesors(), new MapGoal());
+            Problem problem =  new Problem(m,new MapSuccesors(), new MapGoal(), new Heuristic1());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
 
             System.out.println();
             printActions(agent.getActions());
-        //    printInstrumentation(agent.getInstrumentation());
+            printInstrumentation(agent.getInstrumentation());
+            printSolution((Map)search.getGoalState());
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private static void printSolution(Map a)
+    {
+        ArrayList<Pair> b = a.getEstatConductors();
+        for (Pair c : b)
+        {
+            Pair d = (Pair)c.getFirst();
+            System.out.println("El conductor "+d.getSecond()+" fa "+d.getFirst());
+            System.out.println("Ordre de recollida/arribada de passatgers");
+            ArrayList<Integer> e = (ArrayList<Integer>)c.getSecond();
+            for(Integer p: e)
+                System.out.print(p+" ");
+            System.out.println("\n");
+        }
+    }
 
     private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();

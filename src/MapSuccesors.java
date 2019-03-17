@@ -31,6 +31,7 @@ public class MapSuccesors  implements SuccessorFunction{
                     Map aux = new Map(map); // copy of map
                     aux.setEstaRecullit(i,true);
                     aux.addPerson(i,c);
+
                     retVal.add(new Successor(new String("Afegim una persona al cotxe"+c), aux));
                 }
             }
@@ -99,7 +100,6 @@ public class MapSuccesors  implements SuccessorFunction{
                 }
             }
         }
-        System.out.println(retVal.size());
         return retVal;
     }
 
