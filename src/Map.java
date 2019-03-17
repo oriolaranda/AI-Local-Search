@@ -119,6 +119,8 @@ public class Map {
         return new HashSet<>(getPassangers(indexDriver));
     }
 
+
+
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
@@ -166,19 +168,6 @@ public class Map {
     }
 
 
-
-    public boolean swap(int i, int j, int c){
-
-        ArrayList a = (ArrayList)estatConductors.get(c).getSecond();
-        int a1 = (Integer)a.get(i);
-        int b1 = (Integer)a.get(j);
-        a.set(i,a1);
-        a.set(j,b1);
-        Pair p = new Pair(estatConductors.get(c).getFirst(),a);
-        estatConductors.set(c,p);
-        return true;
-
-    }
 
     /**Function to find distance from a given passanger assignation **/
     /** The calculus will be made in hundred meters units, so there is a maximum of 300 per passenger **/
@@ -230,21 +219,18 @@ public class Map {
 
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
-    public void swapOrder(int p1, int p2, int c){
-
-        int q1 = getPassangers(c).indexOf(p1);
-        int q2 = getPassangers(c).indexOf(p2);
-        if(q1 >= 0 || q2 >= 0) {
-            getPassangers(c).set(q1,p2);
-            getPassangers(c).set(q2,p1);
-            q1 = getPassangers(c).indexOf(p1);
-            q2 = getPassangers(c).indexOf(p2);
-            getPassangers(c).set(q1,p2);
-            getPassangers(c).set(q2,p1);
-        }
-        int newDist = calculateDistance(c,getPassangers(c));
-        setDistance(c,newDist);
+    public boolean swapOrder(int i, int j, int c){
+        ArrayList a = (ArrayList) estatConductors.get(c).getSecond();   //Obtenim els passatgers de un cotxe
+        int a1 = (Integer)a.get(i);
+        int b1 = (Integer)a.get(j);
+        a.set(j,a1);
+        a.set(i,b1);
+        Pair p = new Pair(estatConductors.get(c).getFirst(),a);
+        estatConductors.set(c,p);
+        return true;
     }
+
+
 
     /** Operator Swap Car between p1 in c1 and p2 in c2 **/
     public void swapCar(int p1, int p2, int c1, int c2) {
