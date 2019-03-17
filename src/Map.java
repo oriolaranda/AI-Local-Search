@@ -114,15 +114,6 @@ public class Map {
         return (ArrayList<Integer>) estatConductors.get(indexDriver).getSecond();
     }
 
-
-    //Retruns a set with all the passangers that are taken by a driver
-    public HashSet<Integer> getPassangersNotRepeated (int indexDriver)
-    {
-        return new HashSet<>(getPassangers(indexDriver));
-    }
-
-
-
     public ArrayList<Boolean> getEstaRecullit() {
         return estaRecullit;
     }
@@ -164,12 +155,20 @@ public class Map {
         estatConductors.set(j,new Pair(new Pair(newDistance,id),a));
     }
 
-    public void setEstaRecullit(int person, boolean result)
-    {
-        estaRecullit.set(person,result);
+
+
+    public boolean swap(int i, int j, int c){
+
+        ArrayList a = (ArrayList)estatConductors.get(c).getSecond();
+        int a1 = (Integer)a.get(i);
+        int b1 = (Integer)a.get(j);
+        a.set(i,a1);
+        a.set(j,b1);
+        Pair p = new Pair(estatConductors.get(c).getFirst(),a);
+        estatConductors.set(c,p);
+        return true;
+
     }
-
-
 
     /**Function to find distance from a given passanger assignation **/
     /** The calculus will be made in hundred meters units, so there is a maximum of 300 per passenger **/
@@ -222,6 +221,7 @@ public class Map {
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
     public void swapOrder(int p1, int p2, int c){
+
         int q1 = getPassangers(c).indexOf(p1);
         int q2 = getPassangers(c).indexOf(p2);
         if(q1 >= 0 || q2 >= 0) {
@@ -253,7 +253,6 @@ public class Map {
         setDistance(c1,newDist1);
         setDistance(c2,newDist2);
     }
-
 
     /** Operator Add Person p in car c **/
     public void addPerson(int p, int c){
