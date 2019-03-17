@@ -49,7 +49,7 @@ public class GUIForm extends JFrame
     private JComboBox successorsListSim;
     private JPanel leftPanel2;
     private JPanel mapaSim;
-    private JButton executarSimulatedAnnealingButton;
+    private JButton executarSim;
     private JPanel parametresSim;
 
     public GUIForm()
@@ -137,12 +137,13 @@ public class GUIForm extends JFrame
     private void initHillClimbing()
     {
 
+        executarHill.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     //initialize simulatedAnnealing Panel
     private void initSimulatedAnnealing()
     {
-
+        executarSim.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
 
