@@ -7,6 +7,21 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+private static void MapHillClimbing1(Map m) {
+
+        try {
+        Problem problem =  new Problem(m,new MapSuccesors(), new MapGoal());
+        Search search =  new DepthLimitedSearch(limit);
+        SearchAgent agent = new SearchAgent(problem,search);
+
+        System.out.println();
+        printActions(agent.getActions());
+        printInstrumentation(agent.getInstrumentation());
+        } catch (Exception e) {
+        e.printStackTrace();
+        }
+}
+
 public class Main {
 
     public static ArrayList<Boolean> isConductor = new ArrayList<>(); //This must be global
