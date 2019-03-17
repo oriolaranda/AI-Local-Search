@@ -107,6 +107,16 @@ public class Map {
     }
 
 
+    public void setEstaRecullit(int index, boolean newState)
+    {
+        estaRecullit.set(index,newState);
+    }
+
+
+    public void getPassangersNotRepeated()
+    {
+
+    }
 
 
     public ArrayList<Integer> getPassangers (int indexDriver)
