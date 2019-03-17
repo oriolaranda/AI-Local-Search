@@ -113,11 +113,11 @@ public class Map {
     }
 
 
-    public void getPassangersNotRepeated()
+    //Retruns a set with all the passangers that are taken by a driver
+    public HashSet<Integer> getPassangersNotRepeated (int indexDriver)
     {
-
+        return new HashSet<>(getPassangers(indexDriver));
     }
-
 
     public ArrayList<Integer> getPassangers (int indexDriver)
     {
