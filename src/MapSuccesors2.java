@@ -113,7 +113,7 @@ public class MapSuccesors2  implements SuccessorFunction {
     private ArrayList<HashSet<Integer>> passangersFromAllCars (Map currentState)
     {
         ArrayList<HashSet<Integer>> a = new ArrayList<>();
-        for (int c=0; c < m; ++c)
+        for (int c=0; c < currentState.getEstatConductors().size(); ++c)
             a.add(currentState.getPassangersNotRepeated(c));
 
         return a;

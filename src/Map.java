@@ -29,7 +29,7 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioBasica();
+        assignacioConductorsSols();
     }
 
 
@@ -354,8 +354,10 @@ public class Map {
     /** This thir function **/
 
     public void assignacioConductorsSols () {
-        //WE DON'T DO ANYTHING SINCE WE DON'T HAVE TO ASSIGN ANY PASSANGER TO ANY CAR YET
-
+        for (int i=0; i < m;++i) {   //iterate over all drivers to assign their distance
+            int km = calculateDistance(i, new ArrayList<Integer>());
+            setDistance(i, km);
+        }
     }
 
 
