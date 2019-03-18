@@ -29,7 +29,7 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioConductorsSols();
+        assignacioRandom();
     }
 
 

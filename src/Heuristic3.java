@@ -29,12 +29,12 @@ public class Heuristic3 implements HeuristicFunction{
             if(!r)
                 ++norecollits;
 
-        k += 1000*norecollits;
+        k += 50*norecollits;
 
 
         //WE BENEFIT THE MINIMUM NUMBER OF DRIVERS
         int diff = m-e.size();  //number of drivers who are passangers now
-        k -= diff*500;
+        k -= diff*50;
 
         return k;
     }

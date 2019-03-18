@@ -22,7 +22,7 @@ public class Main {
 
     public static ArrayList<Boolean> isConductor = new ArrayList<>(); //This must be global
     public static Usuarios nouUsuaris;    //this must be global
-    public static int n = 150;
+    public static int n = 120;
     public static int m = 50;
     public static int seed = 2;
 
