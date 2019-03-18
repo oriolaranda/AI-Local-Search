@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import aima.search.framework.HeuristicFunction;
 import aima.util.Pair;
 
+/** This heuristic tries only to go to a solution where all passangers make it on time and minimizes the distance **/
 public class Heuristic1 implements HeuristicFunction{
     @Override
     public int getHeuristicValue(Object n) {

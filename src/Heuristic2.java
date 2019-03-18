@@ -15,7 +15,7 @@ public class Heuristic2 implements HeuristicFunction{
         int k = 0;
         for (int i = 0; i < e.size(); ++i){ //Iterate over every driver
             int km = m.getDistance(i);  //we get the distance of this driver
-            if (km > 300) k += 50;
+            if (km > 300) k += 1;
             sumatotal += km;
         }
         ArrayList<Boolean> estaRecollit = m.getEstaRecullit();
@@ -24,7 +24,7 @@ public class Heuristic2 implements HeuristicFunction{
             if(!r)
                 ++norecollits;
 
-        k += 50*norecollits;
+        k += 1*norecollits;
         return k;
     }
 }
