@@ -24,7 +24,8 @@ public class MapSuccesors2  implements SuccessorFunction {
         ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
         for (int i=0; i < estaRecullit.size(); ++i)
         {
-            if (!estaRecullit.get(i) && !isConductor.get(i))
+            //we need to check that this is really not a driver. Not that it could be one
+            if (!estaRecullit.get(i))
             {
                 for(int c=0; c < map.getEstatConductors().size(); ++c)
                 {

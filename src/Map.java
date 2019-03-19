@@ -9,12 +9,13 @@ import java.util.Random;
 
 import IA.Comparticion.*;
 import aima.util.Pair;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import src.Main;
 
 import static src.Main.n;
 import static src.Main.m;
 import static src.Main.nouUsuaris;
-import static src.Main.isConductor;
+import static src.Main.potConduir;
 
 
 public class Map {
@@ -24,12 +25,11 @@ public class Map {
     private ArrayList<Pair> estatConductors = new ArrayList<>();
     private ArrayList<Boolean> estaRecullit = new ArrayList<>();
 
-
     /** Constructor **/
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioRandom();
+        assignacioBasica();
     }
 
 
@@ -59,14 +59,14 @@ public class Map {
 
     private void initializeEstaRecollit()
     {
-        estaRecullit.addAll(isConductor);   //we inicialize all the drivers to true since they have already been picked-up
+        estaRecullit.addAll(potConduir);   //we inicialize all the drivers to true since they have already been picked-up
     }
 
 
     private void inicializeEstatConductors()
     {
         for (int i=0; i < n; ++i) {
-            if (isConductor.get(i)) //if it enters, then we have a new driver
+            if (potConduir.get(i)) //if it enters, then we have a new driver
             {
                 Pair a = new Pair(0,i); //Pair of the distance and then the index of the driver
                 ArrayList<Pair> b = new ArrayList<>();  //order of the people that the car has brought
@@ -142,10 +142,10 @@ public class Map {
             System.out.println(estaRecullit.get(i));
     }
 
-    public void printIsConductor()
+    public void printPotConduir()
     {
         for(int i=0; i < n;++i)
-            System.out.println(isConductor.get(i));
+            System.out.println(potConduir.get(i));
     }
 
 
@@ -218,7 +218,6 @@ public class Map {
 
     /** Operator Swap Order of p1 and p2 in the same car c**/
     public boolean swapOrder(int i, int j, int c){
-
         ArrayList a = (ArrayList)estatConductors.get(c).getSecond();
         int a1 = (Integer)a.get(i);
         int b1 = (Integer)a.get(j);
@@ -316,7 +315,7 @@ public class Map {
         for(int i=0; i<n; ++i){ /** recorrem les N persones **/
             if (j == estatConductors.size()) j = 0;
 
-            if(!isConductor.get(i)){ /** si la persona i es un passetger **/
+            if(!potConduir.get(i)){ /** si la persona i es un passetger **/
                 estaRecullit.set(i,true);
 
                 ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
@@ -337,7 +336,7 @@ public class Map {
         Random r  = new Random();
 
         for(int i=0; i<n; ++i){ /** recorrem les N persones **/
-            if(!isConductor.get(i)){ /** si la persona i es un passetger **/
+            if(!potConduir.get(i)){ /** si la persona i es un passetger **/
                 estaRecullit.set(i,true);
                 int j = r.nextInt(m);   //we generate a random index of a driver
 

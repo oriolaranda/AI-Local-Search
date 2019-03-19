@@ -26,8 +26,9 @@ public class MapSuccesors  implements SuccessorFunction{
         ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
         for (int i=0; i < estaRecullit.size(); ++i)
         {
-            if (!estaRecullit.get(i) && !isConductor.get(i))
+            if (!estaRecullit.get(i))   //we only need to check that he has not been picked up
             {
+                //when we remove a car, do the index keep working????
                 for(int c=0; c < map.getEstatConductors().size(); ++c)
                 {
                     Map aux = new Map(map); // copy of map
@@ -44,7 +45,7 @@ public class MapSuccesors  implements SuccessorFunction{
 
 
         //REMOVE PERSON
-        for (int c=0; c < map.getEstatConductors().size(); ++c)   //we iterate over all the drivers
+        for (int c=0; c < map.getEstatConductors().size(); ++c)   //we iterate over all possible drivers
         {
             HashSet<Integer> p = uniquePassengers.get(c);
 
