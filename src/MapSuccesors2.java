@@ -1,20 +1,18 @@
 package src;
 
-import IA.Centrals.Representacio;
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
+import src.Map;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.HashSet;
 
 import static src.Main.*;
 
+/** This mapSuccesor function tries to minimize the distance as well as the number of drivers **/
 
-/** This successor function does not generate the possibility to delete a driver **/
-public class MapSuccesors  implements SuccessorFunction{
+public class MapSuccesors2  implements SuccessorFunction {
 
     public List getSuccessors(Object state)
     {
@@ -26,9 +24,9 @@ public class MapSuccesors  implements SuccessorFunction{
         ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
         for (int i=0; i < estaRecullit.size(); ++i)
         {
-            if (!estaRecullit.get(i))   //we only need to check that he has not been picked up
+            //we need to check that this is really not a driver. Not that it could be one
+            if (!estaRecullit.get(i))
             {
-                //when we remove a car, do the index keep working????
                 for(int c=0; c < map.getEstatConductors().size(); ++c)
                 {
                     Map aux = new Map(map); // copy of map
@@ -40,20 +38,25 @@ public class MapSuccesors  implements SuccessorFunction{
         }
 
 
-
         ArrayList<HashSet<Integer>> uniquePassengers = passangersFromAllCars(map);
 
 
         //REMOVE PERSON
-        for (int c=0; c < map.getEstatConductors().size(); ++c)   //we iterate over all possible drivers
+        for (int c=0; c < map.getEstatConductors().size(); ++c)   //we iterate over all the drivers
         {
             HashSet<Integer> p = uniquePassengers.get(c);
 
             for (int k : p)
             {
-               Map aux = new Map(map);
-               aux.rmPerson(k,c);
-               retVal.add(new Successor(new String("Borrem una persona del cotxe"+c), aux));
+                Map aux = new Map(map);
+                aux.rmPerson(k,c);
+                retVal.add(new Successor(new String("Borrem la persona "+k+" del cotxe"+c), aux));   //the driver drives alone
+
+                if (aux.getPassangers(c).size() == 0) {   //there is only the driver
+                    Map aux2 = new Map(aux);
+                    aux2.removeDriver(c);
+                    retVal.add(new Successor(new String("Hem borrat la persona "+k+" del cotxe "+c+" i hem eliminat aquest conductor"),aux2));
+                }
             }
         }
 
@@ -102,6 +105,7 @@ public class MapSuccesors  implements SuccessorFunction{
                 }
             }
         }
+
         return retVal;
     }
 
@@ -109,9 +113,8 @@ public class MapSuccesors  implements SuccessorFunction{
 
     private ArrayList<HashSet<Integer>> passangersFromAllCars (Map currentState)
     {
-        Map map = (Map)currentState;
         ArrayList<HashSet<Integer>> a = new ArrayList<>();
-        for (int c=0; c < map.getEstatConductors().size(); ++c)
+        for (int c=0; c < currentState.getEstatConductors().size(); ++c)
             a.add(currentState.getPassangersNotRepeated(c));
 
         return a;
