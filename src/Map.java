@@ -29,16 +29,9 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        int option;
-        switch (option) {
-
-            case (0):
-                assignacioBasica();
-            case (1):
-                assignacioRandom();
-            default:
-                assignacioConductorsSols();
-        }
+        //assignacioRandom();
+       // assignacioBasica();
+        assignacioConductorsSols();
     }
 
 
@@ -297,7 +290,9 @@ public class Map {
     {
         if (isCarEmpty(c))
         {
-            estaRecullit.set(c, false);
+            //c is the car index but we need the person's
+            int index = (Integer)((Pair)estatConductors.get(c).getFirst()).getSecond();
+            estaRecullit.set(index, false);
             estatConductors.remove(c);
             return true;
         }
@@ -350,7 +345,7 @@ public class Map {
                 estaRecullit.set(i,true);
                 int j = r.nextInt(m);   //we generate a random index of a driver
 
-                ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
+                ArrayList<Integer> a = getPassangers(j) ;
                 a.add(i);   //one for the pick-up
                 a.add(i);   //one for the arrival
                 changeInfoCar(j, 0,a);  //no actualitzem encara la distancia

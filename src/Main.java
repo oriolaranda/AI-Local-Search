@@ -23,22 +23,21 @@ public class Main {
 
     public static ArrayList<Boolean> potConduir = new ArrayList<>(); //This must be global
     public static Usuarios nouUsuaris;    //this must be global
-    public static int n = 250;
+    public static int n = 200;
     public static int m = 100;
-    public static int seed = 123;
+    public static int seed = 2;
 
 
     public static void main(String[] args) {
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
         Map a = new Map();
-        //MapHillClimbing1(a);
+       // MapHillClimbing1(a);
         MapSimulatedAnnealing1(a);
     }
 
 
     private static void MapHillClimbing1(Map m) {
-
         try {
             Problem problem = new Problem(m, new MapSuccesors2(), new MapGoal(), new Heuristic4());
             Search search = new HillClimbingSearch();
@@ -58,7 +57,7 @@ public class Main {
     private static void MapSimulatedAnnealing1(Map m) {
 
         try {
-            Problem problem = new Problem(m, new MapSuccessorsSA2(), new MapGoal(), new Heuristic5());
+            Problem problem = new Problem(m, new MapSuccessorsSA4(), new MapGoal(), new Heuristic5());
             Search search = new SimulatedAnnealingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
 

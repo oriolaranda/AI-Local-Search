@@ -12,11 +12,11 @@ import java.util.Random;
 import static src.Main.potConduir;
 import static src.Main.n;
 
-/** This is equivalent to MapSuccessors but for Simulated Annealing **/
+/** This is equivalent to MapSuccessors2 but for Simulated Annealing but we can delete any driver that has no passangers, not only after deletion**/
 /** We need to make sure we only choose one value **/
 
 
-public class MapSuccessorsSA2 implements SuccessorFunction{
+public class MapSuccessorsSA4 implements SuccessorFunction{
     public List getSuccessors(Object state)
     {
         ArrayList retVal= new ArrayList();  //we must add all posibilities from a current state to this list
@@ -28,7 +28,7 @@ public class MapSuccessorsSA2 implements SuccessorFunction{
 
         while (!found) {
 
-            int option = myRandom.nextInt(4);
+            int option = myRandom.nextInt(5);
             int c, p1, p2;
             Map aux;
 
@@ -71,14 +71,7 @@ public class MapSuccessorsSA2 implements SuccessorFunction{
                         aux = new Map(map);
                         aux.rmPerson(k, c);
 
-                        boolean deletePassanger = myRandom.nextBoolean();
-                        if (!deletePassanger)
-                            retVal.add(new Successor(new String("Borrem la persona "+k+" del cotxe" + c), aux));
-
-                        else {
-                            if(aux.removeDriver(c))
-                                retVal.add(new Successor(new String("Hem borrat la persona "+k+" del cotxe de la persona"+((Pair)map.getEstatConductors().get(c).getFirst()).getSecond()+" i hem eliminat aquest conductor"),aux));
-                        }
+                        retVal.add(new Successor(new String("Borrem la persona "+k+" del cotxe" + c), aux));
                         found = true;
                     }
                     break;
@@ -103,6 +96,32 @@ public class MapSuccessorsSA2 implements SuccessorFunction{
                         found = true;
                         break;
                     }
+
+                case(3):
+                    //we obtain the drivers that have no passanger
+                    ArrayList<Integer> indexEmptyCars = new ArrayList<>();
+                    ArrayList<Pair> a = map.getEstatConductors();
+
+                    int counter = 0;
+                    for (Pair e : a)
+                    {
+                        ++counter;
+                        if (((ArrayList<Integer>)e.getSecond()).size() == 0)
+                        {
+                            indexEmptyCars.add(counter);
+                        }
+                    }
+
+                    if (indexEmptyCars.size() > 0) {
+                        c = myRandom.nextInt(indexEmptyCars.size());   //select one driver to delete
+                        Map aux2 = new Map(map);
+                        aux2.removeDriver(c);
+                        retVal.add(new Successor(new String("Hem eliminat aquest conductor " + c), aux2));
+                        found = true;
+                    }
+
+                    break;
+
 
                 default:
                     //SWAP ORDER

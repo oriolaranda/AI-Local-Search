@@ -2,6 +2,8 @@ package src;
 
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
+import aima.util.Pair;
+
 import src.Map;
 
 import java.util.ArrayList;
@@ -18,10 +20,25 @@ public class MapSuccesors2  implements SuccessorFunction {
     {
         ArrayList retVal= new ArrayList();  //we must add all posibilities from a current state to this list
         Map map = (Map)state;
+        ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
+
+
+        //DELETE DRIVERS
+        for (int i=0; i < map.getEstatConductors().size();++i)  //iterate over all drivers
+        {
+            if (map.getPassangers(i).size() == 0)
+            {
+                Map aux = new Map(map);
+                if (aux.removeDriver(i))
+                {
+                    retVal.add(new Successor(new String("Hem borrat la persona "+i+" del cotxe de la persona"+((Pair)map.getEstatConductors().get(i).getFirst()).getSecond()+" i hem eliminat aquest conductor"),aux));
+                }
+            }
+
+        }
 
 
         //ADD PERSON
-        ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
         for (int i=0; i < estaRecullit.size(); ++i)
         {
             //we need to check that this is really not a driver. Not that it could be one
@@ -51,12 +68,6 @@ public class MapSuccesors2  implements SuccessorFunction {
                 Map aux = new Map(map);
                 aux.rmPerson(k,c);
                 retVal.add(new Successor(new String("Borrem la persona "+k+" del cotxe"+c), aux));   //the driver drives alone
-
-                if (aux.getPassangers(c).size() == 0) {   //there is only the driver
-                    Map aux2 = new Map(aux);
-                    aux2.removeDriver(c);
-                    retVal.add(new Successor(new String("Hem borrat la persona "+k+" del cotxe "+c+" i hem eliminat aquest conductor"),aux2));
-                }
             }
         }
 
@@ -100,7 +111,7 @@ public class MapSuccesors2  implements SuccessorFunction {
                     Map aux = new Map(map); // copy of map
                     if (aux.swapOrder(j,k,c))   //we enter only if the operation is not between the same person
                     {
-                        retVal.add(new Successor(new String("Fem swap order del cotxe "+c+ " dels passatgers "+j+" i "+k), aux));
+                        retVal.add(new Successor(new String("Fem swap order del cotxe de la pe"+c+ " dels passatgers "+j+" i "+k), aux));
                     }
                 }
             }

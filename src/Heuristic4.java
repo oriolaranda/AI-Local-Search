@@ -14,7 +14,7 @@ import static src.Main.m;
  */
 
 //WORKS WELL WITH HILL CLIMBING
-    
+
 public class Heuristic4 implements HeuristicFunction{
     @Override
     public int getHeuristicValue(Object n) {
@@ -29,7 +29,7 @@ public class Heuristic4 implements HeuristicFunction{
         for (Pair a : e)
         {
             dist = (Integer) ((Pair) a.getFirst()).getFirst();
-            if (dist > 300) total += (dist-300)*500;  //We panalize the exceed of the distance.
+            if (dist > 300) total += (dist-300)*400;  //We panalize the exceed of the distance.
 
             total += min(300,dist);
         }
@@ -38,12 +38,12 @@ public class Heuristic4 implements HeuristicFunction{
         ArrayList<Boolean> b = map.getEstaRecullit();
         for (Boolean r : b)
             if (!r)
-                total += 750;  //we wanna make sure everyone has been picked up
+                total += 850;  //we wanna make sure everyone has been picked up
 
 
         //WE TRY TO MINIMIZE THE NUMBER OF DRIVERS
         int p = m-e.size(); //number of drivers that are passangers
-        total -= 1250*p;
+        total -= 1400*p;
 
         return total;
     }
