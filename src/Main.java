@@ -105,73 +105,44 @@ public class Main {
         Map m = new Map();
         try {
             Problem problem;
-            switch (funcioSuccessors) {
+            SuccessorFunction successor;
+            HeuristicFunction heuristic;
+
+            switch (heuristica) {
                 case 0:
-
-                    MapSuccessorsSA1 ms = new MapSuccessorsSA1();
-
-                    switch (heuristica) {
-                        case 0:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic1());
-                            break;
-                        case 1:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic2());
-                            break;
-                        case 2:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic3());
-                            break;
-                        case 3:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic4());
-                            break;
-                        default:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic5());
-                            break;
-                    }
+                    heuristic = new Heuristic1();
+                    break;
                 case 1:
+                    heuristic = new Heuristic2();
+                    break;
 
-                    MapSuccessorsSA2 ms2 = new MapSuccessorsSA2();
+                case 2:
+                    heuristic = new Heuristic3();
+                    break;
 
-                    switch (heuristica) {
-                        case 0:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic1());
-                            break;
-                        case 1:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic2());
-                            break;
-                        case 2:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic3());
-                            break;
-                        case 3:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic4());
-                            break;
-                        default:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic5());
-                            break;
-                    }
+                case 3:
+                    heuristic = new Heuristic4();
+                    break;
 
                 default:
-
-                    MapSuccessorsSA3 ms3 = new MapSuccessorsSA3();
-
-                    switch (heuristica) {
-                        case 0:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic1());
-                            break;
-                        case 1:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic2());
-                            break;
-                        case 2:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic3());
-                            break;
-                        case 3:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic4());
-                            break;
-                        default:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic5());
-                            break;
-                    }
+                    heuristic = new Heuristic5();
+                    break;
             }
 
+            switch (funcioSuccessors) {
+                case 0:
+                    successor = new MapSuccesors();
+                    break;
+                case 1:
+                    successor = new MapSuccesors2();
+                    break;
+
+                default:
+                    successor = new MapSuccesors3();
+                    break;
+            }
+
+            problem = new Problem(m, successor, new MapGoal(), heuristic);
             Search search = new SimulatedAnnealingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
 
@@ -185,10 +156,6 @@ public class Main {
                 e.printStackTrace();
             }
     }
-
-
-
-
 
 
 
