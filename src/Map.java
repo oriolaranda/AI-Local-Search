@@ -29,7 +29,7 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioBasica();
+        assignacioRandom();
     }
 
 
@@ -343,10 +343,18 @@ public class Map {
                 ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
                 a.add(i);   //one for the pick-up
                 a.add(i);   //one for the arrival
-                int km = calculateDistance(j,a);
-                changeInfoCar(j, km,a);
+                changeInfoCar(j, 0,a);  //no actualitzem encara la distancia
             }
         }
+
+        for (int i=0; i < m; ++i)
+        {
+            ArrayList<Integer> a = getPassangers(i);
+            int km = calculateDistance(i, a);
+            changeInfoCar(i, km, a);
+        }
+
+
     }
 
 
