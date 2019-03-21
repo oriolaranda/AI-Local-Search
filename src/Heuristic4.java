@@ -13,7 +13,8 @@ import static src.Main.m;
  * We shall ponderate here more the distance than the drivers
  */
 
-
+//WORKS WELL WITH HILL CLIMBING
+    
 public class Heuristic4 implements HeuristicFunction{
     @Override
     public int getHeuristicValue(Object n) {

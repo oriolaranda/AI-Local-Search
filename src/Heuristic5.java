@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import aima.search.framework.HeuristicFunction;
 import aima.util.Pair;
+import java.lang.Math;
 
 import static src.Main.m;
 
@@ -42,10 +43,19 @@ public class Heuristic5 implements HeuristicFunction{
 
         //WE TRY TO MINIMIZE THE NUMBER OF DRIVERS
         int p = m-e.size(); //number of drivers that are passangers
-        total -= 1250*p;
+        total -= 750*p;
 
 
-        //WE TRY THEM TO HAVE EITHER LOTS OR VERY FEW PASSANGERS
+        //WE TRY THEM TO HAVE EITHER LOTS OR VERY FEW PASSANGERS (consider lots 2 passangers)
+        //WE USE ENTHROPY
+        double sum_total = 0;
+        for (Pair driver : e) { //for every driver
+            int number_passangers = ((ArrayList<Integer>) driver.getSecond()).size();
+            sum_total += (number_passangers/4.0) * Math.log((double)number_passangers/4.0);
+        }
+        System.out.println(sum_total);
+        total += sum_total*100;
+
 
         return total;
     }

@@ -41,6 +41,7 @@ public class MapSuccesors3  implements SuccessorFunction{
 
         ArrayList<HashSet<Integer>> uniquePassengers = passangersFromAllCars(map);
 
+
         //REMOVE PERSON
         for (int c=0; c < map.getEstatConductors().size(); ++c)   //we iterate over all possible drivers
         {

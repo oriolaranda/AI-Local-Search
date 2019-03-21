@@ -32,8 +32,8 @@ public class Main {
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
         Map a = new Map();
-        MapHillClimbing1(a);
-       // MapSimulatedAnnealing1(a);
+        //MapHillClimbing1(a);
+        MapSimulatedAnnealing1(a);
     }
 
 
