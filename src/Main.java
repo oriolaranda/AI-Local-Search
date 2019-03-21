@@ -25,15 +25,19 @@ public class Main {
     public static Usuarios nouUsuaris;    //this must be global
     public static int n = 200;
     public static int m = 100;
-    public static int seed = 2;
+    public static int seed = 1234;
 
 
     public static void main(String[] args) {
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
         Map a = new Map();
-       // MapHillClimbing1(a);
-        MapSimulatedAnnealing1(a);
+        double start = System.nanoTime();
+        MapHillClimbing1(a);
+        double diff = System.nanoTime() - start;
+        diff /= 1000000000;
+        System.out.println(diff);
+       // MapSimulatedAnnealing1(a);
     }
 
 
@@ -54,6 +58,7 @@ public class Main {
         }
     }
 
+
     private static void MapSimulatedAnnealing1(Map m) {
 
         try {
@@ -70,6 +75,10 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+
+
+
 
 
 
