@@ -18,7 +18,6 @@ import aima.util.Pair;
 
 
 public class Main {
-
     public static ArrayList<Boolean> potConduir = new ArrayList<>(); //This must be global
     public static Usuarios nouUsuaris;    //this must be global
     public static int n = 200;
@@ -26,27 +25,34 @@ public class Main {
     public static int seed = 2;
 
 
-
     public static void main(String[] args) {
+        //GENERAR CIUTAT
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
-        triaAlgorisme(0,1,3);
+
+        //GENERAR ESTAT SOLUCIO
+        Map m = new Map();
+        m.tipusAssignacio(1);   //triem el tipus de solucio inicial que volem
+
+
+        //GENERAR SOLUCIO FINAL
+        triaAlgorisme(m,0,1,3);
     }
 
 
-    public static void triaAlgorisme(int algorisme, int funcioSuccesors, int heuristica){
+
+
+    public static void triaAlgorisme(Map m, int algorisme, int funcioSuccesors, int heuristica){
         switch(algorisme){
             case 0:
-                MapHillClimbing1(funcioSuccesors,heuristica);
+                MapHillClimbing1(m,funcioSuccesors,heuristica);
 
-            default: MapSimulatedAnnealing1(funcioSuccesors,heuristica);
+            default: MapSimulatedAnnealing1(m,funcioSuccesors,heuristica);
         }
     }
 
 
-    private static void MapHillClimbing1(int funcioSuccessors, int heuristica) {
-        Map m = new Map();
-        m.tipusAssignacio(1);
+    private static void MapHillClimbing1(Map m,int funcioSuccessors, int heuristica) {
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -100,9 +106,7 @@ public class Main {
     }
 
 
-    private static void MapSimulatedAnnealing1(int funcioSuccessors, int heuristica) {
-        Map m = new Map();
-        m.tipusAssignacio(1);
+    private static void MapSimulatedAnnealing1(Map m, int funcioSuccessors, int heuristica) {
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -160,7 +164,6 @@ public class Main {
 
 
     /** Auxiliary functions to return the solutions in the correct format **/
-
 
     //Useful to print in the UI the solution
     private static String solutionToString(Map a)
