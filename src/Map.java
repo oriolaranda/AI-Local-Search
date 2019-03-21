@@ -29,9 +29,7 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-      //  assignacioRandom();
-        assignacioBasica();
-       // assignacioConductorsSols();
+        tipusAssignacio();
     }
 
 
@@ -40,6 +38,24 @@ public class Map {
         copyOfEstatConductors((ArrayList<Pair>) map.getEstatConductors());
         this.estaRecullit = (ArrayList<Boolean>) map.getEstaRecullit().clone(); //aquest clone funciona
     }
+
+
+
+    /** Auxiliar functions **/
+
+    public void tipusAssignacio(){
+        int option;
+        switch (option) {
+
+            case (0):
+                assignacioBasica();
+            case (1):
+                assignacioRandom();
+            default:
+                assignacioConductorsSols();
+        }
+    }
+
 
 
 
