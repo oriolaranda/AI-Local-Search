@@ -59,6 +59,7 @@ public class GUIForm extends JFrame
     private JLabel itValue;
     private JLabel stepsItValue;
     private JLabel lambdaValue;
+    private MapCanvas mapCanvas1;
 
     public GUIForm()
     {
@@ -220,9 +221,14 @@ public class GUIForm extends JFrame
         estatsSolucio.setBorder(BorderFactory.createTitledBorder("Estat solució inicial"));
         heuristics.setBorder(BorderFactory.createTitledBorder("Heurístic"));
 
+        mapaInicial = new MapCanvas();
+
         //Hill Climbing panel
         successorsHill = new JPanel();
         successorsHill.setBorder(BorderFactory.createTitledBorder("Estats successors"));
+
+        mapaHill = new MapCanvas();
+
 
         //Simulated Annealing panel
         successorsSim = new JPanel();
@@ -230,8 +236,8 @@ public class GUIForm extends JFrame
 
         parametresSim = new JPanel();
         parametresSim.setBorder(BorderFactory.createTitledBorder("Paràmetres inicials"));
-        /* Canvas ??*/
-        //mapaInicial = new JPanel();
+
+        mapaSim = new MapCanvas();
     }
 
 
@@ -248,7 +254,7 @@ public class GUIForm extends JFrame
                 getToolkit().beep();
             }
         } else if (type == 1) {
-            if((evt.getKeyChar() != '.' && !Character.isDigit(evt.getKeyChar())) || (input.getText().length() >= length)){
+            if((evt.getKeyChar() != '.' && !Character.isDigit(evt.getKeyChar())) || input.getText().length() >= length || (evt.getKeyChar() == '.' && input.getText().contains("."))){
                 evt.consume();
                 getToolkit().beep();
             }
@@ -265,13 +271,13 @@ public class GUIForm extends JFrame
         int m = Integer.parseInt(mInput.getText());
         int seed = Integer.parseInt(seedInput.getText());
 
-
     }
 
     private void generarEstatsSolucioInicials()
     {
         //funcio estats solucio incials
-        //estatsSolucioList.getSelectedItem();
+        String seleccio = (String) estatsSolucioList.getSelectedItem();
+        System.out.println(seleccio);
     }
 
     private void executarHillClimbing()
@@ -281,6 +287,12 @@ public class GUIForm extends JFrame
 
         //heuristic
         //heuristicsList.getSelectedItem();
+/*
+        Graphics g = mapaHill.getGraphics();
+        g.setColor(Color.BLACK);
+        g.drawLine(10,20,40,50);*/
+
+        //mapaHill.drawPoint(50,50,Color.GREEN);
     }
 
     private void executarSimulatedAnnealing()
