@@ -29,7 +29,16 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioRandom();
+        int option;
+        switch (option) {
+
+            case (0):
+                assignacioBasica();
+            case (1):
+                assignacioRandom();
+            default:
+                assignacioConductorsSols();
+        }
     }
 
 
@@ -309,7 +318,8 @@ public class Map {
     /** FUNCTIONS TO OBTAIN AN INITIAL SOLUTION **/
 
     /** This first function assigns n/m persons per driver **/
-    public void assignacioBasica(){
+    public void assignacioBasica()
+    {
         int j = 0;  //index of the estatConductors vector. It indicates what car we are going to locate the people to.
 
         for(int i=0; i<n; ++i){ /** recorrem les N persones **/
