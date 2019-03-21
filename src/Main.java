@@ -44,9 +44,9 @@ public class Main {
             SearchAgent agent = new SearchAgent(problem, search);
 
             System.out.println();
-            printActions(agent.getActions());
-            printInstrumentation(agent.getInstrumentation());
-            printSolution((Map) search.getGoalState());
+            System.out.println(actionsToString(agent.getActions()));
+            System.out.println(instrumentationToString(agent.getInstrumentation()));
+            System.out.println(solutionToString((Map) search.getGoalState()));
 
             System.out.println(checkSolution((Map) search.getGoalState()));
         } catch (Exception e) {
@@ -62,10 +62,9 @@ public class Main {
             SearchAgent agent = new SearchAgent(problem, search);
 
             System.out.println();
-            printActions(agent.getActions());
-            printInstrumentation(agent.getInstrumentation());
-            printSolution((Map) search.getGoalState());
-
+            System.out.println(actionsToString(agent.getActions()));
+            System.out.println(instrumentationToString(agent.getInstrumentation()));
+            System.out.println(solutionToString((Map) search.getGoalState()));
             System.out.println(checkSolution((Map) search.getGoalState()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,43 +73,59 @@ public class Main {
 
 
 
-    /** Auxiliary functions to print the solutions **/
+    /** Auxiliary functions to return the solutions in the correct format **/
 
-    private static void printSolution(Map a) {
+
+    //Useful to print in the UI the solution
+    private static String solutionToString(Map a)
+    {
+        String result = "";
         ArrayList<Pair> b = a.getEstatConductors();
         int total_dist = 0;
         for (Pair c : b) {
             Pair d = (Pair) c.getFirst();
             total_dist += (Integer) d.getFirst();
-            System.out.println("El conductor " + d.getSecond() + " fa " + d.getFirst());
-            System.out.println("Ordre de recollida/arribada de passatgers");
+            result += "El conductor " + d.getSecond() + " fa " + ((Integer)d.getFirst()/10.0) +" km \n";
+
             ArrayList<Integer> e = (ArrayList<Integer>) c.getSecond();
-            for (Integer p : e)
-                System.out.print(p + " ");
-            System.out.println("\n");
+            if (e.size() > 0) {
+                result += "El seu ordre de recollida/arribada de passatgers es ";
+
+                for (Integer p : e)
+                    result += p + " ";
+                result += "\n\n";
+            }
+            else result += "Aquest conductor no porta cap passatger \n\n";
         }
 
-        System.out.println("El total de la distance es "+total_dist);
-        System.out.println("El nombre total de conductors es "+a.getEstatConductors().size());
+        result += "El total de la distance es "+(total_dist/10.0)+" km\n";
+        result += "El nombre total de conductors es "+a.getEstatConductors().size()+" sobre els "+m+" possibles";
 
+
+        return result;
     }
 
-    private static void printInstrumentation(Properties properties) {
+
+    private static String instrumentationToString(Properties properties) {
+        String result = "";
         Iterator keys = properties.keySet().iterator();
         while (keys.hasNext()) {
             String key = (String) keys.next();
             String property = properties.getProperty(key);
-            System.out.println(key + " : " + property);
+            result += key + " : " + property+"\n";
         }
-
+        return result;
     }
 
-    private static void printActions(List actions) {
-        System.out.println(actions.size());
+
+    private static String actionsToString(List actions) {
+        String result = "";
+        result += "Hem realitzat "+actions.size()+" accions\n";
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
-            System.out.println(action);
+            result += action +"\n";
         }
+        return result;
     }
 
 

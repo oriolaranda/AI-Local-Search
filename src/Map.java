@@ -9,8 +9,6 @@ import java.util.Random;
 
 import IA.Comparticion.*;
 import aima.util.Pair;
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import src.Main;
 
 import static src.Main.n;
 import static src.Main.m;
