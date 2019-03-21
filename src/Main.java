@@ -29,15 +29,12 @@ public class Main {
 
     public static void triaAlgorisme(int algorisme, int funcioSuccesors, int heuristica){
 
+
         switch(algorisme){
             case 0:
-                MapHillClimbing1(new Map(),funcioSuccesors,heuristica);
-            case 1:
-                Map m = new Map();
-                m.tipusAssignacio(0);
-                MapSimulatedAnnealing1(m,funcioSuccesors,heuristica);
-                MapHillClimbing1(m,funcioSuccesors,heuristica);
-            default: MapSimulatedAnnealing1(new Map(),funcioSuccesors,heuristica);
+                MapHillClimbing1(funcioSuccesors,heuristica);
+
+            default: MapSimulatedAnnealing1(funcioSuccesors,heuristica);
         }
     }
 
@@ -50,7 +47,9 @@ public class Main {
 
 
 
-    private static void MapHillClimbing1(Map m, int funcioSuccessors, int heuristica) {
+    private static void MapHillClimbing1(int funcioSuccessors, int heuristica) {
+
+        Map m = new Map();
 
         try {
             Problem problem;
@@ -135,8 +134,9 @@ public class Main {
         }
     }
 
-    private static void MapSimulatedAnnealing1(Map m, int funcioSuccessors, int heuristica) {
+    private static void MapSimulatedAnnealing1(int funcioSuccessors, int heuristica) {
 
+        Map m = new Map();
         try {
             Problem problem;
             switch (funcioSuccessors) {
