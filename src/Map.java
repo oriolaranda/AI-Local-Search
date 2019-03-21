@@ -43,16 +43,19 @@ public class Map {
 
     /** Auxiliar functions **/
 
-    public void tipusAssignacio(){  //aixo no se perque falla
+    public void tipusAssignacio(){
         int option = 0;
         switch (option) {
 
             case (0):
                 assignacioBasica();
+                break;
             case (1):
                 assignacioRandom();
+                break;
             default:
                 assignacioConductorsSols();
+                break;
         }
     }
 
