@@ -29,16 +29,7 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        int option;
-        switch (option) {
-
-            case (0):
-                assignacioBasica();
-            case (1):
-                assignacioRandom();
-            default:
-                assignacioConductorsSols();
-        }
+        tipusAssignacio();
     }
 
 
@@ -52,6 +43,18 @@ public class Map {
 
     /** Auxiliar functions **/
 
+    public void tipusAssignacio(){
+        int option;
+        switch (option) {
+
+            case (0):
+                assignacioBasica();
+            case (1):
+                assignacioRandom();
+            default:
+                assignacioConductorsSols();
+        }
+    }
     //Function that clones the estatConductors variable
     private void copyOfEstatConductors (ArrayList<Pair> e)
     {
