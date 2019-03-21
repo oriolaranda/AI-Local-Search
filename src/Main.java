@@ -25,25 +25,102 @@ public class Main {
     public static Usuarios nouUsuaris;    //this must be global
     public static int n = 200;
     public static int m = 100;
-    public static int seed = 1234;
+    public static int seed = 2;
 
+    public static void triaAlgorisme(int algorisme, int funcioSuccesors, int heuristica){
+
+        switch(algorisme){
+            case 0:
+                MapHillClimbing1(new Map(),funcioSuccesors,heuristica);
+            case 1:
+                Map m = new Map();
+                m.tipusAssignacio(0);
+                MapSimulatedAnnealing1(m,funcioSuccesors,heuristica);
+                MapHillClimbing1(m,funcioSuccesors,heuristica);
+            default: MapSimulatedAnnealing1(new Map(),funcioSuccesors,heuristica);
+        }
+    }
 
     public static void main(String[] args) {
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
-        Map a = new Map();
-        double start = System.nanoTime();
-        MapHillClimbing1(a);
-        double diff = System.nanoTime() - start;
-        diff /= 1000000000;
-        System.out.println(diff);
-       // MapSimulatedAnnealing1(a);
+        triaAlgorisme(0,0,0);
+
     }
 
 
-    private static void MapHillClimbing1(Map m) {
+
+    private static void MapHillClimbing1(Map m, int funcioSuccessors, int heuristica) {
+
         try {
-            Problem problem = new Problem(m, new MapSuccesors2(), new MapGoal(), new Heuristic3());
+            Problem problem;
+            switch (funcioSuccessors){
+                case 0:
+
+                    MapSuccesors ms  = new MapSuccesors();
+
+                    switch (heuristica){
+                        case 0:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic1());
+                            break;
+                        case 1:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic2());
+                            break;
+                        case 2:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic3());
+                            break;
+                        case 3:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic4());
+                            break;
+                        default:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic5());
+                            break;
+                    }
+                case 1:
+
+                    MapSuccesors2 ms2  = new MapSuccesors2();
+
+                    switch (heuristica){
+                        case 0:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic1());
+                            break;
+                        case 1:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic2());
+                            break;
+                        case 2:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic3());
+                            break;
+                        case 3:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic4());
+                            break;
+                        default:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic5());
+                            break;
+                    }
+
+                default:
+
+                    MapSuccesors3 ms3  = new MapSuccesors3();
+
+                    switch (heuristica){
+                        case 0:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic1());
+                            break;
+                        case 1:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic2());
+                            break;
+                        case 2:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic3());
+                            break;
+                        case 3:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic4());
+                            break;
+                        default:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic5());
+                            break;
+                    }
+            }
+
             Search search = new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
 
@@ -58,11 +135,77 @@ public class Main {
         }
     }
 
-
-    private static void MapSimulatedAnnealing1(Map m) {
+    private static void MapSimulatedAnnealing1(Map m, int funcioSuccessors, int heuristica) {
 
         try {
-            Problem problem = new Problem(m, new MapSuccessorsSA4(), new MapGoal(), new Heuristic5());
+            Problem problem;
+            switch (funcioSuccessors) {
+                case 0:
+
+                    MapSuccessorsSA1 ms = new MapSuccessorsSA1();
+
+                    switch (heuristica) {
+                        case 0:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic1());
+                            break;
+                        case 1:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic2());
+                            break;
+                        case 2:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic3());
+                            break;
+                        case 3:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic4());
+                            break;
+                        default:
+                            problem = new Problem(m, ms, new MapGoal(), new Heuristic5());
+                            break;
+                    }
+                case 1:
+
+                    MapSuccessorsSA2 ms2 = new MapSuccessorsSA2();
+
+                    switch (heuristica) {
+                        case 0:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic1());
+                            break;
+                        case 1:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic2());
+                            break;
+                        case 2:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic3());
+                            break;
+                        case 3:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic4());
+                            break;
+                        default:
+                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic5());
+                            break;
+                    }
+
+                default:
+
+                    MapSuccessorsSA3 ms3 = new MapSuccessorsSA3();
+
+                    switch (heuristica) {
+                        case 0:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic1());
+                            break;
+                        case 1:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic2());
+                            break;
+                        case 2:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic3());
+                            break;
+                        case 3:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic4());
+                            break;
+                        default:
+                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic5());
+                            break;
+                    }
+            }
+
             Search search = new SimulatedAnnealingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
 
@@ -71,7 +214,8 @@ public class Main {
             System.out.println(instrumentationToString(agent.getInstrumentation()));
             System.out.println(solutionToString((Map) search.getGoalState()));
             System.out.println(checkSolution((Map) search.getGoalState()));
-        } catch (Exception e) {
+
+            catch (Exception e) {
             e.printStackTrace();
         }
     }

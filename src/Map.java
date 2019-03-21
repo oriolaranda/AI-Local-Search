@@ -27,7 +27,6 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        tipusAssignacio();
     }
 
 
@@ -41,8 +40,8 @@ public class Map {
 
     /** Auxiliar functions **/
 
-    public void tipusAssignacio(){
-        int option = 0;
+    public void tipusAssignacio(int option){
+
         switch (option) {
 
             case (0):
