@@ -43,8 +43,8 @@ public class Map {
 
     /** Auxiliar functions **/
 
-    public void tipusAssignacio(){
-        int option;
+    public void tipusAssignacio(){  //aixo no se perque falla
+        int option = 0;
         switch (option) {
 
             case (0):
