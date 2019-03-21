@@ -29,7 +29,7 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        assignacioBasica();
+        tipusAssignacio();
     }
 
 
@@ -43,6 +43,18 @@ public class Map {
 
     /** Auxiliar functions **/
 
+    public void tipusAssignacio(){
+        int option;
+        switch (option) {
+
+            case (0):
+                assignacioBasica();
+            case (1):
+                assignacioRandom();
+            default:
+                assignacioConductorsSols();
+        }
+    }
     //Function that clones the estatConductors variable
     private void copyOfEstatConductors (ArrayList<Pair> e)
     {
@@ -309,7 +321,8 @@ public class Map {
     /** FUNCTIONS TO OBTAIN AN INITIAL SOLUTION **/
 
     /** This first function assigns n/m persons per driver **/
-    public void assignacioBasica(){
+    public void assignacioBasica()
+    {
         int j = 0;  //index of the estatConductors vector. It indicates what car we are going to locate the people to.
 
         for(int i=0; i<n; ++i){ /** recorrem les N persones **/
@@ -343,10 +356,18 @@ public class Map {
                 ArrayList<Integer> a = (ArrayList<Integer>)estatConductors.get(j).getSecond() ;
                 a.add(i);   //one for the pick-up
                 a.add(i);   //one for the arrival
-                int km = calculateDistance(j,a);
-                changeInfoCar(j, km,a);
+                changeInfoCar(j, 0,a);  //no actualitzem encara la distancia
             }
         }
+
+        for (int i=0; i < m; ++i)
+        {
+            ArrayList<Integer> a = getPassangers(i);
+            int km = calculateDistance(i, a);
+            changeInfoCar(i, km, a);
+        }
+
+
     }
 
 

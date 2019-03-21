@@ -7,15 +7,17 @@ import aima.util.Pair;
 
 import static src.Main.m;
 
-
-/** This heuristic takes also in consideration the distance of the drivers that do pass the restriccions but it counts less.
- * This way we can ensure that the distance is minimized and we still strongly push to the solution world.
+/** This heuristic tries to minimize both distance and number of drivers. We will start from heuristic 3 and add the
+ * ponderation of the number of possible drivers that are passangers.
+ *
+ * We shall ponderate here more the distance than the drivers
  */
 
-public class Heuristic3 implements HeuristicFunction{
+
+public class Heuristic4 implements HeuristicFunction{
     @Override
     public int getHeuristicValue(Object n) {
-        Map map = (Map)n;
+        Map map = (Map) n;
         ArrayList<Pair> e = map.getEstatConductors();
         int total = 0;
 
@@ -31,14 +33,19 @@ public class Heuristic3 implements HeuristicFunction{
             total += min(300,dist);
         }
 
+        //WE PANALIZE THE NON PICKED UP PASSANGERS
         ArrayList<Boolean> b = map.getEstaRecullit();
         for (Boolean r : b)
             if (!r)
-                total += 500;  //we wanna make sure everyone has been picked up
+                total += 750;  //we wanna make sure everyone has been picked up
+
+
+        //WE TRY TO MINIMIZE THE NUMBER OF DRIVERS
+        int p = m-e.size(); //number of drivers that are passangers
+        total -= 1250*p;
 
         return total;
     }
-
 
     private int min (int a, int b)
     {

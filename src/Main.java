@@ -23,24 +23,24 @@ public class Main {
 
     public static ArrayList<Boolean> potConduir = new ArrayList<>(); //This must be global
     public static Usuarios nouUsuaris;    //this must be global
-    public static int n = 150;
-    public static int m = 50;
-    public static int seed = 2;
+    public static int n = 250;
+    public static int m = 100;
+    public static int seed = 123;
 
 
     public static void main(String[] args) {
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
         Map a = new Map();
-        //MapHillClimbing1(a);
-        MapSimulatedAnnealing1(a);
+        MapHillClimbing1(a);
+       // MapSimulatedAnnealing1(a);
     }
 
 
     private static void MapHillClimbing1(Map m) {
 
         try {
-            Problem problem = new Problem(m, new MapSuccesors(), new MapGoal(), new Heuristic3());
+            Problem problem = new Problem(m, new MapSuccesors2(), new MapGoal(), new Heuristic4());
             Search search = new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
 
@@ -58,7 +58,7 @@ public class Main {
     private static void MapSimulatedAnnealing1(Map m) {
 
         try {
-            Problem problem = new Problem(m, new MapSuccessorsSA2(), new MapGoal(), new Heuristic3());
+            Problem problem = new Problem(m, new MapSuccessorsSA2(), new MapGoal(), new Heuristic5());
             Search search = new SimulatedAnnealingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
 
@@ -79,8 +79,10 @@ public class Main {
 
     private static void printSolution(Map a) {
         ArrayList<Pair> b = a.getEstatConductors();
+        int total_dist = 0;
         for (Pair c : b) {
             Pair d = (Pair) c.getFirst();
+            total_dist += (Integer) d.getFirst();
             System.out.println("El conductor " + d.getSecond() + " fa " + d.getFirst());
             System.out.println("Ordre de recollida/arribada de passatgers");
             ArrayList<Integer> e = (ArrayList<Integer>) c.getSecond();
@@ -88,6 +90,10 @@ public class Main {
                 System.out.print(p + " ");
             System.out.println("\n");
         }
+
+        System.out.println("El total de la distance es "+total_dist);
+        System.out.println("El nombre total de conductors es "+a.getEstatConductors().size());
+
     }
 
     private static void printInstrumentation(Properties properties) {
@@ -130,11 +136,13 @@ public class Main {
         }
 
         ArrayList<Boolean> c = a.getEstaRecullit();
-        for (Boolean r : c)
+        for (int i=0; i < c.size(); ++i) {
+            Boolean r = c.get(i);
             if (!r) {
-                System.out.println("Falla el esta recullit per la persona "+r+" com a minim.");
+                System.out.println("Falla el esta recullit per la persona " + i + " com a minim.");
                 return false;
             }
+        }
 
         return true;
     }
