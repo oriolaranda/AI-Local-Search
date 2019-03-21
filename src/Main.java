@@ -39,7 +39,7 @@ public class Main {
 
     private static void MapHillClimbing1(Map m) {
         try {
-            Problem problem = new Problem(m, new MapSuccesors2(), new MapGoal(), new Heuristic4());
+            Problem problem = new Problem(m, new MapSuccesors2(), new MapGoal(), new Heuristic3());
             Search search = new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
 

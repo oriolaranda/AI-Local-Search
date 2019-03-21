@@ -40,6 +40,7 @@ public class MapSuccessorsSA4 implements SuccessorFunction{
 
                     //we get the people who has not yet been picked up
                     ArrayList<Integer> notPickedUp = new ArrayList<>(); //we save the index of the passangers not picked up
+
                     for (int i=0; i < estaRecullit.size(); ++i) //iterate over all people
                     {
                         if (!estaRecullit.get(i))
@@ -98,26 +99,28 @@ public class MapSuccessorsSA4 implements SuccessorFunction{
                     }
 
                 case(3):
-                    //we obtain the drivers that have no passanger
+                    //WE DELETE ONE DRIVER
                     ArrayList<Integer> indexEmptyCars = new ArrayList<>();
                     ArrayList<Pair> a = map.getEstatConductors();
 
-                    int counter = 0;
-                    for (Pair e : a)
+
+                    for (int i=0; i < a.size(); ++i)    //we iterate over all cars
                     {
-                        ++counter;
+                        Pair e = a.get(i);
                         if (((ArrayList<Integer>)e.getSecond()).size() == 0)
                         {
-                            indexEmptyCars.add(counter);
+                            indexEmptyCars.add(i);
                         }
                     }
 
                     if (indexEmptyCars.size() > 0) {
                         c = myRandom.nextInt(indexEmptyCars.size());   //select one driver to delete
-                        Map aux2 = new Map(map);
-                        aux2.removeDriver(c);
-                        retVal.add(new Successor(new String("Hem eliminat aquest conductor " + c), aux2));
-                        found = true;
+                        aux = new Map(map);
+                        if (aux.removeDriver(c)) {
+                            int indexConductor = (Integer) ((Pair) map.getEstatConductors().get(c).getFirst()).getSecond();
+                            retVal.add(new Successor(new String("Hem eliminat el cotxe " + c + " i el conductor " + indexConductor + " ara es passetger"), aux));
+                            found = true;
+                        }
                     }
 
                     break;

@@ -29,9 +29,9 @@ public class Map {
     public Map(){
         inicializeEstatConductors();
         initializeEstaRecollit();
-        //assignacioRandom();
-       // assignacioBasica();
-        assignacioConductorsSols();
+      //  assignacioRandom();
+        assignacioBasica();
+       // assignacioConductorsSols();
     }
 
 
