@@ -25,9 +25,16 @@ public class Main {
     public static int m = 100;
     public static int seed = 2;
 
+
+
+    public static void main(String[] args) {
+        nouUsuaris = new Usuarios(n, m, seed);
+        fillDrivers();
+        triaAlgorisme(0,1,3);
+    }
+
+
     public static void triaAlgorisme(int algorisme, int funcioSuccesors, int heuristica){
-
-
         switch(algorisme){
             case 0:
                 MapHillClimbing1(funcioSuccesors,heuristica);
@@ -36,18 +43,10 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        nouUsuaris = new Usuarios(n, m, seed);
-        fillDrivers();
-        triaAlgorisme(0,0,0);
-
-    }
-
-
 
     private static void MapHillClimbing1(int funcioSuccessors, int heuristica) {
         Map m = new Map();
-
+        m.tipusAssignacio(1);
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -100,9 +99,10 @@ public class Main {
         }
     }
 
-    private static void MapSimulatedAnnealing1(int funcioSuccessors, int heuristica) {
 
+    private static void MapSimulatedAnnealing1(int funcioSuccessors, int heuristica) {
         Map m = new Map();
+        m.tipusAssignacio(1);
         try {
             Problem problem;
             SuccessorFunction successor;
