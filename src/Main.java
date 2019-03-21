@@ -1,9 +1,7 @@
 package src;
 
 import IA.Comparticion.Usuarios;
-import aima.search.framework.Problem;
-import aima.search.framework.Search;
-import aima.search.framework.SearchAgent;
+import aima.search.framework.*;
 import aima.search.informed.HillClimbingSearch;
 import aima.search.informed.SimulatedAnnealingSearch;
 import aima.util.Pair;
@@ -48,78 +46,47 @@ public class Main {
 
 
     private static void MapHillClimbing1(int funcioSuccessors, int heuristica) {
-
         Map m = new Map();
 
         try {
             Problem problem;
-            switch (funcioSuccessors){
+            SuccessorFunction successor;
+            HeuristicFunction heuristic;
+
+            switch (heuristica) {
                 case 0:
-
-                    MapSuccesors ms  = new MapSuccesors();
-
-                    switch (heuristica){
-                        case 0:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic1());
-                            break;
-                        case 1:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic2());
-                            break;
-                        case 2:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic3());
-                            break;
-                        case 3:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic4());
-                            break;
-                        default:
-                            problem = new Problem(m, ms, new MapGoal(), new Heuristic5());
-                            break;
-                    }
+                    heuristic = new Heuristic1();
+                    break;
                 case 1:
+                    heuristic = new Heuristic2();
+                    break;
 
-                    MapSuccesors2 ms2  = new MapSuccesors2();
+                case 2:
+                    heuristic = new Heuristic3();
+                    break;
 
-                    switch (heuristica){
-                        case 0:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic1());
-                            break;
-                        case 1:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic2());
-                            break;
-                        case 2:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic3());
-                            break;
-                        case 3:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic4());
-                            break;
-                        default:
-                            problem = new Problem(m, ms2, new MapGoal(), new Heuristic5());
-                            break;
-                    }
+                case 3:
+                    heuristic = new Heuristic4();
+                    break;
 
                 default:
-
-                    MapSuccesors3 ms3  = new MapSuccesors3();
-
-                    switch (heuristica){
-                        case 0:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic1());
-                            break;
-                        case 1:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic2());
-                            break;
-                        case 2:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic3());
-                            break;
-                        case 3:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic4());
-                            break;
-                        default:
-                            problem = new Problem(m, ms3, new MapGoal(), new Heuristic5());
-                            break;
-                    }
+                    heuristic = new Heuristic5();
+                    break;
             }
 
+            switch(funcioSuccessors){
+                case 0:
+                    successor = new MapSuccesors();
+                    break;
+                case 1:
+                    successor = new MapSuccesors2();
+                    break;
+
+                default:
+                    successor = new MapSuccesors3();
+                    break;
+            }
+            problem = new Problem(m, successor, new MapGoal(), heuristic);
             Search search = new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem, search);
 
@@ -127,7 +94,6 @@ public class Main {
             System.out.println(actionsToString(agent.getActions()));
             System.out.println(instrumentationToString(agent.getInstrumentation()));
             System.out.println(solutionToString((Map) search.getGoalState()));
-
             System.out.println(checkSolution((Map) search.getGoalState()));
         } catch (Exception e) {
             e.printStackTrace();
@@ -214,10 +180,10 @@ public class Main {
             System.out.println(instrumentationToString(agent.getInstrumentation()));
             System.out.println(solutionToString((Map) search.getGoalState()));
             System.out.println(checkSolution((Map) search.getGoalState()));
-
-            catch (Exception e) {
-            e.printStackTrace();
         }
+            catch(Exception e){
+                e.printStackTrace();
+            }
     }
 
 
