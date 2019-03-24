@@ -18,35 +18,47 @@ import aima.util.Pair;
 
 
 public class Main {
-
     public static ArrayList<Boolean> potConduir = new ArrayList<>(); //This must be global
     public static Usuarios nouUsuaris;    //this must be global
     public static int n = 200;
     public static int m = 100;
-    public static int seed = 2;
-
+    public static int seed = 1234;
 
 
     public static void main(String[] args) {
+        //GENERAR CIUTAT
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
-        triaAlgorisme(0,1,3);
+
+        //GENERAR ESTAT SOLUCIO
+        Map m = new Map();
+
+        double start1 = System.nanoTime(); //capturem el temps inicial
+        m.tipusAssignacio(1);   //triem el tipus de solucio inicial que volem
+        double diff1 = (System.nanoTime() - start1)/1000000000;
+
+
+        //GENERAR SOLUCIO FINAL
+        triaAlgorisme(m,0,1,3);
+
+        System.out.println("La solucio inicial ha trigat "+ diff1);
+
     }
 
 
-    public static void triaAlgorisme(int algorisme, int funcioSuccesors, int heuristica){
+
+
+    public static void triaAlgorisme(Map m, int algorisme, int funcioSuccesors, int heuristica){
         switch(algorisme){
             case 0:
-                MapHillClimbing1(funcioSuccesors,heuristica);
-
-            default: MapSimulatedAnnealing1(funcioSuccesors,heuristica);
+                MapHillClimbing1(m,funcioSuccesors,heuristica);
+                break;
+            default: MapSimulatedAnnealing1(m,funcioSuccesors,heuristica);
         }
     }
 
 
-    private static void MapHillClimbing1(int funcioSuccessors, int heuristica) {
-        Map m = new Map();
-        m.tipusAssignacio(1);
+    private static void MapHillClimbing1(Map m,int funcioSuccessors, int heuristica) {
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -87,22 +99,29 @@ public class Main {
             }
             problem = new Problem(m, successor, new MapGoal(), heuristic);
             Search search = new HillClimbingSearch();
-            SearchAgent agent = new SearchAgent(problem, search);
 
-            System.out.println();
-            System.out.println(actionsToString(agent.getActions()));
-            System.out.println(instrumentationToString(agent.getInstrumentation()));
-            System.out.println(solutionToString((Map) search.getGoalState()));
-            System.out.println(checkSolution((Map) search.getGoalState()));
+            double start = System.nanoTime(); //capturem el temps inicial
+            SearchAgent agent = new SearchAgent(problem, search);
+            double diff = (System.nanoTime() - start)/1000000000;
+
+            if (checkSolution((Map) search.getGoalState())) {
+                System.out.println();
+                System.out.println(actionsToString(agent.getActions()));
+                System.out.println(instrumentationToString(agent.getInstrumentation()));
+                System.out.println(solutionToString((Map) search.getGoalState()));
+                System.out.println("Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica));
+                System.out.println("El algorisme ha trigat " + diff);
+            }
+            else {
+                System.out.println("No hem trobat una solucio");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
 
-    private static void MapSimulatedAnnealing1(int funcioSuccessors, int heuristica) {
-        Map m = new Map();
-        m.tipusAssignacio(1);
+    private static void MapSimulatedAnnealing1(Map m, int funcioSuccessors, int heuristica) {
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -161,7 +180,6 @@ public class Main {
 
     /** Auxiliary functions to return the solutions in the correct format **/
 
-
     //Useful to print in the UI the solution
     private static String solutionToString(Map a)
     {
@@ -213,6 +231,36 @@ public class Main {
         }
         return result;
     }
+
+
+    private static int getSolutionValue(Map a, int heuristic)
+    {
+        HeuristicFunction h;
+        switch (heuristic) {
+            case 0:
+                h = new Heuristic1();
+                break;
+            case 1:
+                h = new Heuristic2();
+                break;
+
+            case 2:
+                h = new Heuristic3();
+                break;
+
+            case 3:
+                h = new Heuristic4();
+                break;
+
+            default:
+                h = new Heuristic5();
+                break;
+
+        }
+        return h.getHeuristicValue(a);
+    }
+
+
 
 
     /**
