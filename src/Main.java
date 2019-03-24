@@ -39,8 +39,8 @@ public class Main {
 
 
         //GENERAR SOLUCIO FINAL
-        //MapHillClimbing(m,1,3);
-        MapSimulatedAnnealing(m,0,2,20,10000,100,0.005D);
+       // MapHillClimbing(m,1,3);
+        MapSimulatedAnnealing(m,1,3,20,10000,100,0.005D);
 
 
         System.out.println("La solucio inicial ha trigat "+ diff1);

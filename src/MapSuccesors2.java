@@ -34,7 +34,6 @@ public class MapSuccesors2  implements SuccessorFunction {
                     retVal.add(new Successor(new String("Hem borrat la persona "+i+" del cotxe de la persona"+((Pair)map.getEstatConductors().get(i).getFirst()).getSecond()+" i hem eliminat aquest conductor"),aux));
                 }
             }
-
         }
 
 
