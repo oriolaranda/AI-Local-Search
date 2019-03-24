@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 
 public class GUIForm extends JFrame
@@ -61,7 +62,7 @@ public class GUIForm extends JFrame
     private JLabel lambdaValue;
     private MapCanvas mapCanvas1;
 
-    public GUIForm()
+    protected GUIForm()
     {
         //Initialize JFrame
         setContentPane(rootPanel);
@@ -80,13 +81,14 @@ public class GUIForm extends JFrame
     private void initEscenari()
     {
         //Initial values for n, m & seed
-        nInput.setText("100");
-        mInput.setText("50");
-        seedInput.setText("2");
+        nInput.setText("200");
+        mInput.setText("100");
+        seedInput.setText("1234");
 
         //Buttons
         generarEstatSolucio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         generarEscenari.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        generarEstatSolucio.setEnabled(false);
 
 
         //JTexFields KeyListeners
@@ -107,30 +109,7 @@ public class GUIForm extends JFrame
         seedInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e, seedInput,INT,3);
-            }
-        });
-
-        //JButton actionsListeners
-        generarEscenari.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (nInput.getText().length() == 0 || mInput.getText().length() == 0 || seedInput.getText().length() == 0)
-                    JOptionPane.showMessageDialog(escenari,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
-                else {
-                    generarEscenari();
-                }
-            }
-        });
-
-        generarEstatSolucio.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (nInput.getText().length() == 0 || mInput.getText().length() == 0 || seedInput.getText().length() == 0)
-                    JOptionPane.showMessageDialog(escenari,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
-                else {
-                    generarEstatsSolucioInicials();
-                }
+                numberFormatter(e, seedInput,INT,6);
             }
         });
 
@@ -141,27 +120,19 @@ public class GUIForm extends JFrame
     //initialize hillClimbing Panel
     private void initHillClimbing()
     {
-
         executarHill.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-        //JButton ActionListener
-        executarHill.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (nInput.getText().length() == 0 || mInput.getText().length() == 0 || seedInput.getText().length() == 0)
-                    JOptionPane.showMessageDialog(escenari,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
-                else {
-                    executarHillClimbing();
-                }
-            }
-        });
+        executarHill.setEnabled(false);
     }
 
     //initialize simulatedAnnealing Panel
     private void initSimulatedAnnealing()
     {
+        kInput.setText("20");
+        itInput.setText("10000");
+        stepsItInput.setText("100");
+        lambdaInput.setText("0.005");
         executarSim.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
+        executarSim.setEnabled(false);
 
         // JTextFields KeyListeners
         kInput.addKeyListener(new KeyAdapter() {
@@ -192,20 +163,6 @@ public class GUIForm extends JFrame
             }
         });
 
-
-        //JButton ActionListener
-
-        executarSim.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (kInput.getText().length() == 0 || itInput.getText().length() == 0
-                        || stepsItInput.getText().length() == 0 || lambdaInput.getText().length() < 3)
-                    JOptionPane.showMessageDialog(escenari,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
-                else {
-                    executarSimulatedAnnealing();
-                }
-            }
-        });
     }
 
 
@@ -225,13 +182,13 @@ public class GUIForm extends JFrame
 
         //Hill Climbing panel
         successorsHill = new JPanel();
-        successorsHill.setBorder(BorderFactory.createTitledBorder("Estats successors"));
+        successorsHill.setBorder(BorderFactory.createTitledBorder("Generador estats successors"));
 
         mapaHill = new MapCanvas();
 
         //Simulated Annealing panel
         successorsSim = new JPanel();
-        successorsSim.setBorder(BorderFactory.createTitledBorder("Estats successors"));
+        successorsSim.setBorder(BorderFactory.createTitledBorder("Generador estats successors"));
 
         parametresSim = new JPanel();
         parametresSim.setBorder(BorderFactory.createTitledBorder("Paràmetres inicials"));
@@ -239,9 +196,6 @@ public class GUIForm extends JFrame
         mapaSim = new MapCanvas();
 
     }
-
-
-
     //Only numbers for JTextFields
     /* type = 0 -> Int
        type = 1 -> Double
@@ -259,54 +213,78 @@ public class GUIForm extends JFrame
                 getToolkit().beep();
             }
         }
-
     }
 
+    protected boolean faltaOmplirAlgunCampEscenari() {
+        return (nInput.getText().length() == 0 || mInput.getText().length() == 0 || seedInput.getText().length() == 0);
+    }
 
+    protected boolean faltaOmplirAlgunCampSimulated() {
+        return (kInput.getText().length() == 0 || itInput.getText().length() == 0 || stepsItInput.getText().length() == 0 || lambdaInput.getText().length() < 3);
+    }
 
-    private void generarEscenari()
+    protected JButton getGenerarEscenari() {
+        return generarEscenari;
+    }
+
+    protected JButton getGenerarEstatSolucio() {
+        return generarEstatSolucio;
+    }
+
+    protected JButton getExecutarHill(){
+        return executarHill;
+    }
+
+    protected JButton getExecutarSim() {
+        return executarSim;
+    }
+
+    protected int[] getParametresIni()
     {
         //parametres inicials
-        int n = Integer.parseInt(nInput.getText());
-        int m = Integer.parseInt(mInput.getText());
-        int seed = Integer.parseInt(seedInput.getText());
-
+        int [] v = new int[3];
+        v[0] = Integer.parseInt(nInput.getText()); //n
+        v[1] = Integer.parseInt(mInput.getText()); //m
+        v[2] = Integer.parseInt(seedInput.getText()); //seed
+        return v;
     }
 
-    private void generarEstatsSolucioInicials()
+    protected int getEstatSolucioInicial(){
+        return estatsSolucioList.getSelectedIndex();
+    }
+
+    protected int getHeuristic() {
+        return heuristicsList.getSelectedIndex();
+    }
+
+    protected int getSuccessorsHill() {
+        return successorsListHill.getSelectedIndex();
+    }
+
+    protected int getSuccessorsSim() {
+        return successorsListSim.getSelectedIndex();
+    }
+
+    protected void setTextAreaHill(String s) {
+        textAreaHill.setText(s);
+    }
+
+    protected void setTextAreaSim(String s) {
+        textAreaSim.setText(s);
+    }
+
+    protected String[] getParametresSimulated()
     {
-        //funcio estats solucio incials
-        String seleccio = (String) estatsSolucioList.getSelectedItem();
-        System.out.println(seleccio);
+        String[] v = new String[4];
+        v[0] = kInput.getText(); //k
+        v[1] = itInput.getText(); //iteracions
+        v[2] = stepsItInput.getText(); //steps per iteracio
+        v[3] = lambdaInput.getText(); //lambda
+
+        return v;
     }
 
-    private void executarHillClimbing()
-    {
-        //funcio successors
-        //successorsListSim.getSelectedItem();
 
-        //heuristic
-        //heuristicsList.getSelectedItem();
-/*
-        Graphics g = mapaHill.getGraphics();
-        g.setColor(Color.BLACK);
-        g.drawLine(10,20,40,50);*/
 
-        //mapaHill.drawPoint(50,50,Color.GREEN);
-    }
 
-    private void executarSimulatedAnnealing()
-    {
-        //parametres incials
-        int k = Integer.parseInt(kInput.getText());
-        int iteracions = Integer.parseInt(itInput.getText());
-        int stepsIteracio = Integer.parseInt(stepsItInput.getText());
-        double lambda = Double.parseDouble(lambdaInput.getText());
-
-        //funcio successors
-        //successorsListSim.getSelectedItem();
-
-        //heuristic
-        //heuristicsList.getSelectedItem();
-    }
 }

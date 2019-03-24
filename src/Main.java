@@ -8,6 +8,8 @@ import aima.util.Pair;
 import src.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,40 +17,117 @@ import java.util.List;
 import java.util.Properties;
 import aima.util.Pair;
 
+import javax.swing.*;
 
 
 public class Main {
     public static ArrayList<Boolean> potConduir = new ArrayList<>(); //This must be global
     public static Usuarios nouUsuaris;    //this must be global
-    public static int n = 200;
-    public static int m = 100;
-    public static int seed = 1234;
+    public static int n;
+    public static int m;
+    public static int seed;
 
+    private static GUIForm gui;
+    private static Map map;
 
     public static void main(String[] args) {
-        //GENERAR CIUTAT
+
+        SwingUtilities.invokeLater(new Runnable() //running GUI code on the Event Dispatch Thread
+        {
+            @Override
+            public void run() {
+                gui = new GUIForm();
+                gui.setVisible(true);
+
+                //Listenners
+                initButtons();
+
+            }
+        });
+
+       // MapHillClimbing(m,1,3);
+
+
+
+    }
+
+    private static void initButtons(){
+
+        gui.getGenerarEscenari().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (gui.faltaOmplirAlgunCampEscenari())
+                    JOptionPane.showMessageDialog(gui,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
+                else {
+                    generarEscenari();
+                }
+            }
+        });
+
+        gui.getGenerarEstatSolucio().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (gui.faltaOmplirAlgunCampEscenari())
+                    JOptionPane.showMessageDialog(gui,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
+                else {
+                    generarEstatSolucioInicial();
+                }
+            }
+        });
+
+        gui.getExecutarHill().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (gui.faltaOmplirAlgunCampEscenari())
+                    JOptionPane.showMessageDialog(gui,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
+                else {
+                    executarHillClimbing();
+                }
+            }
+        });
+        gui.getExecutarSim().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (gui.faltaOmplirAlgunCampEscenari() || gui.faltaOmplirAlgunCampSimulated())
+                    JOptionPane.showMessageDialog(gui,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
+                else {
+                    executarSimulatedAnnealing();
+                }
+            }
+        });;
+
+    }
+
+    private static void setParametresInicials(int[] v) {
+        n = v[0];
+        m = v[1];
+        seed = v[2];
+    }
+
+    private static void generarEscenari(){
+        setParametresInicials(gui.getParametresIni());
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
+        System.out.println("Funciona!!");
+        gui.getGenerarEstatSolucio().setEnabled(true);
+    }
 
-        //GENERAR ESTAT SOLUCIO
-        Map m = new Map();
 
+    private static void generarEstatSolucioInicial() {
+        map = new Map();
         double start1 = System.nanoTime(); //capturem el temps inicial
-        m.tipusAssignacio(1);   //triem el tipus de solucio inicial que volem
+        map.tipusAssignacio(gui.getEstatSolucioInicial());   //triem el tipus de solucio inicial que volem
         double diff1 = (System.nanoTime() - start1)/1000000000;
-
-
-        //GENERAR SOLUCIO FINAL
-       // MapHillClimbing(m,1,3);
-        MapSimulatedAnnealing(m,1,3,20,10000,100,0.005D);
-
-
         System.out.println("La solucio inicial ha trigat "+ diff1);
+        gui.getExecutarHill().setEnabled(true);
+        gui.getExecutarSim().setEnabled(true);
     }
 
 
 
-    private static void MapHillClimbing(Map m,int funcioSuccessors, int heuristica) {
+    private static void executarHillClimbing() {
+        int funcioSuccessors = gui.getSuccessorsHill();
+        int heuristica = gui.getHeuristic();
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -87,13 +166,14 @@ public class Main {
                     successor = new MapSuccesors3();
                     break;
             }
-            problem = new Problem(m, successor, new MapGoal(), heuristic);
+            problem = new Problem(map, successor, new MapGoal(), heuristic);
             Search search = new HillClimbingSearch();
 
             double start = System.nanoTime(); //capturem el temps inicial
             SearchAgent agent = new SearchAgent(problem, search);
             double diff = (System.nanoTime() - start)/1000000000;
 
+            String s = null;
             if (checkSolution((Map) search.getGoalState())) {
                 System.out.println();
                 System.out.println(actionsToString(agent.getActions()));
@@ -101,10 +181,16 @@ public class Main {
                 System.out.println(solutionToString((Map) search.getGoalState()));
                 System.out.println("Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica));
                 System.out.println("El algorisme ha trigat " + diff);
+
+                s =actionsToString(agent.getActions())+"\n"+instrumentationToString(agent.getInstrumentation())+"\n"+solutionToString((Map) search.getGoalState())+"\n"+
+                        "Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica)+"\n"+"El algorisme ha trigat " + diff;
             }
             else {
                 System.out.println("No hem trobat una solucio");
+                s ="No hem trobat una solucio";
             }
+
+            gui.setTextAreaHill(s);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,7 +198,15 @@ public class Main {
 
 
 
-    private static void MapSimulatedAnnealing(Map m, int funcioSuccessors, int heuristica, int k, int numIt, int stepsPerIt, double lambda) {
+    private static void executarSimulatedAnnealing() {
+        int funcioSuccessors = gui.getSuccessorsSim();
+        int heuristica = gui.getHeuristic();
+        String[] v = gui.getParametresSimulated();
+        int k = Integer.parseInt(v[0]);
+        int numIt = Integer.parseInt(v[1]);
+        int stepsPerIt = Integer.parseInt(v[2]);
+        double lambda = Double.parseDouble(v[3]);
+
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -154,13 +248,14 @@ public class Main {
                     break;
             }
 
-            problem = new Problem(m, successor, new MapGoal(), heuristic);
+            problem = new Problem(map, successor, new MapGoal(), heuristic);
             Search search = new SimulatedAnnealingSearch(numIt, stepsPerIt, k, lambda);
 
             double start = System.nanoTime(); //capturem el temps inicial
             SearchAgent agent = new SearchAgent(problem, search);
             double diff = (System.nanoTime() - start)/1000000000;
 
+            String s;
             if (checkSolution((Map) search.getGoalState())) {
                 System.out.println();
                 System.out.println(actionsToString(agent.getActions()));
@@ -168,13 +263,19 @@ public class Main {
                 System.out.println(solutionToString((Map) search.getGoalState()));
                 System.out.println("Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica));
                 System.out.println("El algorisme ha trigat " + diff);
+
+                s =actionsToString(agent.getActions())+"\n"+instrumentationToString(agent.getInstrumentation())+"\n"+solutionToString((Map) search.getGoalState())+"\n"+
+                        "Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica)+"\n"+"El algorisme ha trigat " + diff;
+
             } else {
                 System.out.println("No hem trobat una solucio");
+                s = "No hem trobat una solucio";
             }
-        }
-            catch(Exception e){
+            gui.setTextAreaSim(s);
+
+        } catch(Exception e){
                 e.printStackTrace();
-            }
+        }
     }
 
 
@@ -183,7 +284,7 @@ public class Main {
 
     /** Auxiliary functions to return the solutions in the correct format **/
 
-    //Useful to print in the UI the solution
+    //Useful to print in the GUI the solution
     private static String solutionToString(Map a)
     {
         String result = "";
