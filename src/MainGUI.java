@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainGUI {
+
+    /**
+     * MAIN PER PROVES CANVAS
+     */
     public static void main(String[] args) throws ClassNotFoundException, UnsupportedLookAndFeelException, InstantiationException, IllegalAccessException {
 
         //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //Looks like the current OS
@@ -11,17 +15,18 @@ public class MainGUI {
         {
             @Override
             public void run() {
-                GUIForm gui = new GUIForm();
-                gui.setVisible(true);
+                //GUIForm gui = new GUIForm();
+                //gui.setVisible(true);
 
-                //prova();
+                prova();
 
             }
         });
 
     }
 
-    private void prova() {
+
+    private static void prova() {
         JFrame frame = new JFrame();
         MapCanvas m = new MapCanvas();
 

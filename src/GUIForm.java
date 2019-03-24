@@ -265,6 +265,7 @@ public class GUIForm extends JFrame
         return successorsListSim.getSelectedIndex();
     }
 
+
     protected void setTextAreaHill(String s) {
         textAreaHill.setText(s);
     }
@@ -273,14 +274,12 @@ public class GUIForm extends JFrame
         textAreaSim.setText(s);
     }
 
-    protected String[] getParametresSimulated()
-    {
+    protected String[] getParametresSimulated() {
         String[] v = new String[4];
         v[0] = kInput.getText(); //k
         v[1] = itInput.getText(); //iteracions
         v[2] = stepsItInput.getText(); //steps per iteracio
         v[3] = lambdaInput.getText(); //lambda
-
         return v;
     }
 
