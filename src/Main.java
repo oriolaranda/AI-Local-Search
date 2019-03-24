@@ -36,7 +36,7 @@ public class Main {
 
 
         //GENERAR SOLUCIO FINAL
-        triaAlgorisme(m,0,1,3);
+        triaAlgorisme(m,0,1,4);
     }
 
 
@@ -100,6 +100,7 @@ public class Main {
             System.out.println(instrumentationToString(agent.getInstrumentation()));
             System.out.println(solutionToString((Map) search.getGoalState()));
             System.out.println(checkSolution((Map) search.getGoalState()));
+            System.out.println(getSolutionValue((Map) search.getGoalState(),heuristica));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -216,6 +217,36 @@ public class Main {
         }
         return result;
     }
+
+
+    private static int getSolutionValue(Map a, int heuristic)
+    {
+        HeuristicFunction h;
+        switch (heuristic) {
+            case 0:
+                h = new Heuristic1();
+                break;
+            case 1:
+                h = new Heuristic2();
+                break;
+
+            case 2:
+                h = new Heuristic3();
+                break;
+
+            case 3:
+                h = new Heuristic4();
+                break;
+
+            default:
+                h = new Heuristic5();
+                break;
+
+        }
+        return h.getHeuristicValue(a);
+    }
+
+
 
 
     /**

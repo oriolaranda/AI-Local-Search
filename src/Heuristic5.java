@@ -45,7 +45,7 @@ public class Heuristic5 implements HeuristicFunction{
         int p = m-e.size(); //number of drivers that are passangers
         total -= 1000*p;
 
-        return total;
+        return total/10;
     }
 
     private int min (int a, int b)

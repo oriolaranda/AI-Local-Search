@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import aima.search.framework.HeuristicFunction;
 import aima.util.Pair;
+import java.math.*;
 
 import static src.Main.m;
 
@@ -31,7 +32,7 @@ public class Heuristic4 implements HeuristicFunction{
             dist = (Integer) ((Pair) a.getFirst()).getFirst();
             if (dist > 300) total += (dist-300)*400;  //We panalize the exceed of the distance.
 
-            total += min(300,dist);
+            total += Math.min(300,dist);
         }
 
         //WE PANALIZE THE NON PICKED UP PASSANGERS
@@ -45,12 +46,7 @@ public class Heuristic4 implements HeuristicFunction{
         int p = m-e.size(); //number of drivers that are passangers
         total -= 1400*p;
 
-        return total;
+        return (total/10);
     }
 
-    private int min (int a, int b)
-    {
-        if (a < b) return a;
-        return b;
-    }
 }
