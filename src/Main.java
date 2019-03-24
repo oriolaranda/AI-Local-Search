@@ -22,7 +22,7 @@ public class Main {
     public static Usuarios nouUsuaris;    //this must be global
     public static int n = 200;
     public static int m = 100;
-    public static int seed = 2;
+    public static int seed = 1234;
 
 
     public static void main(String[] args) {
@@ -32,11 +32,17 @@ public class Main {
 
         //GENERAR ESTAT SOLUCIO
         Map m = new Map();
+
+        double start1 = System.nanoTime(); //capturem el temps inicial
         m.tipusAssignacio(1);   //triem el tipus de solucio inicial que volem
+        double diff1 = (System.nanoTime() - start1)/1000000000;
 
 
         //GENERAR SOLUCIO FINAL
-        triaAlgorisme(m,0,1,4);
+        triaAlgorisme(m,0,1,3);
+
+        System.out.println("La solucio inicial ha trigat "+ diff1);
+
     }
 
 
@@ -46,7 +52,7 @@ public class Main {
         switch(algorisme){
             case 0:
                 MapHillClimbing1(m,funcioSuccesors,heuristica);
-
+                break;
             default: MapSimulatedAnnealing1(m,funcioSuccesors,heuristica);
         }
     }
@@ -93,14 +99,22 @@ public class Main {
             }
             problem = new Problem(m, successor, new MapGoal(), heuristic);
             Search search = new HillClimbingSearch();
-            SearchAgent agent = new SearchAgent(problem, search);
 
-            System.out.println();
-            System.out.println(actionsToString(agent.getActions()));
-            System.out.println(instrumentationToString(agent.getInstrumentation()));
-            System.out.println(solutionToString((Map) search.getGoalState()));
-            System.out.println(checkSolution((Map) search.getGoalState()));
-            System.out.println(getSolutionValue((Map) search.getGoalState(),heuristica));
+            double start = System.nanoTime(); //capturem el temps inicial
+            SearchAgent agent = new SearchAgent(problem, search);
+            double diff = (System.nanoTime() - start)/1000000000;
+
+            if (checkSolution((Map) search.getGoalState())) {
+                System.out.println();
+                System.out.println(actionsToString(agent.getActions()));
+                System.out.println(instrumentationToString(agent.getInstrumentation()));
+                System.out.println(solutionToString((Map) search.getGoalState()));
+                System.out.println("Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica));
+                System.out.println("El algorisme ha trigat " + diff);
+            }
+            else {
+                System.out.println("No hem trobat una solucio");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import aima.search.framework.HeuristicFunction;
 import aima.util.Pair;
 import java.lang.Math;
+import java.util.HashSet;
 
 import static src.Main.m;
 
@@ -31,7 +32,7 @@ public class Heuristic5 implements HeuristicFunction{
             dist = (Integer) ((Pair) a.getFirst()).getFirst();
             if (dist > 300) total += (dist-300)*500;  //We panalize the exceed of the distance.
 
-            total += min(300,dist);
+            total += Math.min(300,dist);
         }
 
         //PANALIZE THE NON PICKED UP PASSANGERS
@@ -45,12 +46,36 @@ public class Heuristic5 implements HeuristicFunction{
         int p = m-e.size(); //number of drivers that are passangers
         total -= 1000*p;
 
+
+
+
+        //GUARANTEE WE DO NOT CARRY MORE THAN 2 PEOPLE AT THE TIME
+        int vegades_mes_de2 = 0;
+
+        for (int i=0; i < e.size(); ++i)
+        {
+            ArrayList<Integer> a = map.getPassangers(i);
+            int counter = 0;
+            HashSet<Integer> aux = new HashSet<>();
+
+            for (Integer c : a)
+            {
+                if (! aux.contains(c))  //agafem a una persona
+                {
+                    ++counter;
+                    aux.add(c);
+                }
+                else {  //hem deixat a una persona
+                    aux.remove(c);
+                }
+
+                if (counter > 2) ++vegades_mes_de2;
+            }
+        }
+        total+= vegades_mes_de2*500;
+
+
         return total/10;
     }
 
-    private int min (int a, int b)
-    {
-        if (a < b) return a;
-        return b;
-    }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import aima.search.framework.HeuristicFunction;
 import aima.util.Pair;
 import java.math.*;
+import java.util.HashSet;
 
 import static src.Main.m;
 
@@ -45,6 +46,34 @@ public class Heuristic4 implements HeuristicFunction{
         //WE TRY TO MINIMIZE THE NUMBER OF DRIVERS
         int p = m-e.size(); //number of drivers that are passangers
         total -= 1400*p;
+
+
+        //GUARANTEE WE DO NOT CARRY MORE THAN 2 PEOPLE AT THE TIME
+        int vegades_mes_de2 = 0;
+
+        for (int i=0; i < e.size(); ++i)
+        {
+            ArrayList<Integer> a = map.getPassangers(i);
+            int counter = 0;
+            HashSet<Integer> aux = new HashSet<>();
+
+            for (Integer c : a)
+            {
+                if (! aux.contains(c))  //agafem a una persona
+                {
+                    ++counter;
+                    aux.add(c);
+                }
+                else {  //hem deixat a una persona
+                    aux.remove(c);
+                }
+
+                if (counter > 2) ++vegades_mes_de2;
+            }
+        }
+        total+= vegades_mes_de2*500;
+
+
 
         return (total/10);
     }
