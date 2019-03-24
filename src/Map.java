@@ -284,6 +284,17 @@ public class Map {
 
     }
 
+    public void addDriver(int c){
+
+        if (!estaRecullit.get(c)){
+            int k = calculateDistance(c,new ArrayList<>());
+            Pair aux = new Pair(k,c);
+            Pair p = new Pair(aux,new ArrayList<Integer>());
+            estatConductors.add(p);
+            estaRecullit.set(c,true);
+        }
+    }
+
     /** Operator Remove Person p of car c **/
     public void rmPerson(int p, int c) {
         ArrayList<Integer> i = (ArrayList<Integer>) estatConductors.get(c).getSecond();
