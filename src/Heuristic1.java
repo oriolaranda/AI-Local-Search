@@ -33,6 +33,7 @@ public class Heuristic1 implements HeuristicFunction{
         //Anem a garantir que cap conductor porta mes de 2 persones
         int vegades_mes_de2 = 0;
 
+
         for (int i=0; i < e.size(); ++i)
         {
             ArrayList<Integer> a = m.getPassangers(i);

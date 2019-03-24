@@ -287,8 +287,7 @@ public class Map {
     }
 
     public void addDriver(int c){
-
-        if (!estaRecullit.get(c)){
+        if (!estaRecullit.get(c) && potConduir.get(c)){
             int k = calculateDistance(c,new ArrayList<>());
             Pair aux = new Pair(k,c);
             Pair p = new Pair(aux,new ArrayList<Integer>());

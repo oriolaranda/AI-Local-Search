@@ -101,8 +101,8 @@ public class MapSuccessorsSA2 implements SuccessorFunction{
                         aux.swapCar(p1, p2, c1, c2);
                         retVal.add(new Successor(new String("Fem swap de les persones " + p1 + " " + p2 + " dels cotxes " + c1 + " i " + c2), aux));
                         found = true;
-                        break;
                     }
+                    break;
 
                 default:
                     //SWAP ORDER

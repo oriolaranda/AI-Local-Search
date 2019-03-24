@@ -39,26 +39,16 @@ public class Main {
 
 
         //GENERAR SOLUCIO FINAL
-        triaAlgorisme(m,0,1,3);
+        //MapHillClimbing(m,1,3);
+        MapSimulatedAnnealing(m,0,2,20,10000,100,0.005D);
+
 
         System.out.println("La solucio inicial ha trigat "+ diff1);
-
     }
 
 
 
-
-    public static void triaAlgorisme(Map m, int algorisme, int funcioSuccesors, int heuristica){
-        switch(algorisme){
-            case 0:
-                MapHillClimbing1(m,funcioSuccesors,heuristica);
-                break;
-            default: MapSimulatedAnnealing1(m,funcioSuccesors,heuristica);
-        }
-    }
-
-
-    private static void MapHillClimbing1(Map m,int funcioSuccessors, int heuristica) {
+    private static void MapHillClimbing(Map m,int funcioSuccessors, int heuristica) {
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -121,7 +111,8 @@ public class Main {
     }
 
 
-    private static void MapSimulatedAnnealing1(Map m, int funcioSuccessors, int heuristica) {
+
+    private static void MapSimulatedAnnealing(Map m, int funcioSuccessors, int heuristica, int k, int numIt, int stepsPerIt, double lambda) {
         try {
             Problem problem;
             SuccessorFunction successor;
@@ -150,31 +141,43 @@ public class Main {
 
             switch (funcioSuccessors) {
                 case 0:
-                    successor = new MapSuccesors();
+                    successor = new MapSuccessorsSA1();
                     break;
                 case 1:
-                    successor = new MapSuccesors2();
+                    successor = new MapSuccessorsSA2();
                     break;
-
+                case 2:
+                    successor = new MapSuccessorsSA3();
+                    break;
                 default:
-                    successor = new MapSuccesors3();
+                    successor = new MapSuccessorsSA4();
                     break;
             }
 
             problem = new Problem(m, successor, new MapGoal(), heuristic);
-            Search search = new SimulatedAnnealingSearch();
-            SearchAgent agent = new SearchAgent(problem, search);
+            Search search = new SimulatedAnnealingSearch(numIt, stepsPerIt, k, lambda);
 
-            System.out.println();
-            System.out.println(actionsToString(agent.getActions()));
-            System.out.println(instrumentationToString(agent.getInstrumentation()));
-            System.out.println(solutionToString((Map) search.getGoalState()));
-            System.out.println(checkSolution((Map) search.getGoalState()));
+            double start = System.nanoTime(); //capturem el temps inicial
+            SearchAgent agent = new SearchAgent(problem, search);
+            double diff = (System.nanoTime() - start)/1000000000;
+
+            if (checkSolution((Map) search.getGoalState())) {
+                System.out.println();
+                System.out.println(actionsToString(agent.getActions()));
+                System.out.println(instrumentationToString(agent.getInstrumentation()));
+                System.out.println(solutionToString((Map) search.getGoalState()));
+                System.out.println("Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica));
+                System.out.println("El algorisme ha trigat " + diff);
+            } else {
+                System.out.println("No hem trobat una solucio");
+            }
         }
             catch(Exception e){
                 e.printStackTrace();
             }
     }
+
+
 
 
 
