@@ -10,14 +10,18 @@ import java.util.Random;
 public class MapCanvas extends JPanel {
 
     private Graphics g;
+    private int nMapes;
 
     public MapCanvas() {
 
-        this.setBounds(0,0,500,500);
-        //this.setBackground(Color.CYAN);
-
+        setLayout(null);
+        //this.setBounds(0,0,500,2000);
+        setBackground(Color.CYAN);
+        //setPreferredSize(new Dimension(400,400));
+        //this.setSize(500,2000);
         this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),BorderFactory.createLoweredBevelBorder()));
-        this.setVisible(true);
+        setVisible(true);
+        nMapes = 0;
     }
 
     @Override
@@ -26,6 +30,8 @@ public class MapCanvas extends JPanel {
         //g.drawOval(500,500, 5,5);
         this.g = g;
         drawQuad();
+        drawPoint(495,600, Color.GREEN);
+
         //dibuix();
     }
 
@@ -40,9 +46,11 @@ public class MapCanvas extends JPanel {
     }
 
     private void drawQuad() {
-        for (int i = 5; i <= 500; i=i+5) {
-            drawLine(i,0,i,500, Color.BLACK);
-            drawLine(0, i,500,i, Color.BLACK);
+        for (int i = 0; i <= nMapes; i = i + 550) {
+            for (int j = 5; j <= 500; j = j + 5) {
+                drawLine(j, i, j, i+500, Color.BLACK);
+                drawLine(0, i+j, 500, i+j, Color.BLACK);
+            }
         }
     }
     private void dibuix() {

@@ -229,7 +229,6 @@ public class GUIForm extends JFrame
 
         mapaHill = new MapCanvas();
 
-
         //Simulated Annealing panel
         successorsSim = new JPanel();
         successorsSim.setBorder(BorderFactory.createTitledBorder("Estats successors"));
@@ -238,6 +237,7 @@ public class GUIForm extends JFrame
         parametresSim.setBorder(BorderFactory.createTitledBorder("Paràmetres inicials"));
 
         mapaSim = new MapCanvas();
+
     }
 
 
