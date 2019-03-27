@@ -144,7 +144,6 @@ public class Main {
                 case 2:
                     heuristic = new Heuristic3();
                     break;
-
                 case 3:
                     heuristic = new Heuristic4();
                     break;
@@ -371,6 +370,7 @@ public class Main {
      * Private methods
      **/
     private static void fillDrivers() {
+        potConduir = new ArrayList<>();
         for (int i = 0; i < n; ++i)
             potConduir.add(nouUsuaris.get(i).isConductor());
     }
