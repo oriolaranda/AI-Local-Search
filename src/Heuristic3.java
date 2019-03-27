@@ -28,7 +28,7 @@ public class Heuristic3 implements HeuristicFunction{
         for (Pair a : e)
         {
             dist = (Integer) ((Pair) a.getFirst()).getFirst();
-            if (dist > 300) total += (dist-300)*500;  //We panalize the exceed of the distance.
+            if (dist > 300) total += (dist-300)*450;  //We panalize the exceed of the distance.
 
             total += Math.min(300,dist)*2;
         }
@@ -36,7 +36,7 @@ public class Heuristic3 implements HeuristicFunction{
         ArrayList<Boolean> b = map.getEstaRecullit();
         for (Boolean r : b)
             if (!r)
-                total += 500;  //we wanna make sure everyone has been picked up
+                total += 5000;  //we wanna make sure everyone has been picked up
 
 
         //Anem a garantir que cap conductor porta mes de 2 persones
