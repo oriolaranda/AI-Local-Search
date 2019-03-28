@@ -344,22 +344,7 @@ public class Map {
         estatConductors.set(c2, new Pair(new Pair(dist2, index2), passatger1));
     }
 
-    public void emptyCar(int c1)
-    {
-        HashSet<Integer> a = getPassangersNotRepeated(c1);
-        Random r = new Random();
-        for (Integer b: a) {
-            boolean found = false;
-            while (!found) {
-                int c = r.nextInt(estatConductors.size());
-                if (getPassangers(c).size() != 0) {
-                    rmPerson(b, c1);
-                    addPerson(b,c);
-                    found = true;
-                }
-            }
-        }
-    }
+
 
 
     /** CHECK IF FINAL STATE **/

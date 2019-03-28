@@ -22,7 +22,6 @@ public class MapSuccesors2  implements SuccessorFunction {
         Map map = (Map)state;
         ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
 
-
         //SWAP DRIVERS
         for(int i=0; i < map.getEstatConductors().size(); ++i)
         {

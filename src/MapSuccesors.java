@@ -22,16 +22,6 @@ public class MapSuccesors  implements SuccessorFunction{
         ArrayList retVal= new ArrayList();  //we must add all posibilities from a current state to this list
         Map map = (Map)state;
 
-        //EMPTY CARS
-        for (int i=0; i< map.getEstatConductors().size(); ++i)
-        {
-            Map aux = new Map(map); // copy of map
-            aux.emptyCar(i);
-            retVal.add(new Successor(new String("Hem buidat el cotxe"), aux));
-
-        }
-
-        
         //SWAP DRIVERS
         for(int i=0; i < map.getEstatConductors().size(); ++i)
         {

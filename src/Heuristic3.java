@@ -28,18 +28,20 @@ public class Heuristic3 implements HeuristicFunction{
         for (Pair a : e)
         {
             dist = (Integer) ((Pair) a.getFirst()).getFirst();
-            if (dist > 300) total += (dist-300)*450;  //We panalize the exceed of the distance.
+            if (dist > 300) total += (dist-300)*350;  //We panalize the exceed of the distance.
 
-            total += Math.min(300,dist)*2;
+            total += Math.min(300,dist)*20;
         }
 
+
+        //EVERYONE HAS BEEN PICKED UP
         ArrayList<Boolean> b = map.getEstaRecullit();
         for (Boolean r : b)
             if (!r)
                 total += 5000;  //we wanna make sure everyone has been picked up
 
 
-        //Anem a garantir que cap conductor porta mes de 2 persones
+        //NO PORTEM MES DE 2 PERSONES
         int vegades_mes_de2 = 0;
 
         for (int i=0; i < e.size(); ++i)
