@@ -28,6 +28,7 @@ public class MapSuccesors3  implements SuccessorFunction{
         {
             if (!estaRecullit.get(i))   //we only need to check that he has not been picked up
             {
+                //when we remove a car, do the index keep working????
                 for(int c=0; c < map.getEstatConductors().size(); ++c)
                 {
                     Map aux = new Map(map); // copy of map
@@ -37,6 +38,7 @@ public class MapSuccesors3  implements SuccessorFunction{
                 }
             }
         }
+
 
 
         ArrayList<HashSet<Integer>> uniquePassengers = passangersFromAllCars(map);
@@ -52,6 +54,34 @@ public class MapSuccesors3  implements SuccessorFunction{
                 Map aux = new Map(map);
                 aux.rmPerson(k,c);
                 retVal.add(new Successor(new String("Borrem una persona del cotxe"+c), aux));
+            }
+        }
+
+
+        //SWAP CAR
+        boolean hanFetSwap[][] = new boolean[n][n];
+
+        for (int i=0; i < map.getEstatConductors().size(); ++i)
+        {
+            HashSet<Integer> p1 = uniquePassengers.get(i);
+            for(int j=i+1; j < map.getEstatConductors().size(); ++j)
+            {
+                HashSet<Integer> p2 = uniquePassengers.get(j);
+                for (int k : p1)    //person k of the first car
+                {
+                    for (int l: p2) //person l of the second car
+                    {
+                        //if the swap of these two people has not yet been done
+                        if (!hanFetSwap[i][j] && !hanFetSwap[i][j])
+                        {
+                            hanFetSwap[i][j] = true;
+                            hanFetSwap[j][j] = true;
+                            Map aux = new Map(map);
+                            aux.swapCar(k, l, i, j);
+                            retVal.add(new Successor(new String("Fem swap de les persones "+k+" "+l+" dels cotxes "+i + " i "+j), aux));
+                        }
+                    }
+                }
             }
         }
 

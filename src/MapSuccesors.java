@@ -3,6 +3,7 @@ package src;
 import IA.Centrals.Representacio;
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
+import com.sun.tools.corba.se.idl.InterfaceGen;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -20,6 +21,27 @@ public class MapSuccesors  implements SuccessorFunction{
     {
         ArrayList retVal= new ArrayList();  //we must add all posibilities from a current state to this list
         Map map = (Map)state;
+
+        //EMPTY CARS
+        for (int i=0; i< map.getEstatConductors().size(); ++i)
+        {
+            Map aux = new Map(map); // copy of map
+            aux.emptyCar(i);
+            retVal.add(new Successor(new String("Hem buidat el cotxe"), aux));
+
+        }
+
+        
+        //SWAP DRIVERS
+        for(int i=0; i < map.getEstatConductors().size(); ++i)
+        {
+            for (int j=i+1; j < map.getEstatConductors().size();++j)
+            {
+                Map aux = new Map(map); // copy of map
+                aux.changeDrivers(i,j);
+                retVal.add(new Successor(new String("Canviem els passatgers dels conductors "+i+" i el "+j), aux));
+            }
+        }
 
 
         //ADD PERSON
@@ -97,7 +119,7 @@ public class MapSuccesors  implements SuccessorFunction{
                     Map aux = new Map(map); // copy of map
                     if (aux.swapOrder(j,k,c))   //we enter only if the operation is not between the same person
                     {
-                        retVal.add(new Successor(new String("Fem swap order del cotxe "+c+ " dels passatgers "+j+" i "+k), aux));
+                        retVal.add(new Successor(new String("Fem swap order del cotxe "+c+ " dels passatgers a les posicions "+j+" i "+k), aux));
                     }
                 }
             }

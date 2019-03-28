@@ -23,6 +23,18 @@ public class MapSuccesors2  implements SuccessorFunction {
         ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
 
 
+        //SWAP DRIVERS
+        for(int i=0; i < map.getEstatConductors().size(); ++i)
+        {
+            for (int j=i+1; j < map.getEstatConductors().size();++j)
+            {
+                Map aux = new Map(map); // copy of map
+                aux.changeDrivers(i,j);
+                retVal.add(new Successor(new String("Canviem els passatgers dels conductors "+i+" i el "+j), aux));
+            }
+        }
+
+
         //DELETE DRIVERS
         for (int i=0; i < map.getEstatConductors().size();++i)  //iterate over all drivers
         {

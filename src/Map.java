@@ -1,10 +1,8 @@
 package src;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
 import java.lang.Math;
-import java.util.HashSet;
-import java.util.Random;
 
 
 import IA.Comparticion.*;
@@ -328,6 +326,40 @@ public class Map {
     }
 
 
+
+    public void changeDrivers(int c1, int c2)
+    {
+        Pair a1 = estatConductors.get(c1);
+        Pair a2 = estatConductors.get(c2);
+        int index1 = (Integer)((Pair)a1.getFirst()).getSecond();
+        ArrayList<Integer> passatger1 = (ArrayList<Integer>) a1.getSecond();
+
+        int index2 = (Integer)((Pair)a2.getFirst()).getSecond();
+        ArrayList<Integer> passatger2 = (ArrayList<Integer>) a2.getSecond();
+
+        int dist1 = calculateDistance(c1, passatger2);
+        int dist2 = calculateDistance(c2, passatger1);
+
+        estatConductors.set(c1, new Pair(new Pair(dist1,index1),passatger2));
+        estatConductors.set(c2, new Pair(new Pair(dist2, index2), passatger1));
+    }
+
+    public void emptyCar(int c1)
+    {
+        HashSet<Integer> a = getPassangersNotRepeated(c1);
+        Random r = new Random();
+        for (Integer b: a) {
+            boolean found = false;
+            while (!found) {
+                int c = r.nextInt(estatConductors.size());
+                if (getPassangers(c).size() != 0) {
+                    rmPerson(b, c1);
+                    addPerson(b,c);
+                    found = true;
+                }
+            }
+        }
+    }
 
 
     /** CHECK IF FINAL STATE **/
