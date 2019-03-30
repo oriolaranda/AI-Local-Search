@@ -26,6 +26,7 @@ public class MapSuccessorsSA2 implements SuccessorFunction{
         Random myRandom=new Random();
         boolean found = false;
 
+
         while (!found) {
 
             int option = myRandom.nextInt(4);

@@ -65,7 +65,7 @@ public class Heuristic3 implements HeuristicFunction{
         }
         total+= vegades_mes_de2*30;
 
-        return total;
+        return total/10;
     }
 
 

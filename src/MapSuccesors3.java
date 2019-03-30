@@ -21,7 +21,6 @@ public class MapSuccesors3  implements SuccessorFunction{
         ArrayList retVal= new ArrayList();  //we must add all posibilities from a current state to this list
         Map map = (Map)state;
 
-
         //ADD PERSON
         ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
         for (int i=0; i < estaRecullit.size(); ++i)
@@ -34,15 +33,12 @@ public class MapSuccesors3  implements SuccessorFunction{
                     Map aux = new Map(map); // copy of map
                     aux.setEstaRecullit(i,true);
                     aux.addPerson(i,c);
-                    retVal.add(new Successor(new String("Afegim una persona al cotxe"+c), aux));
+                    retVal.add(new Successor(new String("Afegim una persona al cotxe "+c), aux));
                 }
             }
         }
 
-
-
         ArrayList<HashSet<Integer>> uniquePassengers = passangersFromAllCars(map);
-
 
         //REMOVE PERSON
         for (int c=0; c < map.getEstatConductors().size(); ++c)   //we iterate over all possible drivers
@@ -97,12 +93,13 @@ public class MapSuccesors3  implements SuccessorFunction{
                     Map aux = new Map(map); // copy of map
                     if (aux.swapOrder(j,k,c))   //we enter only if the operation is not between the same person
                     {
-                        retVal.add(new Successor(new String("Fem swap order del cotxe "+c+ " dels passatgers "+j+" i "+k), aux));
+                        retVal.add(new Successor(new String("Fem swap order del cotxe "+c+ " dels passatgers a les posicions "+j+" i "+k), aux));
                     }
                 }
             }
         }
         return retVal;
+
     }
 
 

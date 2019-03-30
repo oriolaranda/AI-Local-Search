@@ -44,7 +44,7 @@ public class MapSuccesors  implements SuccessorFunction{
                     Map aux = new Map(map); // copy of map
                     aux.rmPerson(a,i);
                     aux.addPerson(a,j);
-                    retVal.add(new Successor(new String("adsfa"), aux));
+                    retVal.add(new Successor(new String("Canviem la persona "+a+ " del cotxe "+i+" al cotxe "+j), aux));
                 }
             }
         }
