@@ -33,6 +33,22 @@ public class MapSuccesors2  implements SuccessorFunction {
             }
         }
 
+        //SEND TO OTHER CAR (REMOVE+ADD)
+        for(int i=0; i < map.getEstatConductors().size();++i)
+        {
+            HashSet<Integer> p = map.getPassangersNotRepeated(i);
+            for (Integer a: p)
+            {
+                for (int j=0; j < map.getEstatConductors().size();++j)
+                {
+                    Map aux = new Map(map); // copy of map
+                    aux.rmPerson(a,i);
+                    aux.addPerson(a,j);
+                    retVal.add(new Successor(new String("Canviem la persona "+a+ " del cotxe "+i+" al cotxe "+j), aux));
+                }
+            }
+        }
+
         //DELETE DRIVERS
         for (int i=0; i < map.getEstatConductors().size();++i)  //iterate over all drivers
         {

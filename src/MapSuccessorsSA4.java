@@ -28,7 +28,7 @@ public class MapSuccessorsSA4 implements SuccessorFunction{
 
         while (!found) {
 
-            int option = myRandom.nextInt(5);
+            int option = myRandom.nextInt(6);
             int c, p1, p2;
             Map aux;
 
@@ -95,8 +95,9 @@ public class MapSuccessorsSA4 implements SuccessorFunction{
                         aux.swapCar(p1, p2, c1, c2);
                         retVal.add(new Successor(new String("Fem swap de les persones " + p1 + " " + p2 + " dels cotxes " + c1 + " i " + c2), aux));
                         found = true;
-                        break;
                     }
+                    break;
+
 
                 case(3):
                     //WE DELETE ONE DRIVER
@@ -126,7 +127,8 @@ public class MapSuccessorsSA4 implements SuccessorFunction{
                     break;
 
 
-                default:
+
+                case(4):
                     //SWAP ORDER
                     c = myRandom.nextInt(map.getEstatConductors().size());
 
@@ -141,6 +143,42 @@ public class MapSuccessorsSA4 implements SuccessorFunction{
                         {
                             retVal.add(new Successor(new String("Fem swap order del cotxe " + c + " dels passatgers " + p1 + " i " + p2), aux));
                             found = true;
+                        }
+                    }
+                    break;
+
+                case(5):
+                    //SWAP DRIVERS
+                    int i = myRandom.nextInt(map.getEstatConductors().size());
+                    int j = myRandom.nextInt(map.getEstatConductors().size());
+                    if (i != j)
+                    {
+                        found = true;
+                        aux = new Map(map); // copy of map
+                        aux.changeDrivers(i,j);
+                        retVal.add(new Successor(new String("Canviem els passatgers dels conductors "+i+" i el "+j), aux));
+                    }
+                    break;
+
+
+                default:    //SEND PERSON FROM ONE CAR TO THE OTHER
+                    //driver inicial
+                    i = myRandom.nextInt(map.getEstatConductors().size());
+                    ArrayList<Integer> p = map.getPassangers(i);
+                    if (p.size() > 0) {
+                        //agafem un dels seus passatgers
+                        int k = myRandom.nextInt(p.size());
+                        Integer b = p.get(k);
+
+                        //diver final
+                        j = myRandom.nextInt(map.getEstatConductors().size());
+
+                        if (i != j) {
+                            found = true;
+                            aux = new Map(map); // copy of map
+                            aux.rmPerson(b, i);
+                            aux.addPerson(b, j);
+                            retVal.add(new Successor(new String("Canviem la persona " + b + " del cotxe " + i + " al cotxe " + j), aux));
                         }
                     }
 

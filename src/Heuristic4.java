@@ -71,9 +71,20 @@ public class Heuristic4 implements HeuristicFunction{
                 if (counter > 2) ++vegades_mes_de2;
             }
         }
-        total+= vegades_mes_de2*500;
+        total+= vegades_mes_de2*400;
 
 
+        int counter = 0;
+        //WE WANNA PUSH PEOPLE NOT TO HAVE ANY PASSANGER
+        for (int i=0; i < map.getEstatConductors().size();++i)
+        {
+            ArrayList<Integer> a = map.getPassangers(i);
+            if (a.size() == 0)
+            {
+                ++counter;
+            }
+        }
+        total -= counter*500;
 
         return (total/10);
     }

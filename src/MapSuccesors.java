@@ -3,7 +3,6 @@ package src;
 import IA.Centrals.Representacio;
 import aima.search.framework.Successor;
 import aima.search.framework.SuccessorFunction;
-import com.sun.tools.corba.se.idl.InterfaceGen;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

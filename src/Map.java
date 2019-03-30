@@ -151,19 +151,6 @@ public class Map {
     }
 
 
-    /** Print the information **/
-    public void printRecullits()
-    {
-        for(int i=0; i < n;++i)
-            System.out.println(estaRecullit.get(i));
-    }
-
-    public void printPotConduir()
-    {
-        for(int i=0; i < n;++i)
-            System.out.println(potConduir.get(i));
-    }
-
 
     /** Setters **/
     private void setDistance(int indexDriver, int newDistance)
