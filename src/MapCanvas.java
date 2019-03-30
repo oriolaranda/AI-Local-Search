@@ -2,8 +2,6 @@ package src;
 
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.util.Random;
 
@@ -19,7 +17,7 @@ public class MapCanvas extends JPanel {
         setBackground(Color.CYAN);
         //setPreferredSize(new Dimension(400,400));
         //this.setSize(500,2000);
-        this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(),BorderFactory.createLoweredBevelBorder()));
+        this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createRaisedBevelBorder(), BorderFactory.createLoweredBevelBorder()));
         setVisible(true);
         nMapes = 0;
     }
@@ -30,35 +28,36 @@ public class MapCanvas extends JPanel {
         //g.drawOval(500,500, 5,5);
         this.g = g;
         drawQuad();
-        drawPoint(495,600, Color.GREEN);
+        drawPoint(495, 600, Color.GREEN);
 
         //dibuix();
     }
 
     private void drawPoint(int x, int y, Color color) {
         g.setColor(color);
-        g.fillOval(x,y,5,5);
+        g.fillOval(x, y, 5, 5);
     }
 
     private void drawLine(int x1, int y1, int x2, int y2, Color color) {
         g.setColor(color);
-        g.drawLine(x1,y1,x2,y2);
+        g.drawLine(x1, y1, x2, y2);
     }
 
     private void drawQuad() {
         for (int i = 0; i <= nMapes; i = i + 550) {
             for (int j = 5; j <= 500; j = j + 5) {
-                drawLine(j, i, j, i+500, Color.BLACK);
-                drawLine(0, i+j, 500, i+j, Color.BLACK);
+                drawLine(j, i, j, i + 500, Color.BLACK);
+                drawLine(0, i + j, 500, i + j, Color.BLACK);
             }
         }
     }
+
     private void dibuix() {
-        for(int i = 0; i < 400; ++i) {
+        for (int i = 0; i < 400; ++i) {
             Random rn = new Random();
             int x = rn.nextInt(100);
             int y = rn.nextInt(100);
-            drawPoint(5*x,y*5,Color.BLUE);
+            drawPoint(5 * x, y * 5, Color.BLUE);
         }
     }
 

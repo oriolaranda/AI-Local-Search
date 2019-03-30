@@ -5,19 +5,14 @@ import aima.search.framework.*;
 import aima.search.informed.HillClimbingSearch;
 import aima.search.informed.SimulatedAnnealingSearch;
 import aima.util.Pair;
-import src.*;
 
-import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import aima.util.Pair;
-
-import javax.swing.*;
 
 
 public class Main {
@@ -45,19 +40,18 @@ public class Main {
             }
         });
 
-       // MapHillClimbing(m,1,3);
-
+        // MapHillClimbing(m,1,3);
 
 
     }
 
-    private static void initButtons(){
+    private static void initButtons() {
 
         gui.getGenerarEscenari().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (gui.faltaOmplirAlgunCampEscenari())
-                    JOptionPane.showMessageDialog(gui,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(gui, "Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
                 else {
                     generarEscenari();
                 }
@@ -68,7 +62,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (gui.faltaOmplirAlgunCampEscenari())
-                    JOptionPane.showMessageDialog(gui,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(gui, "Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
                 else {
                     generarEstatSolucioInicial();
                 }
@@ -79,7 +73,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (gui.faltaOmplirAlgunCampEscenari())
-                    JOptionPane.showMessageDialog(gui,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(gui, "Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
                 else {
                     executarHillClimbing();
                 }
@@ -89,12 +83,12 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (gui.faltaOmplirAlgunCampEscenari() || gui.faltaOmplirAlgunCampSimulated())
-                    JOptionPane.showMessageDialog(gui,"Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(gui, "Falta algun camp per omplir", "Error", JOptionPane.WARNING_MESSAGE);
                 else {
                     executarSimulatedAnnealing();
                 }
             }
-        });;
+        });
 
     }
 
@@ -104,7 +98,7 @@ public class Main {
         seed = v[2];
     }
 
-    private static void generarEscenari(){
+    private static void generarEscenari() {
         setParametresInicials(gui.getParametresIni());
         nouUsuaris = new Usuarios(n, m, seed);
         fillDrivers();
@@ -117,12 +111,11 @@ public class Main {
         map = new Map();
         double start1 = System.nanoTime(); //capturem el temps inicial
         map.tipusAssignacio(gui.getEstatSolucioInicial());   //triem el tipus de solucio inicial que volem
-        double diff1 = (System.nanoTime() - start1)/1000000000;
-        System.out.println("La solucio inicial ha trigat "+ diff1);
+        double diff1 = (System.nanoTime() - start1) / 1000000000;
+        System.out.println("La solucio inicial ha trigat " + diff1);
         gui.getExecutarHill().setEnabled(true);
         gui.getExecutarSim().setEnabled(true);
     }
-
 
 
     private static void executarHillClimbing() {
@@ -153,7 +146,7 @@ public class Main {
                     break;
             }
 
-            switch(funcioSuccessors){
+            switch (funcioSuccessors) {
                 case 0:
                     successor = new MapSuccesors();
                     break;
@@ -170,7 +163,7 @@ public class Main {
 
             double start = System.nanoTime(); //capturem el temps inicial
             SearchAgent agent = new SearchAgent(problem, search);
-            double diff = (System.nanoTime() - start)/1000000000;
+            double diff = (System.nanoTime() - start) / 1000000000;
 
             String s = null;
             if (checkSolution((Map) search.getGoalState())) {
@@ -181,12 +174,11 @@ public class Main {
                 System.out.println("Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica));
                 System.out.println("El algorisme ha trigat " + diff);
 
-                s =actionsToString(agent.getActions())+"\n"+instrumentationToString(agent.getInstrumentation())+"\n"+solutionToString((Map) search.getGoalState())+"\n"+
-                        "Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica)+"\n"+"El algorisme ha trigat " + diff;
-            }
-            else {
+                s = actionsToString(agent.getActions()) + "\n" + instrumentationToString(agent.getInstrumentation()) + "\n" + solutionToString((Map) search.getGoalState()) + "\n" +
+                        "Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica) + "\n" + "El algorisme ha trigat " + diff;
+            } else {
                 System.out.println("No hem trobat una solucio");
-                s ="No hem trobat una solucio";
+                s = "No hem trobat una solucio";
             }
 
             gui.setTextAreaHill(s);
@@ -194,7 +186,6 @@ public class Main {
             e.printStackTrace();
         }
     }
-
 
 
     private static void executarSimulatedAnnealing() {
@@ -252,7 +243,7 @@ public class Main {
 
             double start = System.nanoTime(); //capturem el temps inicial
             SearchAgent agent = new SearchAgent(problem, search);
-            double diff = (System.nanoTime() - start)/1000000000;
+            double diff = (System.nanoTime() - start) / 1000000000;
 
             String s;
             if (checkSolution((Map) search.getGoalState())) {
@@ -263,8 +254,8 @@ public class Main {
                 System.out.println("Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica));
                 System.out.println("El algorisme ha trigat " + diff);
 
-                s =actionsToString(agent.getActions())+"\n"+instrumentationToString(agent.getInstrumentation())+"\n"+solutionToString((Map) search.getGoalState())+"\n"+
-                        "Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica)+"\n"+"El algorisme ha trigat " + diff;
+                s = actionsToString(agent.getActions()) + "\n" + instrumentationToString(agent.getInstrumentation()) + "\n" + solutionToString((Map) search.getGoalState()) + "\n" +
+                        "Puntuacio de la solucio " + getSolutionValue((Map) search.getGoalState(), heuristica) + "\n" + "El algorisme ha trigat " + diff;
 
             } else {
                 System.out.println("No hem trobat una solucio");
@@ -272,27 +263,25 @@ public class Main {
             }
             gui.setTextAreaSim(s);
 
-        } catch(Exception e){
-                e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
 
-
-
-
-    /** Auxiliary functions to return the solutions in the correct format **/
+    /**
+     * Auxiliary functions to return the solutions in the correct format
+     **/
 
     //Useful to print in the GUI the solution
-    private static String solutionToString(Map a)
-    {
+    private static String solutionToString(Map a) {
         String result = "";
         ArrayList<Pair> b = a.getEstatConductors();
         int total_dist = 0;
         for (Pair c : b) {
             Pair d = (Pair) c.getFirst();
             total_dist += (Integer) d.getFirst();
-            result += "El conductor " + d.getSecond() + " fa " + ((Integer)d.getFirst()/10.0) +" km \n";
+            result += "El conductor " + d.getSecond() + " fa " + ((Integer) d.getFirst() / 10.0) + " km \n";
 
             ArrayList<Integer> e = (ArrayList<Integer>) c.getSecond();
             if (e.size() > 0) {
@@ -301,12 +290,11 @@ public class Main {
                 for (Integer p : e)
                     result += p + " ";
                 result += "\n\n";
-            }
-            else result += "Aquest conductor no porta cap passatger \n\n";
+            } else result += "Aquest conductor no porta cap passatger \n\n";
         }
 
-        result += "El total de la distance es "+(total_dist/10.0)+" km\n";
-        result += "El nombre total de conductors es "+a.getEstatConductors().size()+" sobre els "+m+" possibles";
+        result += "El total de la distance es " + (total_dist / 10.0) + " km\n";
+        result += "El nombre total de conductors es " + a.getEstatConductors().size() + " sobre els " + m + " possibles";
 
 
         return result;
@@ -319,7 +307,7 @@ public class Main {
         while (keys.hasNext()) {
             String key = (String) keys.next();
             String property = properties.getProperty(key);
-            result += key + " : " + property+"\n";
+            result += key + " : " + property + "\n";
         }
         return result;
     }
@@ -327,17 +315,16 @@ public class Main {
 
     private static String actionsToString(List actions) {
         String result = "";
-        result += "Hem realitzat "+actions.size()+" accions\n";
+        result += "Hem realitzat " + actions.size() + " accions\n";
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
-            result += action +"\n";
+            result += action + "\n";
         }
         return result;
     }
 
 
-    private static int getSolutionValue(Map a, int heuristic)
-    {
+    private static int getSolutionValue(Map a, int heuristic) {
         HeuristicFunction h;
         switch (heuristic) {
             case 0:
@@ -364,8 +351,6 @@ public class Main {
     }
 
 
-
-
     /**
      * Private methods
      **/
@@ -388,7 +373,7 @@ public class Main {
         }
 
         ArrayList<Boolean> c = a.getEstaRecullit();
-        for (int i=0; i < c.size(); ++i) {
+        for (int i = 0; i < c.size(); ++i) {
             Boolean r = c.get(i);
             if (!r) {
                 System.out.println("Falla el esta recullit per la persona " + i + " com a minim.");

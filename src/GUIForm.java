@@ -2,16 +2,12 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 
-public class GUIForm extends JFrame
-{
+public class GUIForm extends JFrame {
     final static int INT = 0;
     final static int DOUBLE = 1;
 
@@ -62,12 +58,11 @@ public class GUIForm extends JFrame
     private JLabel lambdaValue;
     private MapCanvas mapCanvas1;
 
-    protected GUIForm()
-    {
+    protected GUIForm() {
         //Initialize JFrame
         setContentPane(rootPanel);
         setTitle("GUIFORM");
-        setSize(800,700);
+        setSize(800, 700);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         //setResizable(false);
 
@@ -78,8 +73,7 @@ public class GUIForm extends JFrame
     }
 
     //initialize escenari Panel
-    private void initEscenari()
-    {
+    private void initEscenari() {
         //Initial values for n, m & seed
         nInput.setText("200");
         mInput.setText("100");
@@ -95,38 +89,35 @@ public class GUIForm extends JFrame
         nInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e, nInput,INT,3);
+                numberFormatter(e, nInput, INT, 3);
             }
         });
 
         mInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e, mInput,INT,3);
+                numberFormatter(e, mInput, INT, 3);
             }
         });
 
         seedInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e, seedInput,INT,6);
+                numberFormatter(e, seedInput, INT, 6);
             }
         });
-
 
 
     }
 
     //initialize hillClimbing Panel
-    private void initHillClimbing()
-    {
+    private void initHillClimbing() {
         executarHill.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         executarHill.setEnabled(false);
     }
 
     //initialize simulatedAnnealing Panel
-    private void initSimulatedAnnealing()
-    {
+    private void initSimulatedAnnealing() {
         kInput.setText("20");
         itInput.setText("10000");
         stepsItInput.setText("100");
@@ -138,28 +129,28 @@ public class GUIForm extends JFrame
         kInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e,kInput,INT,3);
+                numberFormatter(e, kInput, INT, 3);
             }
         });
 
         itInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e,itInput,INT,6);
+                numberFormatter(e, itInput, INT, 6);
             }
         });
 
         stepsItInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e,stepsItInput,INT,3);
+                numberFormatter(e, stepsItInput, INT, 3);
             }
         });
 
         lambdaInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e,lambdaInput,DOUBLE,6);
+                numberFormatter(e, lambdaInput, DOUBLE, 6);
             }
         });
 
@@ -196,19 +187,19 @@ public class GUIForm extends JFrame
         mapaSim = new MapCanvas();
 
     }
+
     //Only numbers for JTextFields
     /* type = 0 -> Int
        type = 1 -> Double
      */
-    private void numberFormatter(KeyEvent evt, JTextField input, int type, int length)
-    {
+    private void numberFormatter(KeyEvent evt, JTextField input, int type, int length) {
         if (type == 0) {
-            if(!Character.isDigit(evt.getKeyChar()) || input.getText().length() >= length){
+            if (!Character.isDigit(evt.getKeyChar()) || input.getText().length() >= length) {
                 evt.consume();
                 getToolkit().beep();
             }
         } else if (type == 1) {
-            if((evt.getKeyChar() != '.' && !Character.isDigit(evt.getKeyChar())) || input.getText().length() >= length || (evt.getKeyChar() == '.' && input.getText().contains("."))){
+            if ((evt.getKeyChar() != '.' && !Character.isDigit(evt.getKeyChar())) || input.getText().length() >= length || (evt.getKeyChar() == '.' && input.getText().contains("."))) {
                 evt.consume();
                 getToolkit().beep();
             }
@@ -231,7 +222,7 @@ public class GUIForm extends JFrame
         return generarEstatSolucio;
     }
 
-    protected JButton getExecutarHill(){
+    protected JButton getExecutarHill() {
         return executarHill;
     }
 
@@ -239,17 +230,16 @@ public class GUIForm extends JFrame
         return executarSim;
     }
 
-    protected int[] getParametresIni()
-    {
+    protected int[] getParametresIni() {
         //parametres inicials
-        int [] v = new int[3];
+        int[] v = new int[3];
         v[0] = Integer.parseInt(nInput.getText()); //n
         v[1] = Integer.parseInt(mInput.getText()); //m
         v[2] = Integer.parseInt(seedInput.getText()); //seed
         return v;
     }
 
-    protected int getEstatSolucioInicial(){
+    protected int getEstatSolucioInicial() {
         return estatsSolucioList.getSelectedIndex();
     }
 
@@ -282,8 +272,6 @@ public class GUIForm extends JFrame
         v[3] = lambdaInput.getText(); //lambda
         return v;
     }
-
-
 
 
 }

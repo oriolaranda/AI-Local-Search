@@ -1,7 +1,6 @@
 package src;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class MainGUI {
 
@@ -34,6 +33,6 @@ public class MainGUI {
         frame.setContentPane(m);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
-        frame.setSize(800,600);
+        frame.setSize(800, 600);
     }
 }
