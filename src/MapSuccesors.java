@@ -33,6 +33,22 @@ public class MapSuccesors  implements SuccessorFunction{
             }
         }
 
+        //SEND TO OTHER CAR (REMOVE+ADD)
+        for(int i=0; i < map.getEstatConductors().size();++i)
+        {
+            HashSet<Integer> p = map.getPassangersNotRepeated(i);
+            for (Integer a: p)
+            {
+                for (int j=0; j < map.getEstatConductors().size();++j)
+                {
+                    Map aux = new Map(map); // copy of map
+                    aux.rmPerson(a,i);
+                    aux.addPerson(a,j);
+                    retVal.add(new Successor(new String("adsfa"), aux));
+                }
+            }
+        }
+
 
         //ADD PERSON
         ArrayList<Boolean> estaRecullit = map.getEstaRecullit();
@@ -46,7 +62,7 @@ public class MapSuccesors  implements SuccessorFunction{
                     Map aux = new Map(map); // copy of map
                     aux.setEstaRecullit(i,true);
                     aux.addPerson(i,c);
-                    retVal.add(new Successor(new String("Afegim una persona al cotxe"+c), aux));
+                    retVal.add(new Successor(new String("Afegim una persona al cotxe "+c), aux));
                 }
             }
         }

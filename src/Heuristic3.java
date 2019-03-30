@@ -23,14 +23,13 @@ public class Heuristic3 implements HeuristicFunction{
 
 
         //WE TRY TO MINIMIZE ALL THE DISTANCES
-        //We panalize for the distance since we wanna minimize it, but we penalize it much more if we exceed it.
         int dist;
         for (Pair a : e)
         {
             dist = (Integer) ((Pair) a.getFirst()).getFirst();
-            if (dist > 300) total += (dist-300)*350;  //We panalize the exceed of the distance.
+            if (dist > 300) total += (dist-300)*35;  //We panalize the exceed of the distance.
 
-            total += Math.min(300,dist)*20;
+            total += Math.min(300,dist)*2;
         }
 
 
@@ -38,7 +37,7 @@ public class Heuristic3 implements HeuristicFunction{
         ArrayList<Boolean> b = map.getEstaRecullit();
         for (Boolean r : b)
             if (!r)
-                total += 5000;  //we wanna make sure everyone has been picked up
+                total += 500;  //we wanna make sure everyone has been picked up
 
 
         //NO PORTEM MES DE 2 PERSONES
@@ -64,9 +63,9 @@ public class Heuristic3 implements HeuristicFunction{
                 if (counter > 2) ++vegades_mes_de2;
             }
         }
-        total+= vegades_mes_de2*500;
+        total+= vegades_mes_de2*30;
 
-        return total/10;
+        return total;
     }
 
 

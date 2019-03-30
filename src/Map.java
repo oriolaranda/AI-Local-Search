@@ -277,21 +277,12 @@ public class Map {
         i.add(p);
         int km = calculateDistance(c,i);
 
+        estaRecullit.set(p,true);
         Pair aux = (Pair)estatConductors.get(c).getFirst();
         Integer id = (Integer)aux.getSecond();
         Pair def = new Pair(new Pair(km, id),i);
         estatConductors.set(c, def);
 
-    }
-
-    public void addDriver(int c){
-        if (!estaRecullit.get(c) && potConduir.get(c)){
-            int k = calculateDistance(c,new ArrayList<>());
-            Pair aux = new Pair(k,c);
-            Pair p = new Pair(aux,new ArrayList<Integer>());
-            estatConductors.add(p);
-            estaRecullit.set(c,true);
-        }
     }
 
     /** Operator Remove Person p of car c **/
@@ -343,9 +334,6 @@ public class Map {
         estatConductors.set(c1, new Pair(new Pair(dist1,index1),passatger2));
         estatConductors.set(c2, new Pair(new Pair(dist2, index2), passatger1));
     }
-
-
-
 
     /** CHECK IF FINAL STATE **/
 

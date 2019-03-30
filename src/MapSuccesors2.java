@@ -33,7 +33,6 @@ public class MapSuccesors2  implements SuccessorFunction {
             }
         }
 
-
         //DELETE DRIVERS
         for (int i=0; i < map.getEstatConductors().size();++i)  //iterate over all drivers
         {
