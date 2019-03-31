@@ -71,6 +71,7 @@ public class Heuristic4 implements HeuristicFunction {
 
 
         int counter = 0;
+
         //WE WANNA PUSH PEOPLE NOT TO HAVE ANY PASSANGER
         for (int i = 0; i < map.getEstatConductors().size(); ++i) {
             ArrayList<Integer> a = map.getPassangers(i);

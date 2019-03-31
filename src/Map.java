@@ -285,7 +285,7 @@ public class Map {
     }
 
 
-    public boolean removeDriver(int c) {
+    public boolean removeDriver(int c) {    //li passem el index del cotxe
         if (isCarEmpty(c)) {
             //c is the car index but we need the person's
             int index = (Integer) ((Pair) estatConductors.get(c).getFirst()).getSecond();

@@ -29,21 +29,21 @@ public class Heuristic5 implements HeuristicFunction {
         int dist;
         for (Pair a : e) {
             dist = (Integer) ((Pair) a.getFirst()).getFirst();
-            if (dist > 300) total += (dist - 300) * 500;  //We panalize the exceed of the distance.
+            if (dist > 300) total += (dist - 300) * 400;  //We panalize the exceed of the distance.
 
             total += Math.min(300, dist);
         }
 
-        //PANALIZE THE NON PICKED UP PASSANGERS
+        //WE PANALIZE THE NON PICKED UP PASSANGERS
         ArrayList<Boolean> b = map.getEstaRecullit();
         for (Boolean r : b)
             if (!r)
-                total += 1040;  //we wanna make sure everyone has been picked up
+                total += 850;  //we wanna make sure everyone has been picked up
 
 
         //WE TRY TO MINIMIZE THE NUMBER OF DRIVERS
         int p = m - e.size(); //number of drivers that are passangers
-        total -= 1000 * p;
+        total -= 1400 * p;
 
 
         //GUARANTEE WE DO NOT CARRY MORE THAN 2 PEOPLE AT THE TIME
@@ -66,10 +66,9 @@ public class Heuristic5 implements HeuristicFunction {
                 if (counter > 2) ++vegades_mes_de2;
             }
         }
-        total += vegades_mes_de2 * 500;
+        total += vegades_mes_de2 * 400;
 
-
-        return total / 10;
+        return (total / 10);
     }
 
 }

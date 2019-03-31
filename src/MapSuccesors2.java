@@ -26,7 +26,7 @@ public class MapSuccesors2 implements SuccessorFunction {
             for (int j = i + 1; j < map.getEstatConductors().size(); ++j) {
                 Map aux = new Map(map); // copy of map
                 aux.changeDrivers(i, j);
-                retVal.add(new Successor("Canviem els passatgers dels conductors " + i + " i el " + j, aux));
+                retVal.add(new Successor("Canviem els passatgers dels cotxes " + i + " i el " + j, aux));
             }
         }
 
@@ -49,7 +49,8 @@ public class MapSuccesors2 implements SuccessorFunction {
             if (map.getPassangers(i).size() == 0) {
                 Map aux = new Map(map);
                 if (aux.removeDriver(i)) {
-                    retVal.add(new Successor("Hem borrat la persona " + i + " del cotxe de la persona" + ((Pair) map.getEstatConductors().get(i).getFirst()).getSecond() + " i hem eliminat aquest conductor", aux));
+                    int index_persona = (Integer)((Pair)map.getEstatConductors().get(i).getFirst()).getSecond();
+                    retVal.add(new Successor("Hem eliminat el cotxe "+i+" conduit per la persona "+index_persona, aux));
                 }
             }
         }
@@ -63,7 +64,7 @@ public class MapSuccesors2 implements SuccessorFunction {
                     Map aux = new Map(map); // copy of map
                     aux.setEstaRecullit(i, true);
                     aux.addPerson(i, c);
-                    retVal.add(new Successor("Afegim una persona al cotxe" + c, aux));
+                    retVal.add(new Successor("Afegim una persona al cotxe " + c, aux));
                 }
             }
         }
