@@ -129,28 +129,28 @@ public class GUIForm extends JFrame {
         kInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e, kInput, INT, 3);
+                numberFormatter(e, kInput, INT, 10);
             }
         });
 
         itInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e, itInput, INT, 6);
+                numberFormatter(e, itInput, INT, 10);
             }
         });
 
         stepsItInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e, stepsItInput, INT, 3);
+                numberFormatter(e, stepsItInput, INT, 10);
             }
         });
 
         lambdaInput.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                numberFormatter(e, lambdaInput, DOUBLE, 6);
+                numberFormatter(e, lambdaInput, DOUBLE, 10);
             }
         });
 
